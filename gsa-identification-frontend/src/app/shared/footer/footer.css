@@ -1,12 +1,31 @@
 :host {
-  display: block;
-  width: 100%;
+  --footer-background: #087fbd;
+  --white: #ffffff;
 
-  font-family:
+  --footer-link:
+    rgba(255, 255, 255, 0.92);
+
+  --input-wrapper:
+    rgba(0, 112, 177, 0.22);
+
+  --placeholder:
+    rgba(255, 255, 255, 0.62);
+
+  --subscribe-bg:
+    rgba(255, 255, 255, 0.08);
+
+  --subscribe-hover:
+    rgba(255, 255, 255, 0.16);
+
+  --font-family:
     "Helvetica Neue",
     Helvetica,
     Arial,
     sans-serif;
+
+  display: block;
+
+  width: 100%;
 }
 
 * {
@@ -15,147 +34,160 @@
 
 
 /* =========================================================
-   FOOTER
+   COMPLETE FOOTER
 ========================================================= */
 
 .footer {
   width: 100%;
+
   margin: 0;
   padding: 0;
-}
 
+  background-color:
+    var(--footer-background);
 
-/* =========================================================
-   BLUE AREA
-   Target desktop screenshot ≈ 506px
-========================================================= */
+  background-image:
+    url('/images/footer-bg.avif');
 
-.footer-main {
-  position: relative;
+  background-repeat:
+    no-repeat;
 
-  width: 100%;
-  height: 506px;
-
-  padding: 0 16px;
-
-  background:
-    url('/images/footer-bg.avif')
-    no-repeat
+  background-position:
     center center;
 
-  background-size: cover;
+  background-size:
+    cover;
 
-  color: #ffffff;
+  color:
+    var(--white);
 
-  overflow: hidden;
+  font-family:
+    var(--font-family);
 }
 
 
 /* =========================================================
-   DESKTOP COLUMN LAYOUT
-
-   75% = first four columns
-   25% = subscribe
+   MAIN CONTENT
 ========================================================= */
 
-.footer-columns {
+.footer-content {
+  width: 100%;
+
+  padding:
+    38px
+    32px
+    24px;
+}
+
+
+/* =========================================================
+   MAIN ROW
+========================================================= */
+
+.footer-main-row {
   display: grid;
 
   grid-template-columns:
-    18.75%
-    18.75%
-    18.75%
-    18.75%
-    25%;
+    minmax(0, 3fr)
+    minmax(280px, 1fr);
 
-  width: 100%;
-  height: auto;
+  gap: 45px;
 
-  margin: 0;
-  padding: 0;
+  align-items: start;
 }
 
 
 /* =========================================================
-   COLUMN SPACING
+   LINK AREA
 ========================================================= */
 
-.footer-column,
-.subscribe-column {
+.footer-links-area {
   min-width: 0;
+}
 
-  padding-left: 22px;
-  padding-right: 22px;
+.footer-links-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 30px;
 }
 
 
 /* =========================================================
-   MAIN HEADINGS
-========================================================= */
-
-.footer-column h3,
-.subscribe-column h3 {
-  margin: 50px 0 11px;
-
-  padding: 0;
-
-  color: #ffffff;
-
-  font-size: 24px;
-  font-weight: 400;
-
-  line-height: 1.2;
-}
-
-
-/* =========================================================
-   NORMAL FOOTER LINKS
+   FOOTER COLUMN
 ========================================================= */
 
 .footer-column {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.footer-column a {
-  display: block;
-
-  margin: 0 0 17px;
-
-  padding: 0;
-
-  color: #ffffff;
-
-  font-size: 17px;
-  font-weight: 400;
-
-  line-height: 1.25;
-
-  text-decoration: none;
-}
-
-.footer-column a:hover {
-  color: #ffffff;
-  text-decoration: underline;
+  min-width: 0;
 }
 
 
 /* =========================================================
-   HELP HEADING
+   HEADINGS
 ========================================================= */
 
-.footer-column .help-heading {
-  margin: 5px 0 10px;
+.footer-heading {
+  margin:
+    0
+    0
+    15px;
 
   padding: 0;
 
-  color: #ffffff;
+  color:
+    var(--white);
 
-  font-size: 24px;
-  font-weight: 400;
+  font-size: 20px;
+  font-weight: 500;
 
   line-height: 1.2;
+
+  letter-spacing:
+    0.2px;
+}
+
+.footer-column .footer-heading:not(:first-child) {
+  margin-top: 28px;
+}
+
+
+/* =========================================================
+   FOOTER LINK LIST
+========================================================= */
+
+.footer-links {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 11px;
+}
+
+.footer-links a {
+  color:
+    var(--footer-link);
+
+  font-size: 14px;
+  font-weight: 400;
+
+  line-height: 1.45;
+
+  text-decoration: none;
+
+  transition:
+    opacity 0.2s ease;
+}
+
+.footer-links a:hover {
+  color:
+    var(--white);
+
+  opacity: 0.8;
 }
 
 
@@ -165,105 +197,120 @@
 
 .subscribe-column {
   width: 100%;
+  min-width: 0;
 }
 
-.subscribe-column h3 {
-  margin-bottom: 10px;
-
-  white-space: nowrap;
+.subscribe-heading {
+  margin-bottom: 15px;
 }
 
 
 /* =========================================================
-   SUBSCRIBE BOX
+   SUBSCRIBE FORM
 ========================================================= */
 
-.subscribe-box {
-  display: block;
-
+.subscribe-form {
   width: 100%;
-  height: 94px;
+}
 
-  margin: 0 0 10px;
 
-  padding: 11px 10px;
+/* =========================================================
+   CUSTOM INPUT BOX
+
+   This replaces mat-form-field and prevents the
+   label / placeholder overlap.
+========================================================= */
+
+.footer-input-box {
+  width: 100%;
+  min-height: 82px;
+
+  margin-bottom: 13px;
+
+  padding:
+    11px
+    14px
+    10px;
 
   border:
     1px solid
-    rgba(255, 255, 255, 0.95);
+    rgba(255, 255, 255, 0.9);
 
-  border-radius: 6px;
+  border-radius: 5px;
 
   background:
-    rgba(0, 132, 201, 0.20);
-
-  cursor: text;
+    var(--input-wrapper);
 }
 
 
 /* =========================================================
-   SUBSCRIBE BOX LABEL
+   INPUT LABEL
 ========================================================= */
 
-.subscribe-label {
+.footer-input-label {
   display: flex;
   align-items: center;
 
-  gap: 12px;
+  gap: 9px;
 
-  margin: 0 0 10px;
+  margin:
+    0
+    0
+    9px;
 
-  padding: 0;
+  color:
+    var(--white);
 
-  color: #ffffff;
-
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 500;
 
   line-height: 1.2;
 }
 
-.subscribe-label svg {
+.footer-input-label img {
   display: block;
 
-  width: 25px;
-  height: 25px;
+  width: 22px;
+  height: 22px;
 
   flex-shrink: 0;
 
-  fill: #7dcae9;
+  object-fit: contain;
 }
 
 
 /* =========================================================
-   SUBSCRIBE INPUT
+   INPUT
 ========================================================= */
 
-.subscribe-box input {
+.footer-input-box input {
   display: block;
 
   width: 100%;
-  height: 29px;
+  height: 26px;
 
   margin: 0;
   padding: 0;
 
   border: none;
+
   outline: none;
 
   background: transparent;
 
-  color: #ffffff;
+  color:
+    var(--white);
 
-  font-family: inherit;
+  font-family:
+    var(--font-family);
 
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
 }
 
-.subscribe-box input::placeholder {
+.footer-input-box input::placeholder {
   color:
-    rgba(255, 255, 255, 0.68);
+    var(--placeholder);
 
   opacity: 1;
 }
@@ -273,34 +320,40 @@
    PROMOTIONAL CHECKBOX
 ========================================================= */
 
-.promotion-check {
+.promo-checkbox {
   display: flex;
   align-items: flex-start;
 
-  gap: 8px;
+  gap: 9px;
 
-  margin: 10px 0 0;
+  margin:
+    5px
+    0
+    17px;
 
-  padding: 0;
+  color:
+    var(--white);
 
-  color: #ffffff;
-
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 400;
 
   line-height: 1.45;
 
   cursor: pointer;
 }
 
-.promotion-check input {
-  width: 14px;
-  height: 14px;
+.promo-checkbox input {
+  width: 15px;
+  height: 15px;
 
   flex-shrink: 0;
 
-  margin: 3px 0 0;
-  padding: 0;
+  margin-top: 2px;
+
+  accent-color:
+    #0b87cc;
+
+  cursor: pointer;
 }
 
 
@@ -308,28 +361,29 @@
    SUBSCRIBE BUTTON
 ========================================================= */
 
-.subscribe-button {
+.btn-subscribe {
   width: 100%;
-  height: 70px;
+  height: 50px;
 
-  margin-top: 17px;
-
+  margin: 0;
   padding: 0;
 
   border:
     1px solid
-    rgba(255, 255, 255, 0.95);
+    rgba(255, 255, 255, 0.75);
 
   border-radius: 5px;
 
   background:
-    rgba(255, 255, 255, 0.08);
+    var(--subscribe-bg);
 
-  color: #ffffff;
+  color:
+    var(--white);
 
-  font-family: inherit;
+  font-family:
+    var(--font-family);
 
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 400;
 
   cursor: pointer;
@@ -338,41 +392,34 @@
     background 0.2s ease;
 }
 
-.subscribe-button:hover {
+.btn-subscribe:hover {
   background:
-    rgba(255, 255, 255, 0.15);
+    var(--subscribe-hover);
 }
 
 
 /* =========================================================
-   FOLLOW US
+   SOCIAL SECTION
 ========================================================= */
 
-.follow-section {
-  position: absolute;
-
-  left: 38px;
-  bottom: 26px;
-
+.footer-socials {
   display: flex;
   align-items: center;
 
   gap: 18px;
 
-  margin: 0;
-  padding: 0;
+  margin-top: 25px;
 }
 
-.follow-section h3 {
+
+/* =========================================================
+   FOLLOW US HEADING
+========================================================= */
+
+.socials-heading {
   margin: 0;
-  padding: 0;
 
-  color: #ffffff;
-
-  font-size: 24px;
-  font-weight: 400;
-
-  line-height: 1;
+  white-space: nowrap;
 }
 
 
@@ -380,25 +427,22 @@
    SOCIAL ICONS
 ========================================================= */
 
-.social-icons {
+.social-links {
   display: flex;
   align-items: center;
 
   gap: 18px;
 }
 
-.social-icons a {
+.social-links a {
   display: flex;
   align-items: center;
   justify-content: center;
 
-  width: 28px;
-  height: 28px;
+  color:
+    var(--white);
 
-  margin: 0;
-  padding: 0;
-
-  color: #ffffff;
+  font-size: 22px;
 
   text-decoration: none;
 
@@ -406,40 +450,37 @@
     opacity 0.2s ease;
 }
 
-.social-icons a:hover {
-  opacity: 0.75;
-}
+.social-links a:hover {
+  color:
+    var(--white);
 
-.social-icons svg {
-  display: block;
-
-  width: 27px;
-  height: 27px;
-
-  fill: #ffffff;
+  opacity: 0.8;
 }
 
 
 /* =========================================================
    WHITE BOTTOM BAR
-   Target screenshot ≈ 47px
 ========================================================= */
 
 .footer-bottom {
   width: 100%;
-  height: 47px;
+  min-height: 48px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  margin: 0;
+  gap: 25px;
 
-  padding: 0 20px;
+  padding:
+    11px
+    22px;
 
-  background: #ffffff;
+  background:
+    #ffffff;
 
-  color: #000000;
+  color:
+    #111111;
 }
 
 
@@ -447,16 +488,14 @@
    COPYRIGHT
 ========================================================= */
 
-.copyright {
-  margin: 0;
-  padding: 0;
+.footer-bottom-copyright {
+  color:
+    #111111;
 
-  color: #000000;
+  font-size: 13px;
+  font-weight: 600;
 
-  font-size: 16px;
-  font-weight: 400;
-
-  line-height: 1;
+  line-height: 1.35;
 }
 
 
@@ -464,29 +503,28 @@
    BOTTOM LINKS
 ========================================================= */
 
-.bottom-links {
+.footer-bottom-links {
   display: flex;
   align-items: center;
 
-  gap: 100px;
+  gap: 80px;
 
-  margin: 0;
-
-  padding-right: 70px;
+  padding-right: 40px;
 }
 
-.bottom-links a {
-  color: #000000;
+.footer-bottom-links a {
+  color:
+    #111111;
 
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 13px;
+  font-weight: 600;
 
-  line-height: 1;
+  line-height: 1.35;
 
   text-decoration: none;
 }
 
-.bottom-links a:hover {
+.footer-bottom-links a:hover {
   text-decoration: underline;
 }
 
@@ -495,69 +533,35 @@
    LAPTOP
 ========================================================= */
 
-@media (max-width: 1400px) {
+@media (max-width: 1200px) {
 
-  .footer-main {
-    height: auto;
-    min-height: 430px;
+  .footer-content {
+    padding:
+      34px
+      25px
+      22px;
   }
 
-  .footer-column,
-  .subscribe-column {
-    padding-left: 14px;
-    padding-right: 14px;
+  .footer-main-row {
+    gap: 30px;
   }
 
-  .footer-column h3,
-  .subscribe-column h3 {
-    margin-top: 35px;
-
-    font-size: 20px;
+  .footer-links-grid {
+    gap: 22px;
   }
 
-  .footer-column .help-heading {
-    font-size: 20px;
+  .footer-heading {
+    font-size: 18px;
   }
 
-  .footer-column a {
-    margin-bottom: 13px;
-
-    font-size: 14px;
-  }
-
-  .subscribe-column h3 {
-    white-space: normal;
-  }
-
-  .subscribe-label {
-    font-size: 14px;
-  }
-
-  .subscribe-box input {
+  .footer-links a {
     font-size: 13px;
   }
 
-  .promotion-check {
-    font-size: 13px;
-  }
+  .footer-bottom-links {
+    gap: 40px;
 
-  .follow-section {
-    left: 30px;
-  }
-
-  .follow-section h3 {
-    font-size: 20px;
-  }
-
-  .bottom-links {
-    gap: 45px;
-
-    padding-right: 25px;
-  }
-
-  .copyright,
-  .bottom-links a {
-    font-size: 13px;
+    padding-right: 20px;
   }
 }
 
@@ -566,246 +570,150 @@
    TABLET
 ========================================================= */
 
-@media (max-width: 992px) {
+@media (max-width: 991.98px) {
 
-  .footer-main {
-    height: auto;
-    min-height: 0;
-
-    padding:
-      20px
-      18px
-      30px;
-
-    overflow: visible;
+  .footer-main-row {
+    grid-template-columns: 1fr;
   }
 
-  .footer-columns {
+  .footer-links-grid {
     grid-template-columns:
-      repeat(2, 1fr);
+      repeat(2, minmax(0, 1fr));
 
-    row-gap: 25px;
-  }
-
-  .footer-column,
-  .subscribe-column {
-    padding:
-      0
-      15px;
-  }
-
-  .footer-column h3,
-  .subscribe-column h3 {
-    margin-top: 15px;
+    gap:
+      30px
+      40px;
   }
 
   .subscribe-column {
-    grid-column:
-      1 / -1;
-
-    width: 50%;
-
-    max-width: 500px;
+    max-width: 520px;
   }
 
-  .subscribe-column h3 {
-    white-space: normal;
+  .footer-bottom-copyright {
+    font-size: 11px;
   }
 
-  .follow-section {
-    position: static;
-
-    margin:
-      35px
-      0
-      0
-      15px;
-  }
-
-  .footer-bottom {
-    height: auto;
-
-    min-height: 55px;
-
-    gap: 18px;
-
-    padding:
-      15px
-      20px;
-  }
-
-  .bottom-links {
-    gap: 25px;
+  .footer-bottom-links {
+    gap: 24px;
 
     padding-right: 0;
+  }
+
+  .footer-bottom-links a {
+    font-size: 13px;
   }
 }
 
 
-/*MOBILE*/
+/* =========================================================
+   MOBILE
+========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 767.98px) {
 
-  .footer-main {
+  .footer-content {
     padding:
+      28px
       20px
-      15px
+      22px;
+  }
+
+  .footer-links-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap:
+      25px
       25px;
   }
 
-  .footer-columns {
-    grid-template-columns: 1fr;
-
-    row-gap: 12px;
-  }
-
-  .footer-column,
-  .subscribe-column {
-    width: 100%;
-
-    padding:
-      0
-      10px;
-  }
-
-  .subscribe-column {
-    grid-column: auto;
-
-    max-width: none;
-  }
-
-  .footer-column h3,
-  .subscribe-column h3 {
-    margin:
-      18px
-      0
-      12px;
-
-    font-size: 19px;
-  }
-
-  .footer-column .help-heading {
-    margin-top: 15px;
-
-    font-size: 19px;
-  }
-
-  .footer-column a {
-    margin-bottom: 10px;
-
-    font-size: 13px;
-  }
-
-  .subscribe-box {
-    height: 78px;
-  }
-
-  .subscribe-label {
-    font-size: 13px;
-  }
-
-  .subscribe-box input {
-    font-size: 12px;
-  }
-
-  .promotion-check {
-    font-size: 12px;
-  }
-
-  .subscribe-button {
-    height: 52px;
-
-    font-size: 14px;
-  }
-
-  .follow-section {
+  .footer-socials {
     align-items: flex-start;
     flex-direction: column;
 
     gap: 12px;
 
-    margin:
-      30px
-      0
-      0
-      10px;
-  }
-
-  .follow-section h3 {
-    font-size: 19px;
-  }
-
-  .social-icons {
-    gap: 16px;
+    margin-top: 25px;
   }
 
   .footer-bottom {
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
 
-    gap: 12px;
+    gap: 10px;
 
-    min-height: auto;
-
-    padding:
-      16px
-      18px;
+    text-align: center;
   }
 
-  .bottom-links {
+  .footer-bottom-links {
+    justify-content: center;
+
     flex-wrap: wrap;
 
     gap:
       10px
-      24px;
+      18px;
 
     padding: 0;
-  }
-
-  .copyright,
-  .bottom-links a {
-    font-size: 11px;
   }
 }
 
 
-/*SMALL MOBILE*/
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
 
-@media (max-width: 480px) {
+@media (max-width: 575.98px) {
 
-  .footer-main {
+  .footer-content {
     padding:
+      24px
       16px
-      12px
-      22px;
+      20px;
   }
 
-  .footer-column,
-  .subscribe-column {
-    padding:
-      0
-      8px;
+  .footer-links-grid {
+    grid-template-columns: 1fr;
+
+    gap: 10px;
   }
 
-  .footer-column h3,
-  .subscribe-column h3,
-  .footer-column .help-heading {
-    font-size: 18px;
+  .footer-column .footer-heading:not(:first-child) {
+    margin-top: 20px;
   }
 
-  .footer-column a {
+  .footer-heading {
+    font-size: 17px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+  }
+
+  .footer-input-box {
+    min-height: 78px;
+  }
+
+  .social-links {
+    flex-wrap: wrap;
+
+    gap: 17px;
+  }
+}
+
+
+/* =========================================================
+   EXTRA SMALL
+========================================================= */
+
+@media (max-width: 374.98px) {
+
+  .footer-bottom-copyright,
+  .footer-bottom-links a {
     font-size: 12px;
   }
 
-  .subscribe-column h3 {
-    white-space: normal;
-  }
-
-  .follow-section {
-    margin-left: 8px;
-  }
-
-  .social-icons {
-    flex-wrap: wrap;
+  .promo-checkbox {
+    font-size: 12px;
   }
 }
