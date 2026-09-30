@@ -1,0 +1,328 @@
+<div class="application-page">
+
+  <!-- =========================================
+       HEADER
+  ========================================== -->
+  <app-header></app-header>
+
+
+  <!-- =========================================
+       APPLICATION STEPPER
+  ========================================== -->
+  <section class="stepper-wrapper">
+
+    <div class="application-stepper">
+
+      <!-- STEP 1 -->
+      <a
+        routerLink="/application/company-identification"
+        routerLinkActive="active-step"
+        class="step-item"
+      >
+        <span class="step-circle">
+          1
+        </span>
+
+        <span class="step-label">
+          Identification
+        </span>
+      </a>
+
+
+      <!-- STEP 2 -->
+      <a
+        routerLink="/application/general-information"
+        routerLinkActive="active-step"
+        class="step-item"
+      >
+        <span class="step-circle">
+          2
+        </span>
+
+        <span class="step-label">
+          General Information
+        </span>
+      </a>
+
+
+      <!-- STEP 3 -->
+      <a
+        routerLink="/application/ownership-structure"
+        routerLinkActive="active-step"
+        class="step-item"
+      >
+        <span class="step-circle">
+          3
+        </span>
+
+        <span class="step-label">
+          Ownership Structure
+        </span>
+      </a>
+
+
+      <!-- STEP 4 -->
+      <a
+        routerLink="/application/financial-information"
+        routerLinkActive="active-step"
+        class="step-item"
+      >
+        <span class="step-circle">
+          4
+        </span>
+
+        <span class="step-label">
+          Financial Information
+        </span>
+      </a>
+
+
+      <!-- STEP 5 -->
+      <a
+        routerLink="/application/premises-information"
+        routerLinkActive="active-step"
+        class="step-item"
+      >
+        <span class="step-circle">
+          5
+        </span>
+
+        <span class="step-label">
+          Premises Information
+        </span>
+      </a>
+
+
+      <!-- STEP 6 -->
+      <a
+        routerLink="/application/other-information"
+        routerLinkActive="active-step"
+        class="step-item"
+      >
+        <span class="step-circle">
+          6
+        </span>
+
+        <span class="step-label">
+          Other Information
+        </span>
+      </a>
+
+
+      <!-- STEP 7 -->
+      <a
+        routerLink="/application/document-upload"
+        routerLinkActive="active-step"
+        class="step-item"
+      >
+        <span class="step-circle">
+          7
+        </span>
+
+        <span class="step-label">
+          Document Upload
+        </span>
+      </a>
+
+
+      <!-- STEP 8 -->
+      <a
+        routerLink="/application/declaration-review"
+        routerLinkActive="active-step"
+        class="step-item"
+      >
+        <span class="step-circle">
+          8
+        </span>
+
+        <span class="step-label">
+          Declaration & Review
+        </span>
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================
+       APPLICATION AREA
+  ========================================== -->
+  <main class="application-container">
+
+    <div class="application-layout">
+
+      <!-- CHILD PAGE -->
+      <div class="application-content">
+
+        <router-outlet></router-outlet>
+
+      </div>
+
+
+      <!-- =====================================
+           RIGHT SIDEBAR
+      ====================================== -->
+      <aside class="application-sidebar">
+
+
+        <!-- APPLICATION SECTIONS -->
+        <section class="sections-card">
+
+          <div class="sidebar-title">
+            Application Sections
+          </div>
+
+
+          <nav class="section-navigation">
+
+            <a
+              routerLink="/application/company-identification"
+              routerLinkActive="active-section"
+            >
+              <span class="nav-number">
+                1
+              </span>
+
+              Identification
+            </a>
+
+
+            <a
+              routerLink="/application/general-information"
+              routerLinkActive="active-section"
+            >
+              <span class="nav-number">
+                2
+              </span>
+
+              General Information
+            </a>
+
+
+            <a
+              routerLink="/application/ownership-structure"
+              routerLinkActive="active-section"
+            >
+              <span class="nav-number">
+                3
+              </span>
+
+              Ownership Structure
+            </a>
+
+
+            <a
+              routerLink="/application/financial-information"
+              routerLinkActive="active-section"
+            >
+              <span class="nav-number">
+                4
+              </span>
+
+              Financial Information
+            </a>
+
+
+            <a
+              routerLink="/application/premises-information"
+              routerLinkActive="active-section"
+            >
+              <span class="nav-number">
+                5
+              </span>
+
+              Premises Information
+            </a>
+
+
+            <a
+              routerLink="/application/other-information"
+              routerLinkActive="active-section"
+            >
+              <span class="nav-number">
+                6
+              </span>
+
+              Other Information
+            </a>
+
+
+            <a
+              routerLink="/application/document-upload"
+              routerLinkActive="active-section"
+            >
+              <span class="nav-number">
+                7
+              </span>
+
+              Document Upload
+            </a>
+
+
+            <a
+              routerLink="/application/declaration-review"
+              routerLinkActive="active-section"
+            >
+              <span class="nav-number">
+                8
+              </span>
+
+              Declaration & Review
+            </a>
+
+          </nav>
+
+        </section>
+
+
+        <!-- NEED HELP -->
+        <section class="help-card">
+
+          <h3>
+            Need Help?
+          </h3>
+
+          <p>
+            For assistance, contact our technical team.
+          </p>
+
+          <div class="help-item">
+
+            <span class="help-icon">
+              ☎
+            </span>
+
+            <span>
+              +94 197333000
+            </span>
+
+          </div>
+
+          <div class="help-item">
+
+            <span class="help-icon">
+              ✉
+            </span>
+
+            <span>
+              gsa-support&#64;srilankan.com
+            </span>
+
+          </div>
+
+        </section>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+
+  <!-- =========================================
+       FOOTER
+  ========================================== -->
+  <app-footer></app-footer>
+
+</div>

@@ -1,0 +1,1103 @@
+<div class="company-page">
+
+  <!-- =========================================
+       PAGE TITLE
+  ========================================== -->
+  <div class="page-title-row">
+
+    <div>
+
+      <h1>
+        Company Identification
+      </h1>
+
+      <p>
+        Enter your company's basic details, registration information
+        and business type.
+      </p>
+
+    </div>
+
+    <span class="step-count">
+      Step 1 of 8
+    </span>
+
+  </div>
+
+
+  <!-- =========================================
+       IMPORTANT INSTRUCTIONS
+  ========================================== -->
+  <section class="instructions-card">
+
+    <div class="instructions-title">
+
+      <span class="info-icon">
+        i
+      </span>
+
+      Important Instructions
+
+    </div>
+
+    <ul>
+
+      <li>
+        All details requested in the application should be provided,
+        including Corporate/Financial documents of the Company.
+      </li>
+
+      <li>
+        Applications received after the closing date and time shall
+        not be accepted.
+      </li>
+
+      <li>
+        Separate applications will be required for Passenger and
+        Cargo GSA appointments.
+      </li>
+
+      <li>
+        Signed application is mandatory to be considered for evaluation.
+      </li>
+
+      <li>
+        Please ensure the application is completed and submitted within
+        the minimum possible time.
+      </li>
+
+    </ul>
+
+  </section>
+
+
+  <!-- =========================================
+       FORM
+  ========================================== -->
+  <form
+    [formGroup]="companyForm"
+    (ngSubmit)="goNext()"
+  >
+
+    <section class="form-card">
+
+      <!-- CARD TITLE -->
+      <div class="card-header">
+
+        <h2>
+          Identification of the Company
+        </h2>
+
+      </div>
+
+
+      <div class="form-body">
+
+
+        <!-- =====================================
+             APPLICANT TYPE + TERRITORY
+        ====================================== -->
+        <div class="form-row applicant-row">
+
+          <div class="form-group">
+
+            <label>
+              Applicant type
+              <span class="required">*</span>
+            </label>
+
+            <div class="type-buttons">
+
+              <button
+                type="button"
+                [class.selected]="companyForm.value.applicantType === 'Passenger'"
+                (click)="selectApplicantType('Passenger')"
+              >
+                Passenger
+              </button>
+
+              <button
+                type="button"
+                [class.selected]="companyForm.value.applicantType === 'Cargo'"
+                (click)="selectApplicantType('Cargo')"
+              >
+                Cargo
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="territory">
+
+              Territory
+              <span class="required">*</span>
+
+            </label>
+
+            <select
+              id="territory"
+              formControlName="territory"
+            >
+
+              <option value="">
+                Select territory
+              </option>
+
+              <option value="Sri Lanka">
+                Sri Lanka
+              </option>
+
+              <option value="United Kingdom">
+                United Kingdom
+              </option>
+
+              <option value="United Arab Emirates">
+                United Arab Emirates
+              </option>
+
+              <option value="India">
+                India
+              </option>
+
+              <option value="Singapore">
+                Singapore
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <!-- =====================================
+             LEGAL ORGANIZATION NAME
+        ====================================== -->
+        <div class="form-group full-width">
+
+          <label for="legalOrganizationName">
+
+            Legal name of the organization
+            <span class="required">*</span>
+
+          </label>
+
+          <input
+            id="legalOrganizationName"
+            type="text"
+            formControlName="legalOrganizationName"
+            placeholder="Enter legal organization name"
+          >
+
+        </div>
+
+
+        <!-- =====================================
+             DATE OF INCORPORATION
+        ====================================== -->
+        <div class="half-width-row">
+
+          <div class="form-group">
+
+            <label for="incorporationDate">
+
+              Date of incorporation
+              <span class="required">*</span>
+
+            </label>
+
+            <input
+              id="incorporationDate"
+              type="date"
+              formControlName="incorporationDate"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- =====================================
+             TRADE NAME CHECKBOX
+        ====================================== -->
+        <div class="conditional-section">
+
+          <label class="checkbox-row">
+
+            <input
+              type="checkbox"
+              formControlName="tradeNameDifferent"
+            >
+
+            <span>
+              If trade name is different from the legal name
+            </span>
+
+          </label>
+
+
+          <!-- SHOW ONLY WHEN CHECKED -->
+          @if (companyForm.get('tradeNameDifferent')?.value) {
+
+            <div class="conditional-content">
+
+              <div class="form-group full-width">
+
+                <label for="tradeName">
+                  Organization's trade name
+                </label>
+
+                <input
+                  id="tradeName"
+                  type="text"
+                  formControlName="tradeName"
+                  placeholder="Organization's trade name"
+                >
+
+              </div>
+
+            </div>
+
+          }
+
+        </div>
+
+
+        <!-- =====================================
+             GSA CONTRACT ENTITY CHECKBOX
+        ====================================== -->
+        <div class="conditional-section">
+
+          <label class="checkbox-row">
+
+            <input
+              type="checkbox"
+              formControlName="contractNameDifferent"
+            >
+
+            <span>
+              If name of the company to sign the GSA contract
+              is different from the legal name
+            </span>
+
+          </label>
+
+
+          <!-- SHOW ONLY WHEN CHECKED -->
+          @if (companyForm.get('contractNameDifferent')?.value) {
+
+            <div class="conditional-content">
+
+
+              <!-- ENTITY NAME -->
+              <div class="form-group full-width">
+
+                <label for="gsaContractEntityName">
+                  Entity signing the GSA Contract
+                </label>
+
+                <input
+                  id="gsaContractEntityName"
+                  type="text"
+                  formControlName="gsaContractEntityName"
+                  placeholder="Entity signing the GSA Contract"
+                >
+
+              </div>
+
+
+              <!-- OPERATING MODEL -->
+              <div class="operating-model">
+
+                <div class="operating-model-title">
+
+                  Operating model if above company name is different
+                  to legal name of organisation
+
+                </div>
+
+
+                <div class="form-row">
+
+                  <div class="form-group">
+
+                    <label for="operatingModelSubsidiary">
+                      Subsidiary
+                    </label>
+
+                    <input
+                      id="operatingModelSubsidiary"
+                      type="text"
+                      formControlName="operatingModelSubsidiary"
+                      placeholder="Subsidiary"
+                    >
+
+                  </div>
+
+
+                  <div class="form-group">
+
+                    <label for="operatingModelFranchise">
+                      Franchise
+                    </label>
+
+                    <input
+                      id="operatingModelFranchise"
+                      type="text"
+                      formControlName="operatingModelFranchise"
+                      placeholder="Franchise"
+                    >
+
+                  </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                  <div class="form-group">
+
+                    <label for="operatingModelBranch">
+                      Branch
+                    </label>
+
+                    <input
+                      id="operatingModelBranch"
+                      type="text"
+                      formControlName="operatingModelBranch"
+                      placeholder="Branch"
+                    >
+
+                  </div>
+
+
+                  <div class="form-group">
+
+                    <label for="operatingModelOther">
+                      Other (specify)
+                    </label>
+
+                    <input
+                      id="operatingModelOther"
+                      type="text"
+                      formControlName="operatingModelOther"
+                      placeholder="Specific model"
+                    >
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          }
+
+        </div>
+
+
+        <div class="section-divider"></div>
+
+
+        <!-- =====================================
+             TRADE REGISTRATION + PHONE
+        ====================================== -->
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label for="tradeRegistrationNumber">
+
+              Trade registration number
+              <span class="required">*</span>
+
+            </label>
+
+            <input
+              id="tradeRegistrationNumber"
+              type="text"
+              formControlName="tradeRegistrationNumber"
+              placeholder="Trade registration number"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="officialTelephoneNumber">
+
+              Official telephone number
+              <span class="required">*</span>
+
+            </label>
+
+            <input
+              id="officialTelephoneNumber"
+              type="tel"
+              formControlName="officialTelephoneNumber"
+              placeholder="+94 Enter telephone number"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- =====================================
+             MAIN OFFICE ADDRESS
+        ====================================== -->
+        <div class="form-group full-width">
+
+          <label for="mainOfficeAddress">
+
+            Address of the main office in the territory
+            <span class="required">*</span>
+
+          </label>
+
+          <input
+            id="mainOfficeAddress"
+            type="text"
+            formControlName="mainOfficeAddress"
+            placeholder="Address"
+          >
+
+        </div>
+
+
+        <!-- =====================================
+             STATE / COUNTRY / POSTAL CODE
+        ====================================== -->
+        <div class="three-column-row">
+
+          <div class="form-group">
+
+            <label for="mainOfficeState">
+              State
+            </label>
+
+            <input
+              id="mainOfficeState"
+              type="text"
+              formControlName="mainOfficeState"
+              placeholder="State"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="mainOfficeCountry">
+
+              Country
+              <span class="required">*</span>
+
+            </label>
+
+            <select
+              id="mainOfficeCountry"
+              formControlName="mainOfficeCountry"
+            >
+
+              <option value="">
+                Select country
+              </option>
+
+              <option value="Sri Lanka">
+                Sri Lanka
+              </option>
+
+              <option value="United Kingdom">
+                United Kingdom
+              </option>
+
+              <option value="United Arab Emirates">
+                United Arab Emirates
+              </option>
+
+              <option value="India">
+                India
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="mainOfficePostalCode">
+              Postal code
+            </label>
+
+            <input
+              id="mainOfficePostalCode"
+              type="text"
+              formControlName="mainOfficePostalCode"
+              placeholder="Postal code"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- =====================================
+             EMAILS
+        ====================================== -->
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label for="emailAddress">
+
+              Email address
+              <span class="required">*</span>
+
+            </label>
+
+            <input
+              id="emailAddress"
+              type="email"
+              formControlName="emailAddress"
+              placeholder="Contact email"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="secondaryEmail">
+              Secondary email
+            </label>
+
+            <input
+              id="secondaryEmail"
+              type="email"
+              formControlName="secondaryEmail"
+              placeholder="Secondary email (optional)"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- =====================================
+             REGISTERED ADDRESS
+        ====================================== -->
+        <div class="form-group full-width">
+
+          <label for="registeredAddress">
+
+            Registered address
+
+            <span class="optional">
+              (if different from the main office address)
+            </span>
+
+          </label>
+
+          <input
+            id="registeredAddress"
+            type="text"
+            formControlName="registeredAddress"
+            placeholder="Registered address"
+          >
+
+        </div>
+
+
+        <div class="three-column-row">
+
+          <div class="form-group">
+
+            <label for="registeredState">
+              State
+            </label>
+
+            <input
+              id="registeredState"
+              type="text"
+              formControlName="registeredState"
+              placeholder="State"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="registeredCountry">
+              Country
+            </label>
+
+            <select
+              id="registeredCountry"
+              formControlName="registeredCountry"
+            >
+
+              <option value="">
+                Select country
+              </option>
+
+              <option value="Sri Lanka">
+                Sri Lanka
+              </option>
+
+              <option value="United Kingdom">
+                United Kingdom
+              </option>
+
+              <option value="United Arab Emirates">
+                United Arab Emirates
+              </option>
+
+              <option value="India">
+                India
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="registeredPostalCode">
+              Postal code
+            </label>
+
+            <input
+              id="registeredPostalCode"
+              type="text"
+              formControlName="registeredPostalCode"
+              placeholder="Postal code"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- =====================================
+             PRINCIPAL BUSINESS
+        ====================================== -->
+        <div class="form-group full-width">
+
+          <label for="principalBusiness">
+
+            Principal business of the organization
+            <span class="required">*</span>
+
+          </label>
+
+          <input
+            id="principalBusiness"
+            type="text"
+            formControlName="principalBusiness"
+            placeholder="Principal business"
+          >
+
+        </div>
+
+
+        <!-- OTHER BUSINESS -->
+        <div class="form-group full-width">
+
+          <label for="otherBusiness">
+            Any other business
+          </label>
+
+          <input
+            id="otherBusiness"
+            type="text"
+            formControlName="otherBusiness"
+            placeholder="Any other business"
+          >
+
+        </div>
+
+
+        <!-- =====================================
+             REGISTRATION QUESTIONS
+        ====================================== -->
+        <div class="question-grid">
+
+          <div class="question-group">
+
+            <label>
+
+              Is business registration required by the law
+              of your country?
+
+              <span class="required">*</span>
+
+            </label>
+
+            <div class="radio-options">
+
+              <label>
+
+                <input
+                  type="radio"
+                  value="Yes"
+                  formControlName="registrationRequiredCountry"
+                >
+
+                Yes
+
+              </label>
+
+              <label>
+
+                <input
+                  type="radio"
+                  value="No"
+                  formControlName="registrationRequiredCountry"
+                >
+
+                No
+
+              </label>
+
+            </div>
+
+          </div>
+
+
+          <div class="question-group">
+
+            <label>
+
+              Is business registration required by the law
+              of the territory which you are applying for?
+
+              <span class="required">*</span>
+
+            </label>
+
+            <div class="radio-options">
+
+              <label>
+
+                <input
+                  type="radio"
+                  value="Yes"
+                  formControlName="registrationRequiredTerritory"
+                >
+
+                Yes
+
+              </label>
+
+              <label>
+
+                <input
+                  type="radio"
+                  value="No"
+                  formControlName="registrationRequiredTerritory"
+                >
+
+                No
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- =====================================
+             PARENT COMPANY CHECKBOX
+        ====================================== -->
+        <div class="conditional-section parent-company-section">
+
+          <label class="checkbox-row">
+
+            <input
+              type="checkbox"
+              formControlName="applyingUnderParentCompany"
+            >
+
+            <span>
+              If applying under a parent company
+            </span>
+
+          </label>
+
+
+          <!-- SHOW ONLY WHEN CHECKED -->
+          @if (companyForm.get('applyingUnderParentCompany')?.value) {
+
+            <div class="conditional-content parent-company-fields">
+
+
+              <!-- PARENT COMPANY NAME -->
+              <div class="form-group full-width">
+
+                <label for="parentCompanyName">
+                  Name of the parent company
+                </label>
+
+                <input
+                  id="parentCompanyName"
+                  type="text"
+                  formControlName="parentCompanyName"
+                  placeholder="Parent company name"
+                >
+
+              </div>
+
+
+              <!-- DATE + PLACE -->
+              <div class="form-row">
+
+                <div class="form-group">
+
+                  <label for="parentCompanyDateEstablished">
+                    Date established
+                  </label>
+
+                  <input
+                    id="parentCompanyDateEstablished"
+                    type="date"
+                    formControlName="parentCompanyDateEstablished"
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="parentCompanyPlaceEstablished">
+                    Place established
+                  </label>
+
+                  <input
+                    id="parentCompanyPlaceEstablished"
+                    type="text"
+                    formControlName="parentCompanyPlaceEstablished"
+                    placeholder="City / State"
+                  >
+
+                </div>
+
+              </div>
+
+            </div>
+
+          }
+
+        </div>
+
+
+        <!-- =====================================
+             EXPERIENCE
+        ====================================== -->
+        <section class="experience-section">
+
+          <div class="subsection-title">
+            Experience
+          </div>
+
+
+          <div class="experience-grid">
+
+            <div class="experience-item">
+
+              <label>
+                Travel industry in the territory
+              </label>
+
+              <div class="year-input">
+
+                <input
+                  type="number"
+                  min="0"
+                  formControlName="travelIndustryTerritoryYears"
+                >
+
+                <span>
+                  years
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="experience-item">
+
+              <label>
+                Travel industry in a different territory
+              </label>
+
+              <div class="year-input">
+
+                <input
+                  type="number"
+                  min="0"
+                  formControlName="travelIndustryOtherTerritoryYears"
+                >
+
+                <span>
+                  years
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="experience-item">
+
+              <label>
+                Air Cargo business in the territory
+              </label>
+
+              <div class="year-input">
+
+                <input
+                  type="number"
+                  min="0"
+                  formControlName="airCargoTerritoryYears"
+                >
+
+                <span>
+                  years
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="experience-item">
+
+              <label>
+                Air Cargo business in a different territory
+              </label>
+
+              <div class="year-input">
+
+                <input
+                  type="number"
+                  min="0"
+                  formControlName="airCargoOtherTerritoryYears"
+                >
+
+                <span>
+                  years
+                </span>
+
+              </div>
+
+            </div>
+
+
+            @if (companyForm.get('applyingUnderParentCompany')?.value) {
+
+              <div class="experience-item">
+
+                <label>
+                  Parent company
+                </label>
+
+                <div class="year-input">
+
+                  <input
+                    type="number"
+                    min="0"
+                    formControlName="parentCompanyYears"
+                  >
+
+                  <span>
+                    years
+                  </span>
+
+                </div>
+
+              </div>
+
+            }
+
+          </div>
+
+        </section>
+
+
+        <!-- =====================================
+             IATA
+        ====================================== -->
+        <div class="iata-section">
+
+          <label class="iata-title">
+
+            IATA status
+            <span class="required">*</span>
+
+          </label>
+
+          <div class="radio-options">
+
+            <label>
+
+              <input
+                type="radio"
+                value="IATA"
+                formControlName="iataStatus"
+              >
+
+              IATA
+
+            </label>
+
+            <label>
+
+              <input
+                type="radio"
+                value="NON IATA"
+                formControlName="iataStatus"
+              >
+
+              NON IATA
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         NEXT BUTTON
+    ========================================== -->
+    <div class="form-actions">
+
+      <button
+        type="submit"
+        class="next-button"
+      >
+        Next
+      </button>
+
+    </div>
+
+  </form>
+
+</div>

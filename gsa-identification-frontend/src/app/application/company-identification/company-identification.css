@@ -1,0 +1,855 @@
+:host {
+  display: block;
+
+  width: 100%;
+
+  font-family:
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  font-size: 14px;
+
+  color: #212529;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.company-page {
+  width: 100%;
+}
+
+
+/* =========================================================
+   PAGE TITLE
+========================================================= */
+
+.page-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 22px;
+}
+
+.page-title-row h1 {
+  margin: 0;
+
+  color: #173650;
+
+  font-size: 30px;
+  font-weight: 600;
+
+  line-height: 1.2;
+}
+
+.page-title-row p {
+  margin:
+    6px
+    0
+    0;
+
+  color: #8a98a4;
+
+  font-size: 13px;
+
+  line-height: 1.45;
+}
+
+.step-count {
+  color: #657582;
+
+  font-size: 12px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   IMPORTANT INSTRUCTIONS
+========================================================= */
+
+.instructions-card {
+  margin-bottom: 18px;
+
+  padding:
+    16px
+    18px;
+
+  background: #eef6fc;
+
+  border:
+    1px solid #d6e6f1;
+
+  border-radius: 8px;
+}
+
+.instructions-title {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 10px;
+
+  color: #36576d;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.info-icon {
+  width: 20px;
+  height: 20px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #d7edf9;
+
+  color: #078bd8;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.instructions-card ul {
+  margin: 0;
+
+  padding-left: 20px;
+}
+
+.instructions-card li {
+  margin-bottom: 5px;
+
+  color: #637886;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   FORM CARD
+========================================================= */
+
+.form-card {
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border:
+    1px solid #d7e1e8;
+
+  border-radius: 8px;
+}
+
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.card-header {
+  padding:
+    13px
+    17px;
+
+  background: #eaf3fa;
+}
+
+.card-header h2 {
+  margin: 0;
+
+  color: #29455b;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  line-height: 1.3;
+}
+
+
+/* =========================================================
+   FORM BODY
+========================================================= */
+
+.form-body {
+  padding:
+    20px
+    20px
+    24px;
+}
+
+
+/* =========================================================
+   FORM ROWS
+========================================================= */
+
+.form-row {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 20px;
+
+  margin-bottom: 16px;
+}
+
+.half-width-row {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  gap: 20px;
+
+  margin-bottom: 16px;
+}
+
+.three-column-row {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 15px;
+
+  margin-bottom: 16px;
+}
+
+.applicant-row {
+  align-items: end;
+}
+
+
+/* =========================================================
+   FORM GROUP
+========================================================= */
+
+.form-group {
+  min-width: 0;
+
+  margin-bottom: 16px;
+}
+
+.form-row .form-group,
+.half-width-row .form-group,
+.three-column-row .form-group {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #435565;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  line-height: 1.4;
+}
+
+.required {
+  color: #e74a58;
+}
+
+.optional {
+  color: #8996a1;
+
+  font-size: 12px;
+  font-weight: 400;
+}
+
+
+/* =========================================================
+   INPUTS / SELECTS
+========================================================= */
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  height: 42px;
+
+  padding:
+    0
+    12px;
+
+  border:
+    1px solid #d6e0e8;
+
+  border-radius: 5px;
+
+  background: #ffffff;
+
+  color: #52616e;
+
+  font-size: 13px;
+  font-weight: 400;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #078bd8;
+
+  box-shadow:
+    0
+    0
+    0
+    2px
+    rgba(7, 139, 216, 0.08);
+}
+
+.form-group input::placeholder {
+  color: #adb7bf;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   FULL WIDTH
+========================================================= */
+
+.full-width {
+  width: 100%;
+}
+
+
+/* =========================================================
+   APPLICANT TYPE
+========================================================= */
+
+.type-buttons {
+  display: flex;
+
+  gap: 0;
+}
+
+.type-buttons button {
+  min-width: 90px;
+  height: 42px;
+
+  padding:
+    0
+    18px;
+
+  border:
+    1px solid #ced8df;
+
+  background: #ffffff;
+
+  color: #536472;
+
+  font-size: 13px;
+  font-weight: 400;
+
+  cursor: pointer;
+}
+
+.type-buttons button:first-child {
+  border-radius:
+    5px
+    0
+    0
+    5px;
+}
+
+.type-buttons button:last-child {
+  border-radius:
+    0
+    5px
+    5px
+    0;
+}
+
+.type-buttons button.selected {
+  border-color: #078bd8;
+
+  background: #078bd8;
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   CONDITIONAL SECTIONS
+========================================================= */
+
+.conditional-section {
+  margin-bottom: 14px;
+}
+
+.conditional-content {
+  margin-top: 12px;
+
+  padding-left: 0;
+}
+
+.parent-company-section {
+  margin-top: 16px;
+}
+
+.parent-company-fields {
+  margin-top: 15px;
+}
+
+
+/* =========================================================
+   CHECKBOX
+========================================================= */
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  color: #273b4b;
+
+  font-size: 13px;
+  font-weight: 400;
+
+  line-height: 1.45;
+
+  cursor: pointer;
+}
+
+.checkbox-row input {
+  width: 15px;
+  height: 15px;
+
+  flex-shrink: 0;
+
+  margin: 0;
+
+  accent-color: #078bd8;
+}
+
+
+/* =========================================================
+   OPERATING MODEL
+========================================================= */
+
+.operating-model {
+  margin-top: 18px;
+}
+
+.operating-model-title {
+  margin-bottom: 14px;
+
+  color: #273b4b;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   SECTION DIVIDER
+========================================================= */
+
+.section-divider {
+  width: 100%;
+  height: 1px;
+
+  margin:
+    20px
+    0
+    22px;
+
+  background: #dce3e8;
+}
+
+
+/* =========================================================
+   QUESTIONS
+========================================================= */
+
+.question-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 28px;
+
+  margin-top: 5px;
+  margin-bottom: 18px;
+}
+
+.question-group > label {
+  display: block;
+
+  min-height: 36px;
+
+  margin-bottom: 8px;
+
+  color: #435565;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   RADIO BUTTONS
+========================================================= */
+
+.radio-options {
+  display: flex;
+  align-items: center;
+
+  gap: 22px;
+}
+
+.radio-options label {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  margin: 0;
+
+  color: #4f616f;
+
+  font-size: 13px;
+  font-weight: 400;
+
+  cursor: pointer;
+}
+
+.radio-options input {
+  width: 14px;
+  height: 14px;
+
+  margin: 0;
+
+  accent-color: #078bd8;
+}
+
+
+/* =========================================================
+   EXPERIENCE
+========================================================= */
+
+.experience-section {
+  overflow: hidden;
+
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  border:
+    1px solid #dbe4ea;
+
+  border-radius: 7px;
+}
+
+.subsection-title {
+  padding:
+    11px
+    14px;
+
+  background: #eaf3fa;
+
+  color: #29455b;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   EXPERIENCE GRID
+========================================================= */
+
+.experience-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap:
+    17px
+    42px;
+
+  padding:
+    19px;
+}
+
+.experience-item {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    120px;
+
+  gap: 14px;
+
+  align-items: center;
+}
+
+.experience-item label {
+  color: #4c5f6d;
+
+  font-size: 13px;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   YEAR INPUT
+========================================================= */
+
+.year-input {
+  display: flex;
+
+  height: 38px;
+
+  overflow: hidden;
+
+  border:
+    1px solid #d5dfe7;
+
+  border-radius: 4px;
+}
+
+.year-input input {
+  width: 72px;
+
+  padding:
+    0
+    8px;
+
+  border: none;
+
+  outline: none;
+
+  color: #52616e;
+
+  font-size: 13px;
+}
+
+.year-input span {
+  min-width: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #edf2f5;
+
+  color: #657582;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   IATA
+========================================================= */
+
+.iata-section {
+  margin-top: 14px;
+}
+
+.iata-title {
+  display: block;
+
+  margin-bottom: 9px;
+
+  color: #435565;
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   FORM ACTIONS
+========================================================= */
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 20px;
+}
+
+.next-button {
+  min-width: 125px;
+  height: 42px;
+
+  border: none;
+
+  border-radius: 5px;
+
+  background: #078bd8;
+
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease;
+}
+
+.next-button:hover {
+  background: #067bc0;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .page-title-row h1 {
+    font-size: 26px;
+  }
+
+  .form-row,
+  .question-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .half-width-row {
+    grid-template-columns: 1fr;
+  }
+
+  .three-column-row {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .experience-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .page-title-row {
+    flex-direction: column;
+
+    gap: 8px;
+  }
+
+  .page-title-row h1 {
+    font-size: 23px;
+  }
+
+  .page-title-row p {
+    font-size: 12px;
+  }
+
+  .instructions-card {
+    padding:
+      14px;
+  }
+
+  .instructions-card li {
+    font-size: 11px;
+  }
+
+  .form-body {
+    padding: 16px;
+  }
+
+  .three-column-row {
+    grid-template-columns: 1fr;
+  }
+
+  .type-buttons {
+    width: 100%;
+  }
+
+  .type-buttons button {
+    flex: 1;
+  }
+
+  .experience-item {
+    grid-template-columns: 1fr;
+
+    gap: 8px;
+  }
+
+  .year-input {
+    width: 120px;
+  }
+
+  .next-button {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+  .page-title-row h1 {
+    font-size: 21px;
+  }
+
+  .card-header h2 {
+    font-size: 15px;
+  }
+
+  .form-group label,
+  .form-group input,
+  .form-group select,
+  .checkbox-row,
+  .radio-options label,
+  .question-group > label,
+  .experience-item label {
+    font-size: 12px;
+  }
+}
