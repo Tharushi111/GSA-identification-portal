@@ -1,1 +1,820 @@
-<p>document-upload works!</p>
+<div class="document-upload-page">
+
+  <!-- =====================================================
+       MESSAGE MODAL
+  ====================================================== -->
+
+  @if (showMessageModal) {
+
+    <div
+      class="message-modal-backdrop"
+      (click)="closeMessageModal()"
+    >
+
+      <div
+        class="message-modal"
+        role="alertdialog"
+        aria-modal="true"
+        (click)="$event.stopPropagation()"
+      >
+
+        <button
+          type="button"
+          class="message-modal-close"
+          aria-label="Close"
+          (click)="closeMessageModal()"
+        >
+          ×
+        </button>
+
+
+        <div
+          class="message-icon"
+          [class.warning-icon]="
+            messageModalType === 'warning'
+          "
+          [class.success-icon]="
+            messageModalType === 'success'
+          "
+        >
+
+          @if (
+            messageModalType === 'success'
+          ) {
+
+            ✓
+
+          } @else {
+
+            !
+
+          }
+
+        </div>
+
+
+        <h2>
+          {{ messageModalTitle }}
+        </h2>
+
+
+        <p>
+          {{ messageModalMessage }}
+        </p>
+
+
+        <button
+          type="button"
+          class="message-confirm-button"
+          (click)="closeMessageModal()"
+        >
+          OK
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
+       PAGE TITLE
+  ====================================================== -->
+
+  <div class="page-title-row">
+
+    <div>
+
+      <h1>
+        Document Upload
+      </h1>
+
+
+      <p>
+        Upload the supporting documents required
+        for your GSA application.
+      </p>
+
+    </div>
+
+
+    <span class="step-count">
+      Step 6 of 7
+    </span>
+
+  </div>
+
+
+  <!-- =====================================================
+       MAIN CARD
+  ====================================================== -->
+
+  <section class="document-card">
+
+    <!-- ===================================================
+         CARD HEADER
+    ==================================================== -->
+
+    <div class="card-header">
+
+      <h2>
+        Document Upload
+      </h2>
+
+
+      <p>
+        Upload original PDF files.
+        Multiple PDFs may be uploaded where applicable.
+      </p>
+
+    </div>
+
+
+    <div class="card-body">
+
+      <!-- =================================================
+           IMPORTANT INSTRUCTIONS
+      ================================================== -->
+
+      <section class="instruction-card">
+
+        <div class="instruction-content">
+
+          <h3>
+            Important Upload Instructions
+          </h3>
+
+
+          <ul>
+
+            <li>
+              Choose and upload only one PDF at a time.
+            </li>
+
+            <li>
+              Multiple PDFs can be added to the same
+              document category where applicable.
+            </li>
+
+            <li>
+              Wait for the successful upload before
+              adding another document to the same category.
+            </li>
+
+            <li>
+              If any document is not in English,
+              a certified translation should be provided.
+            </li>
+
+          </ul>
+
+        </div>
+
+
+        <div class="instruction-meta">
+
+          <span>
+            Maximum file size:
+            <strong>
+              {{ maximumFileSizeLabel }}
+            </strong>
+          </span>
+
+
+          <span>
+            Accepted file type:
+            <strong>
+              PDF
+            </strong>
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           FIRST FOUR REQUIRED DOCUMENTS
+      ================================================== -->
+
+      @for (
+        document of documents.slice(0, 4);
+        track document.id
+      ) {
+
+        <section
+          class="document-row"
+          [class.document-row-invalid]="
+            documentInvalid(document)
+          "
+        >
+
+          <div class="document-row-main">
+
+            <!-- STATUS -->
+
+            <span
+              class="document-status"
+              [class.document-status-complete]="
+                documentComplete(document)
+              "
+            >
+
+              @if (
+                documentComplete(document)
+              ) {
+
+                ✓
+
+              }
+
+            </span>
+
+
+            <!-- TITLE -->
+
+            <div class="document-title">
+
+              <strong>
+                {{ document.title }}
+
+                @if (
+                  document.required
+                ) {
+
+                  <span class="required">
+                    *
+                  </span>
+
+                }
+
+              </strong>
+
+            </div>
+
+
+            <!-- COUNT -->
+
+            <span class="document-count">
+
+              {{ getDocumentCount(document) }}
+
+              @if (
+                getDocumentCount(document) === 1
+              ) {
+
+                document
+
+              } @else {
+
+                documents
+
+              }
+
+            </span>
+
+
+            <!-- UPLOAD -->
+
+            <label
+              class="upload-link"
+              [for]="document.id + '-file'"
+            >
+
+              <span class="upload-icon">
+                ↥
+              </span>
+
+              Upload files
+
+            </label>
+
+
+            <input
+              #documentFileInput
+              class="hidden-file-input"
+              type="file"
+              [id]="document.id + '-file'"
+              accept=".pdf,application/pdf"
+              (change)="
+                onDocumentFileSelected(
+                  $event,
+                  document.id
+                )
+              "
+            >
+
+          </div>
+
+
+          <!-- UPLOADED FILES -->
+
+          @if (
+            document.uploadedFiles.length > 0
+          ) {
+
+            <div class="uploaded-files">
+
+              @for (
+                uploadedFile of document.uploadedFiles;
+                track uploadedFile.id
+              ) {
+
+                <div class="uploaded-file-row">
+
+                  <button
+                    type="button"
+                    class="uploaded-file-main"
+                    (click)="openFile(uploadedFile)"
+                  >
+
+                    <span class="pdf-icon">
+                      PDF
+                    </span>
+
+
+                    <span class="file-information">
+
+                      <strong>
+                        {{ uploadedFile.fileName }}
+                      </strong>
+
+
+                      <small>
+                        {{ uploadedFile.fileSizeLabel }}
+                      </small>
+
+                    </span>
+
+                  </button>
+
+
+                  <span class="upload-success">
+                    ● Uploaded
+                  </span>
+
+
+                  <button
+                    type="button"
+                    class="remove-file-button"
+                    (click)="
+                      removeDocumentFile(
+                        document.id,
+                        uploadedFile.id
+                      )
+                    "
+                  >
+                    Remove
+                  </button>
+
+                </div>
+
+              }
+
+            </div>
+
+          }
+
+
+          @if (
+            documentInvalid(document)
+          ) {
+
+            <div class="document-error">
+              This document is required.
+            </div>
+
+          }
+
+        </section>
+
+      }
+
+
+      <!-- =================================================
+           AUDITED FINANCIAL STATEMENTS
+      ================================================== -->
+
+      <section
+        class="document-row audited-document-row"
+        [class.audited-section-invalid]="
+          auditedSectionInvalid()
+        "
+      >
+
+        <div class="document-row-main">
+
+          <span
+            class="document-status"
+            [class.document-status-complete]="
+              auditedUploadedCount === 3
+            "
+          >
+
+            @if (
+              auditedUploadedCount === 3
+            ) {
+
+              ✓
+
+            }
+
+          </span>
+
+
+          <div class="document-title audited-title">
+
+            <strong>
+
+              Audited financial statements of the last 3 years
+
+              <span class="required">
+                *
+              </span>
+
+            </strong>
+
+
+            <small>
+              If the applicant's experience is less than five years,
+              provide copies of the parent company's audited financial statements.
+            </small>
+
+          </div>
+
+
+          <span class="document-count">
+
+            {{ auditedUploadedCount }}
+            documents
+
+          </span>
+
+
+          <span class="required-count">
+            3 required
+          </span>
+
+        </div>
+
+
+        <!-- YEAR FILES -->
+
+        <div class="audited-years">
+
+          @for (
+            yearDocument of auditedFinancialYears;
+            track yearDocument.year
+          ) {
+
+            <div
+              class="audited-year-row"
+              [class.year-row-invalid]="
+                formSubmitted &&
+                !yearDocument.file
+              "
+            >
+
+              <div class="year-information">
+
+                <strong>
+                  {{ yearDocument.year }}
+                </strong>
+
+
+                <span>
+                  Audited financial statement
+                </span>
+
+              </div>
+
+
+              @if (
+                yearDocument.file
+              ) {
+
+                <button
+                  type="button"
+                  class="year-file-name"
+                  (click)="
+                    openFile(
+                      yearDocument.file
+                    )
+                  "
+                >
+
+                  <span class="pdf-icon">
+                    PDF
+                  </span>
+
+
+                  <span>
+                    {{ yearDocument.file.fileName }}
+                  </span>
+
+                </button>
+
+
+                <span class="upload-success">
+                  ● Uploaded
+                </span>
+
+
+                <button
+                  type="button"
+                  class="remove-file-button"
+                  (click)="
+                    removeAuditedFile(
+                      yearDocument.year
+                    )
+                  "
+                >
+                  Remove
+                </button>
+
+              } @else {
+
+                <label
+                  class="upload-link"
+                  [for]="
+                    'audited-' +
+                    yearDocument.year
+                  "
+                >
+
+                  <span class="upload-icon">
+                    ↥
+                  </span>
+
+                  Upload PDF
+
+                </label>
+
+
+                <input
+                  class="hidden-file-input"
+                  type="file"
+                  [id]="
+                    'audited-' +
+                    yearDocument.year
+                  "
+                  accept=".pdf,application/pdf"
+                  (change)="
+                    onAuditedFileSelected(
+                      $event,
+                      yearDocument.year
+                    )
+                  "
+                >
+
+              }
+
+            </div>
+
+          }
+
+        </div>
+
+
+        @if (
+          auditedSectionInvalid()
+        ) {
+
+          <div class="document-error">
+            Please upload one audited financial statement
+            for each of the three required years.
+          </div>
+
+        }
+
+      </section>
+
+
+      <!-- =================================================
+           REMAINING DOCUMENTS
+      ================================================== -->
+
+      @for (
+        document of documents.slice(4);
+        track document.id
+      ) {
+
+        <section
+          class="document-row"
+          [class.document-row-invalid]="
+            documentInvalid(document)
+          "
+        >
+
+          <div class="document-row-main">
+
+            <span
+              class="document-status"
+              [class.document-status-complete]="
+                documentComplete(document)
+              "
+            >
+
+              @if (
+                documentComplete(document)
+              ) {
+
+                ✓
+
+              }
+
+            </span>
+
+
+            <div class="document-title">
+
+              <strong>
+
+                {{ document.title }}
+
+                @if (
+                  document.required
+                ) {
+
+                  <span class="required">
+                    *
+                  </span>
+
+                }
+
+              </strong>
+
+            </div>
+
+
+            <span class="document-count">
+
+              {{ getDocumentCount(document) }}
+
+              @if (
+                getDocumentCount(document) === 1
+              ) {
+
+                document
+
+              } @else {
+
+                documents
+
+              }
+
+            </span>
+
+
+            <label
+              class="upload-link"
+              [for]="document.id + '-file'"
+            >
+
+              <span class="upload-icon">
+                ↥
+              </span>
+
+              Upload files
+
+            </label>
+
+
+            <input
+              class="hidden-file-input"
+              type="file"
+              [id]="document.id + '-file'"
+              accept=".pdf,application/pdf"
+              (change)="
+                onDocumentFileSelected(
+                  $event,
+                  document.id
+                )
+              "
+            >
+
+          </div>
+
+
+          @if (
+            document.uploadedFiles.length > 0
+          ) {
+
+            <div class="uploaded-files">
+
+              @for (
+                uploadedFile of document.uploadedFiles;
+                track uploadedFile.id
+              ) {
+
+                <div class="uploaded-file-row">
+
+                  <button
+                    type="button"
+                    class="uploaded-file-main"
+                    (click)="openFile(uploadedFile)"
+                  >
+
+                    <span class="pdf-icon">
+                      PDF
+                    </span>
+
+
+                    <span class="file-information">
+
+                      <strong>
+                        {{ uploadedFile.fileName }}
+                      </strong>
+
+
+                      <small>
+                        {{ uploadedFile.fileSizeLabel }}
+                      </small>
+
+                    </span>
+
+                  </button>
+
+
+                  <span class="upload-success">
+                    ● Uploaded
+                  </span>
+
+
+                  <button
+                    type="button"
+                    class="remove-file-button"
+                    (click)="
+                      removeDocumentFile(
+                        document.id,
+                        uploadedFile.id
+                      )
+                    "
+                  >
+                    Remove
+                  </button>
+
+                </div>
+
+              }
+
+            </div>
+
+          }
+
+
+          @if (
+            documentInvalid(document)
+          ) {
+
+            <div class="document-error">
+              This document is required.
+            </div>
+
+          }
+
+        </section>
+
+      }
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       PAGE ACTIONS
+  ====================================================== -->
+
+  <div class="form-actions">
+
+    <button
+      type="button"
+      class="previous-button"
+      (click)="goPrevious()"
+    >
+      ← Previous
+    </button>
+
+
+    <div class="action-right">
+
+      <span class="total-document-text">
+        {{ totalUploadedDocuments }} files added
+      </span>
+
+
+      <button
+        type="button"
+        class="next-button"
+        (click)="goNext()"
+      >
+        Next →
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

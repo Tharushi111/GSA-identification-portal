@@ -1,0 +1,1062 @@
+:host {
+  display: block;
+
+  width: 100%;
+
+  font-family:
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  color: #212529;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.document-upload-page {
+  width: 100%;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.page-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 22px;
+}
+
+.page-title-row h1 {
+  margin: 0;
+
+  color: #173650;
+
+  font-size: 30px;
+  font-weight: 600;
+
+  line-height: 1.2;
+}
+
+.page-title-row p {
+  margin:
+    6px
+    0
+    0;
+
+  color: #8997a3;
+
+  font-size: 13px;
+
+  line-height: 1.45;
+}
+
+.step-count {
+  color: #657582;
+
+  font-size: 12px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   DOCUMENT CARD
+========================================================= */
+
+.document-card {
+  overflow: hidden;
+
+  border:
+    1px solid #d7e1e8;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+}
+
+.card-header {
+  padding:
+    13px
+    17px;
+
+  background: #eaf3fa;
+}
+
+.card-header h2 {
+  margin: 0;
+
+  color: #29455b;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.card-header p {
+  margin:
+    4px
+    0
+    0;
+
+  color: #80909c;
+
+  font-size: 11px;
+}
+
+.card-body {
+  padding: 16px;
+}
+
+
+/* =========================================================
+   INSTRUCTIONS
+========================================================= */
+
+.instruction-card {
+  display: flex;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  margin-bottom: 18px;
+
+  padding:
+    14px
+    16px;
+
+  border:
+    1px solid #d4e3ee;
+
+  border-radius: 7px;
+
+  background: #edf5fb;
+}
+
+.instruction-content h3 {
+  margin:
+    0
+    0
+    7px;
+
+  color: #29455b;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.instruction-content ul {
+  margin: 0;
+
+  padding-left: 18px;
+
+  color: #617584;
+
+  font-size: 10px;
+
+  line-height: 1.6;
+}
+
+.instruction-meta {
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+
+  gap: 8px;
+
+  color: #71838f;
+
+  font-size: 10px;
+}
+
+.instruction-meta strong {
+  color: #435565;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   DOCUMENT ROW
+========================================================= */
+
+.document-row {
+  margin-bottom: 8px;
+
+  border:
+    1px solid #dce5eb;
+
+  border-radius: 6px;
+
+  background: #ffffff;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.document-row-main {
+  min-height: 48px;
+
+  display: grid;
+
+  grid-template-columns:
+    18px
+    minmax(0, 1fr)
+    92px
+    100px;
+
+  align-items: center;
+
+  gap: 11px;
+
+  padding:
+    8px
+    12px;
+}
+
+.document-row-invalid {
+  border-color: #e63946;
+
+  background: #fffdfd;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.document-status {
+  width: 15px;
+  height: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1px solid #becbd4;
+
+  border-radius: 3px;
+
+  background: #ffffff;
+
+  color: #ffffff;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.document-status-complete {
+  border-color: #20a36a;
+
+  background: #20a36a;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.document-title {
+  min-width: 0;
+}
+
+.document-title strong {
+  color: #405464;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  line-height: 1.4;
+}
+
+.document-title small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #81909b;
+
+  font-size: 9px;
+
+  line-height: 1.4;
+}
+
+.required {
+  color: #e63946;
+}
+
+
+/* =========================================================
+   COUNT BADGE
+========================================================= */
+
+.document-count {
+  justify-self: end;
+
+  min-width: 72px;
+
+  padding:
+    4px
+    8px;
+
+  border-radius: 20px;
+
+  background: #e8f5fd;
+
+  color: #078bd8;
+
+  font-size: 9px;
+
+  font-weight: 600;
+
+  text-align: center;
+}
+
+.required-count {
+  justify-self: end;
+
+  min-width: 75px;
+
+  padding:
+    4px
+    8px;
+
+  border:
+    1px solid #e7c76a;
+
+  border-radius: 20px;
+
+  background: #fff5d9;
+
+  color: #a87600;
+
+  font-size: 9px;
+  font-weight: 600;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   UPLOAD LINK
+========================================================= */
+
+.upload-link {
+  justify-self: end;
+
+  display: inline-flex;
+  align-items: center;
+
+  gap: 5px;
+
+  color: #078bd8;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+}
+
+.upload-link:hover {
+  text-decoration: underline;
+}
+
+.upload-icon {
+  font-size: 15px;
+}
+
+.hidden-file-input {
+  display: none;
+}
+
+
+/* =========================================================
+   UPLOADED FILES
+========================================================= */
+
+.uploaded-files {
+  padding:
+    0
+    12px
+    10px
+    41px;
+}
+
+.uploaded-file-row {
+  min-height: 43px;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto
+    auto;
+
+  align-items: center;
+
+  gap: 13px;
+
+  margin-top: 6px;
+
+  padding:
+    7px
+    10px;
+
+  border:
+    1px solid #e1e8ed;
+
+  border-radius: 5px;
+
+  background: #f9fbfc;
+}
+
+.uploaded-file-main {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.pdf-icon {
+  min-width: 28px;
+  height: 24px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 3px;
+
+  background: #edf4fa;
+
+  color: #536e82;
+
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.file-information {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.file-information strong {
+  overflow: hidden;
+
+  color: #3d5262;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-information small {
+  color: #8c99a2;
+
+  font-size: 8px;
+}
+
+.upload-success {
+  color: #22a66f;
+
+  font-size: 9px;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+.remove-file-button {
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #e05a60;
+
+  font-size: 9px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.remove-file-button:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.document-error {
+  padding:
+    0
+    12px
+    9px
+    41px;
+
+  color: #e63946;
+
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   AUDITED FINANCIAL STATEMENTS
+========================================================= */
+
+.audited-document-row {
+  padding-bottom: 7px;
+}
+
+.audited-document-row
+.document-row-main {
+  grid-template-columns:
+    18px
+    minmax(0, 1fr)
+    90px
+    90px;
+}
+
+.audited-section-invalid {
+  border-color: #e63946;
+
+  background: #fffdfd;
+}
+
+.audited-years {
+  margin:
+    0
+    12px
+    4px
+    41px;
+
+  border:
+    1px solid #e0e7ec;
+
+  border-radius: 5px;
+
+  overflow: hidden;
+}
+
+.audited-year-row {
+  min-height: 47px;
+
+  display: grid;
+
+  grid-template-columns:
+    130px
+    minmax(0, 1fr)
+    auto
+    auto;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding:
+    7px
+    10px;
+
+  border-bottom:
+    1px solid #e5eaee;
+
+  background: #ffffff;
+}
+
+.audited-year-row:last-child {
+  border-bottom: none;
+}
+
+.year-row-invalid {
+  background: #fffafa;
+}
+
+.year-information {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.year-information strong {
+  color: #405464;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.year-information span {
+  color: #8b99a3;
+
+  font-size: 8px;
+}
+
+.year-file-name {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #435565;
+
+  font-size: 9px;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.year-file-name span:last-child {
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-top: 20px;
+}
+
+.previous-button,
+.next-button {
+  min-width: 125px;
+  height: 42px;
+
+  padding:
+    0
+    22px;
+
+  border-radius: 5px;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.previous-button {
+  border:
+    1px solid #078bd8;
+
+  background: #ffffff;
+
+  color: #078bd8;
+}
+
+.previous-button:hover {
+  background: #f3f9fd;
+}
+
+.next-button {
+  border: none;
+
+  background: #078bd8;
+
+  color: #ffffff;
+}
+
+.next-button:hover {
+  background: #067bc0;
+}
+
+.action-right {
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+}
+
+.total-document-text {
+  color: #82909a;
+
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   MESSAGE MODAL
+========================================================= */
+
+.message-modal-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 15000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background:
+    rgba(17, 24, 39, 0.60);
+
+  backdrop-filter: blur(2px);
+}
+
+.message-modal {
+  position: relative;
+
+  width: 100%;
+  max-width: 440px;
+
+  padding:
+    33px
+    32px
+    29px;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0
+    25px
+    70px
+    rgba(0, 0, 0, 0.25);
+
+  text-align: center;
+}
+
+.message-modal-close {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  width: 31px;
+  height: 31px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #eef1f4;
+
+  color: #65727d;
+
+  font-size: 21px;
+
+  cursor: pointer;
+}
+
+.message-icon {
+  width: 68px;
+  height: 68px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin:
+    0
+    auto
+    19px;
+
+  border:
+    2px solid #ef4b3f;
+
+  border-radius: 50%;
+
+  color: #ef4b3f;
+
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.warning-icon {
+  border-color: #e7a719;
+
+  color: #e7a719;
+}
+
+.success-icon {
+  border-color: #20a36a;
+
+  color: #20a36a;
+}
+
+.message-modal h2 {
+  margin:
+    0
+    0
+    10px;
+
+  color: #253746;
+
+  font-size: 23px;
+  font-weight: 600;
+}
+
+.message-modal p {
+  margin:
+    0
+    auto
+    23px;
+
+  color: #687783;
+
+  font-size: 13px;
+
+  line-height: 1.55;
+}
+
+.message-confirm-button {
+  min-width: 150px;
+  height: 42px;
+
+  border: none;
+
+  border-radius: 5px;
+
+  background: #078bd8;
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .page-title-row h1 {
+    font-size: 26px;
+  }
+
+  .instruction-card {
+    flex-direction: column;
+
+    gap: 14px;
+  }
+
+  .instruction-meta {
+    align-items: flex-start;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL TABLET
+========================================================= */
+
+@media (max-width: 720px) {
+
+  .document-row-main,
+  .audited-document-row
+  .document-row-main {
+    grid-template-columns:
+      18px
+      minmax(0, 1fr)
+      auto;
+
+    gap: 9px;
+  }
+
+  .document-count {
+    display: none;
+  }
+
+  .required-count {
+    display: none;
+  }
+
+  .audited-year-row {
+    grid-template-columns:
+      90px
+      minmax(0, 1fr)
+      auto;
+  }
+
+  .audited-year-row
+  .upload-success {
+    display: none;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .page-title-row {
+    flex-direction: column;
+
+    gap: 8px;
+  }
+
+  .page-title-row h1 {
+    font-size: 23px;
+  }
+
+  .card-body {
+    padding: 12px;
+  }
+
+  .instruction-card {
+    padding: 13px;
+  }
+
+  .document-row-main,
+  .audited-document-row
+  .document-row-main {
+    grid-template-columns:
+      18px
+      minmax(0, 1fr);
+
+    align-items: start;
+  }
+
+  .upload-link {
+    grid-column: 2;
+
+    justify-self: start;
+
+    margin-top: 3px;
+  }
+
+  .uploaded-files {
+    padding-left: 12px;
+  }
+
+  .uploaded-file-row {
+    grid-template-columns:
+      minmax(0, 1fr)
+      auto;
+  }
+
+  .uploaded-file-row
+  .upload-success {
+    display: none;
+  }
+
+  .audited-years {
+    margin-left: 12px;
+  }
+
+  .audited-year-row {
+    grid-template-columns: 1fr;
+
+    gap: 7px;
+  }
+
+  .audited-year-row
+  .upload-link {
+    grid-column: auto;
+  }
+
+  .document-error {
+    padding-left: 12px;
+  }
+
+  .form-actions {
+    align-items: stretch;
+  }
+
+  .action-right {
+    flex: 1;
+  }
+
+  .total-document-text {
+    display: none;
+  }
+
+  .next-button {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .action-right,
+  .previous-button,
+  .next-button {
+    width: 100%;
+  }
+
+}
