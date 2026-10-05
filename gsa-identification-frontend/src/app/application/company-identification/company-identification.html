@@ -1,8 +1,91 @@
 <div class="company-page">
 
-  <!-- =========================================
+  <!-- =====================================================
+       VALIDATION ERROR MODAL
+  ====================================================== -->
+
+  @if (showValidationModal) {
+
+    <div
+      class="validation-modal-backdrop"
+      (click)="closeValidationModal()"
+    >
+
+      <div
+        class="validation-modal"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="validationModalTitle"
+        (click)="$event.stopPropagation()"
+      >
+
+        <!-- CLOSE BUTTON -->
+        <button
+          type="button"
+          class="modal-close-button"
+          aria-label="Close validation message"
+          (click)="closeValidationModal()"
+        >
+          ×
+        </button>
+
+
+        <!-- ERROR ICON -->
+        <div class="validation-icon">
+
+          <svg
+            viewBox="0 0 64 64"
+            aria-hidden="true"
+          >
+
+            <circle
+              cx="32"
+              cy="32"
+              r="28"
+            ></circle>
+
+            <path
+              d="M22 22L42 42"
+            ></path>
+
+            <path
+              d="M42 22L22 42"
+            ></path>
+
+          </svg>
+
+        </div>
+
+
+        <h2 id="validationModalTitle">
+          Required Information Missing
+        </h2>
+
+        <p>
+          Please complete all required fields highlighted in red
+          before continuing to the next section.
+        </p>
+
+
+        <button
+          type="button"
+          class="modal-confirm-button"
+          (click)="closeValidationModal()"
+        >
+          Review Required Fields
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
        PAGE TITLE
-  ========================================== -->
+  ====================================================== -->
+
   <div class="page-title-row">
 
     <div>
@@ -12,8 +95,8 @@
       </h1>
 
       <p>
-        Enter your company's basic details, registration information
-        and business type.
+        Enter your company's basic details, registration
+        information and business type.
       </p>
 
     </div>
@@ -25,9 +108,10 @@
   </div>
 
 
-  <!-- =========================================
+  <!-- =====================================================
        IMPORTANT INSTRUCTIONS
-  ========================================== -->
+  ====================================================== -->
+
   <section class="instructions-card">
 
     <div class="instructions-title">
@@ -48,22 +132,23 @@
       </li>
 
       <li>
-        Applications received after the closing date and time shall
-        not be accepted.
+        Applications received after the closing date and time
+        shall not be accepted.
       </li>
 
       <li>
-        Separate applications will be required for Passenger and
-        Cargo GSA appointments.
+        Separate applications will be required for Passenger
+        and Cargo GSA appointments.
       </li>
 
       <li>
-        Signed application is mandatory to be considered for evaluation.
+        Signed application is mandatory to be considered
+        for evaluation.
       </li>
 
       <li>
-        Please ensure the application is completed and submitted within
-        the minimum possible time.
+        Please ensure the application is completed and submitted
+        within the minimum possible time.
       </li>
 
     </ul>
@@ -71,17 +156,18 @@
   </section>
 
 
-  <!-- =========================================
+  <!-- =====================================================
        FORM
-  ========================================== -->
+  ====================================================== -->
+
   <form
     [formGroup]="companyForm"
     (ngSubmit)="goNext()"
+    novalidate
   >
 
     <section class="form-card">
 
-      <!-- CARD TITLE -->
       <div class="card-header">
 
         <h2>
@@ -94,31 +180,47 @@
       <div class="form-body">
 
 
-        <!-- =====================================
+        <!-- =================================================
              APPLICANT TYPE + TERRITORY
-        ====================================== -->
+        ================================================== -->
+
         <div class="form-row applicant-row">
 
-          <div class="form-group">
+
+          <!-- APPLICANT TYPE -->
+          <div
+            class="form-group"
+            [class.invalid-group]="
+              isInvalid('applicantType')
+            "
+          >
 
             <label>
+
               Applicant type
               <span class="required">*</span>
+
             </label>
+
 
             <div class="type-buttons">
 
               <button
                 type="button"
-                [class.selected]="companyForm.value.applicantType === 'Passenger'"
+                [class.selected]="
+                  companyForm.value.applicantType === 'Passenger'
+                "
                 (click)="selectApplicantType('Passenger')"
               >
                 Passenger
               </button>
 
+
               <button
                 type="button"
-                [class.selected]="companyForm.value.applicantType === 'Cargo'"
+                [class.selected]="
+                  companyForm.value.applicantType === 'Cargo'
+                "
                 (click)="selectApplicantType('Cargo')"
               >
                 Cargo
@@ -126,9 +228,22 @@
 
             </div>
 
+
+            @if (isInvalid('applicantType')) {
+
+              <div
+                class="field-error"
+                role="alert"
+              >
+                Please select an applicant type.
+              </div>
+
+            }
+
           </div>
 
 
+          <!-- TERRITORY -->
           <div class="form-group">
 
             <label for="territory">
@@ -141,6 +256,9 @@
             <select
               id="territory"
               formControlName="territory"
+              [class.invalid-field]="
+                isInvalid('territory')
+              "
             >
 
               <option value="">
@@ -169,14 +287,24 @@
 
             </select>
 
+
+            @if (isInvalid('territory')) {
+
+              <div class="field-error">
+                Please select a territory.
+              </div>
+
+            }
+
           </div>
 
         </div>
 
 
-        <!-- =====================================
+        <!-- =================================================
              LEGAL ORGANIZATION NAME
-        ====================================== -->
+        ================================================== -->
+
         <div class="form-group full-width">
 
           <label for="legalOrganizationName">
@@ -191,14 +319,31 @@
             type="text"
             formControlName="legalOrganizationName"
             placeholder="Enter legal organization name"
+            [class.invalid-field]="
+              isInvalid('legalOrganizationName')
+            "
           >
+
+
+          @if (
+            isInvalid(
+              'legalOrganizationName'
+            )
+          ) {
+
+            <div class="field-error">
+              Please enter the legal organization name.
+            </div>
+
+          }
 
         </div>
 
 
-        <!-- =====================================
+        <!-- =================================================
              DATE OF INCORPORATION
-        ====================================== -->
+        ================================================== -->
+
         <div class="half-width-row">
 
           <div class="form-group">
@@ -214,16 +359,33 @@
               id="incorporationDate"
               type="date"
               formControlName="incorporationDate"
+              [class.invalid-field]="
+                isInvalid('incorporationDate')
+              "
             >
+
+
+            @if (
+              isInvalid(
+                'incorporationDate'
+              )
+            ) {
+
+              <div class="field-error">
+                Please select the incorporation date.
+              </div>
+
+            }
 
           </div>
 
         </div>
 
 
-        <!-- =====================================
-             TRADE NAME CHECKBOX
-        ====================================== -->
+        <!-- =================================================
+             TRADE NAME
+        ================================================== -->
+
         <div class="conditional-section">
 
           <label class="checkbox-row">
@@ -240,15 +402,21 @@
           </label>
 
 
-          <!-- SHOW ONLY WHEN CHECKED -->
-          @if (companyForm.get('tradeNameDifferent')?.value) {
+          @if (
+            companyForm
+              .get('tradeNameDifferent')
+              ?.value
+          ) {
 
             <div class="conditional-content">
 
               <div class="form-group full-width">
 
                 <label for="tradeName">
+
                   Organization's trade name
+                  <span class="required">*</span>
+
                 </label>
 
                 <input
@@ -256,7 +424,23 @@
                   type="text"
                   formControlName="tradeName"
                   placeholder="Organization's trade name"
+                  [class.invalid-field]="
+                    isInvalid('tradeName')
+                  "
                 >
+
+
+                @if (
+                  isInvalid(
+                    'tradeName'
+                  )
+                ) {
+
+                  <div class="field-error">
+                    Please enter the organization's trade name.
+                  </div>
+
+                }
 
               </div>
 
@@ -267,9 +451,10 @@
         </div>
 
 
-        <!-- =====================================
-             GSA CONTRACT ENTITY CHECKBOX
-        ====================================== -->
+        <!-- =================================================
+             GSA CONTRACT ENTITY
+        ================================================== -->
+
         <div class="conditional-section">
 
           <label class="checkbox-row">
@@ -287,8 +472,11 @@
           </label>
 
 
-          <!-- SHOW ONLY WHEN CHECKED -->
-          @if (companyForm.get('contractNameDifferent')?.value) {
+          @if (
+            companyForm
+              .get('contractNameDifferent')
+              ?.value
+          ) {
 
             <div class="conditional-content">
 
@@ -297,7 +485,10 @@
               <div class="form-group full-width">
 
                 <label for="gsaContractEntityName">
+
                   Entity signing the GSA Contract
+                  <span class="required">*</span>
+
                 </label>
 
                 <input
@@ -305,20 +496,48 @@
                   type="text"
                   formControlName="gsaContractEntityName"
                   placeholder="Entity signing the GSA Contract"
+                  [class.invalid-field]="
+                    isInvalid('gsaContractEntityName')
+                  "
                 >
+
+
+                @if (
+                  isInvalid(
+                    'gsaContractEntityName'
+                  )
+                ) {
+
+                  <div class="field-error">
+                    Please enter the entity signing the GSA Contract.
+                  </div>
+
+                }
 
               </div>
 
 
               <!-- OPERATING MODEL -->
-              <div class="operating-model">
+              <div
+                class="operating-model"
+                [class.invalid-group]="
+                  isOperatingModelInvalid()
+                "
+              >
 
                 <div class="operating-model-title">
 
                   Operating model if above company name is different
                   to legal name of organisation
 
+                  <span class="required">*</span>
+
                 </div>
+
+
+                <p class="operating-model-hint">
+                  Enter at least one applicable operating model.
+                </p>
 
 
                 <div class="form-row">
@@ -392,6 +611,17 @@
 
                 </div>
 
+
+                @if (
+                  isOperatingModelInvalid()
+                ) {
+
+                  <div class="field-error">
+                    Please enter at least one operating model.
+                  </div>
+
+                }
+
               </div>
 
             </div>
@@ -404,11 +634,14 @@
         <div class="section-divider"></div>
 
 
-        <!-- =====================================
+        <!-- =================================================
              TRADE REGISTRATION + PHONE
-        ====================================== -->
+        ================================================== -->
+
         <div class="form-row">
 
+
+          <!-- TRADE REGISTRATION -->
           <div class="form-group">
 
             <label for="tradeRegistrationNumber">
@@ -423,11 +656,28 @@
               type="text"
               formControlName="tradeRegistrationNumber"
               placeholder="Trade registration number"
+              [class.invalid-field]="
+                isInvalid('tradeRegistrationNumber')
+              "
             >
+
+
+            @if (
+              isInvalid(
+                'tradeRegistrationNumber'
+              )
+            ) {
+
+              <div class="field-error">
+                Please enter the trade registration number.
+              </div>
+
+            }
 
           </div>
 
 
+          <!-- TELEPHONE -->
           <div class="form-group">
 
             <label for="officialTelephoneNumber">
@@ -442,16 +692,33 @@
               type="tel"
               formControlName="officialTelephoneNumber"
               placeholder="+94 Enter telephone number"
+              [class.invalid-field]="
+                isInvalid('officialTelephoneNumber')
+              "
             >
+
+
+            @if (
+              isInvalid(
+                'officialTelephoneNumber'
+              )
+            ) {
+
+              <div class="field-error">
+                Please enter the official telephone number.
+              </div>
+
+            }
 
           </div>
 
         </div>
 
 
-        <!-- =====================================
+        <!-- =================================================
              MAIN OFFICE ADDRESS
-        ====================================== -->
+        ================================================== -->
+
         <div class="form-group full-width">
 
           <label for="mainOfficeAddress">
@@ -466,16 +733,35 @@
             type="text"
             formControlName="mainOfficeAddress"
             placeholder="Address"
+            [class.invalid-field]="
+              isInvalid('mainOfficeAddress')
+            "
           >
+
+
+          @if (
+            isInvalid(
+              'mainOfficeAddress'
+            )
+          ) {
+
+            <div class="field-error">
+              Please enter the main office address.
+            </div>
+
+          }
 
         </div>
 
 
-        <!-- =====================================
+        <!-- =================================================
              STATE / COUNTRY / POSTAL CODE
-        ====================================== -->
+        ================================================== -->
+
         <div class="three-column-row">
 
+
+          <!-- STATE -->
           <div class="form-group">
 
             <label for="mainOfficeState">
@@ -492,6 +778,7 @@
           </div>
 
 
+          <!-- COUNTRY -->
           <div class="form-group">
 
             <label for="mainOfficeCountry">
@@ -504,6 +791,9 @@
             <select
               id="mainOfficeCountry"
               formControlName="mainOfficeCountry"
+              [class.invalid-field]="
+                isInvalid('mainOfficeCountry')
+              "
             >
 
               <option value="">
@@ -528,9 +818,23 @@
 
             </select>
 
+
+            @if (
+              isInvalid(
+                'mainOfficeCountry'
+              )
+            ) {
+
+              <div class="field-error">
+                Please select a country.
+              </div>
+
+            }
+
           </div>
 
 
+          <!-- POSTAL CODE -->
           <div class="form-group">
 
             <label for="mainOfficePostalCode">
@@ -549,11 +853,14 @@
         </div>
 
 
-        <!-- =====================================
+        <!-- =================================================
              EMAILS
-        ====================================== -->
+        ================================================== -->
+
         <div class="form-row">
 
+
+          <!-- EMAIL -->
           <div class="form-group">
 
             <label for="emailAddress">
@@ -568,11 +875,48 @@
               type="email"
               formControlName="emailAddress"
               placeholder="Contact email"
+              [class.invalid-field]="
+                isInvalid('emailAddress')
+              "
             >
+
+
+            @if (
+              isInvalid(
+                'emailAddress'
+              )
+            ) {
+
+              <div class="field-error">
+
+                @if (
+                  companyForm
+                    .get('emailAddress')
+                    ?.hasError('required')
+                ) {
+
+                  Please enter an email address.
+
+                }
+
+                @else if (
+                  companyForm
+                    .get('emailAddress')
+                    ?.hasError('email')
+                ) {
+
+                  Please enter a valid email address.
+
+                }
+
+              </div>
+
+            }
 
           </div>
 
 
+          <!-- SECONDARY EMAIL -->
           <div class="form-group">
 
             <label for="secondaryEmail">
@@ -584,16 +928,33 @@
               type="email"
               formControlName="secondaryEmail"
               placeholder="Secondary email (optional)"
+              [class.invalid-field]="
+                isInvalid('secondaryEmail')
+              "
             >
+
+
+            @if (
+              isInvalid(
+                'secondaryEmail'
+              )
+            ) {
+
+              <div class="field-error">
+                Please enter a valid secondary email address.
+              </div>
+
+            }
 
           </div>
 
         </div>
 
 
-        <!-- =====================================
+        <!-- =================================================
              REGISTERED ADDRESS
-        ====================================== -->
+        ================================================== -->
+
         <div class="form-group full-width">
 
           <label for="registeredAddress">
@@ -688,9 +1049,10 @@
         </div>
 
 
-        <!-- =====================================
+        <!-- =================================================
              PRINCIPAL BUSINESS
-        ====================================== -->
+        ================================================== -->
+
         <div class="form-group full-width">
 
           <label for="principalBusiness">
@@ -705,12 +1067,31 @@
             type="text"
             formControlName="principalBusiness"
             placeholder="Principal business"
+            [class.invalid-field]="
+              isInvalid('principalBusiness')
+            "
           >
+
+
+          @if (
+            isInvalid(
+              'principalBusiness'
+            )
+          ) {
+
+            <div class="field-error">
+              Please enter the principal business of the organization.
+            </div>
+
+          }
 
         </div>
 
 
-        <!-- OTHER BUSINESS -->
+        <!-- =================================================
+             OTHER BUSINESS
+        ================================================== -->
+
         <div class="form-group full-width">
 
           <label for="otherBusiness">
@@ -727,12 +1108,20 @@
         </div>
 
 
-        <!-- =====================================
+        <!-- =================================================
              REGISTRATION QUESTIONS
-        ====================================== -->
+        ================================================== -->
+
         <div class="question-grid">
 
-          <div class="question-group">
+
+          <!-- COUNTRY REGISTRATION QUESTION -->
+          <div
+            class="question-group"
+            [class.invalid-group]="
+              isInvalid('registrationRequiredCountry')
+            "
+          >
 
             <label>
 
@@ -743,6 +1132,7 @@
 
             </label>
 
+
             <div class="radio-options">
 
               <label>
@@ -756,6 +1146,7 @@
                 Yes
 
               </label>
+
 
               <label>
 
@@ -771,10 +1162,29 @@
 
             </div>
 
+
+            @if (
+              isInvalid(
+                'registrationRequiredCountry'
+              )
+            ) {
+
+              <div class="field-error">
+                Please select an option.
+              </div>
+
+            }
+
           </div>
 
 
-          <div class="question-group">
+          <!-- TERRITORY REGISTRATION QUESTION -->
+          <div
+            class="question-group"
+            [class.invalid-group]="
+              isInvalid('registrationRequiredTerritory')
+            "
+          >
 
             <label>
 
@@ -785,6 +1195,7 @@
 
             </label>
 
+
             <div class="radio-options">
 
               <label>
@@ -798,6 +1209,7 @@
                 Yes
 
               </label>
+
 
               <label>
 
@@ -813,14 +1225,28 @@
 
             </div>
 
+
+            @if (
+              isInvalid(
+                'registrationRequiredTerritory'
+              )
+            ) {
+
+              <div class="field-error">
+                Please select an option.
+              </div>
+
+            }
+
           </div>
 
         </div>
 
 
-        <!-- =====================================
-             PARENT COMPANY CHECKBOX
-        ====================================== -->
+        <!-- =================================================
+             PARENT COMPANY
+        ================================================== -->
+
         <div class="conditional-section parent-company-section">
 
           <label class="checkbox-row">
@@ -837,8 +1263,11 @@
           </label>
 
 
-          <!-- SHOW ONLY WHEN CHECKED -->
-          @if (companyForm.get('applyingUnderParentCompany')?.value) {
+          @if (
+            companyForm
+              .get('applyingUnderParentCompany')
+              ?.value
+          ) {
 
             <div class="conditional-content parent-company-fields">
 
@@ -847,7 +1276,10 @@
               <div class="form-group full-width">
 
                 <label for="parentCompanyName">
+
                   Name of the parent company
+                  <span class="required">*</span>
+
                 </label>
 
                 <input
@@ -855,33 +1287,73 @@
                   type="text"
                   formControlName="parentCompanyName"
                   placeholder="Parent company name"
+                  [class.invalid-field]="
+                    isInvalid('parentCompanyName')
+                  "
                 >
+
+
+                @if (
+                  isInvalid(
+                    'parentCompanyName'
+                  )
+                ) {
+
+                  <div class="field-error">
+                    Please enter the parent company name.
+                  </div>
+
+                }
 
               </div>
 
 
-              <!-- DATE + PLACE -->
               <div class="form-row">
 
+
+                <!-- DATE ESTABLISHED -->
                 <div class="form-group">
 
                   <label for="parentCompanyDateEstablished">
+
                     Date established
+                    <span class="required">*</span>
+
                   </label>
 
                   <input
                     id="parentCompanyDateEstablished"
                     type="date"
                     formControlName="parentCompanyDateEstablished"
+                    [class.invalid-field]="
+                      isInvalid('parentCompanyDateEstablished')
+                    "
                   >
+
+
+                  @if (
+                    isInvalid(
+                      'parentCompanyDateEstablished'
+                    )
+                  ) {
+
+                    <div class="field-error">
+                      Please select the parent company's establishment date.
+                    </div>
+
+                  }
 
                 </div>
 
 
+                <!-- PLACE ESTABLISHED -->
                 <div class="form-group">
 
                   <label for="parentCompanyPlaceEstablished">
+
                     Place established
+                    <span class="required">*</span>
+
                   </label>
 
                   <input
@@ -889,7 +1361,23 @@
                     type="text"
                     formControlName="parentCompanyPlaceEstablished"
                     placeholder="City / State"
+                    [class.invalid-field]="
+                      isInvalid('parentCompanyPlaceEstablished')
+                    "
                   >
+
+
+                  @if (
+                    isInvalid(
+                      'parentCompanyPlaceEstablished'
+                    )
+                  ) {
+
+                    <div class="field-error">
+                      Please enter the place where the parent company was established.
+                    </div>
+
+                  }
 
                 </div>
 
@@ -902,9 +1390,10 @@
         </div>
 
 
-        <!-- =====================================
+        <!-- =================================================
              EXPERIENCE
-        ====================================== -->
+        ================================================== -->
+
         <section class="experience-section">
 
           <div class="subsection-title">
@@ -913,6 +1402,7 @@
 
 
           <div class="experience-grid">
+
 
             <div class="experience-item">
 
@@ -1006,7 +1496,11 @@
             </div>
 
 
-            @if (companyForm.get('applyingUnderParentCompany')?.value) {
+            @if (
+              companyForm
+                .get('applyingUnderParentCompany')
+                ?.value
+            ) {
 
               <div class="experience-item">
 
@@ -1037,10 +1531,16 @@
         </section>
 
 
-        <!-- =====================================
-             IATA
-        ====================================== -->
-        <div class="iata-section">
+        <!-- =================================================
+             IATA STATUS
+        ================================================== -->
+
+        <div
+          class="iata-section"
+          [class.invalid-group]="
+            isInvalid('iataStatus')
+          "
+        >
 
           <label class="iata-title">
 
@@ -1048,6 +1548,7 @@
             <span class="required">*</span>
 
           </label>
+
 
           <div class="radio-options">
 
@@ -1063,6 +1564,7 @@
 
             </label>
 
+
             <label>
 
               <input
@@ -1077,6 +1579,19 @@
 
           </div>
 
+
+          @if (
+            isInvalid(
+              'iataStatus'
+            )
+          ) {
+
+            <div class="field-error">
+              Please select an IATA status.
+            </div>
+
+          }
+
         </div>
 
       </div>
@@ -1084,9 +1599,10 @@
     </section>
 
 
-    <!-- =========================================
-         NEXT BUTTON
-    ========================================== -->
+    <!-- =====================================================
+         NEXT
+    ====================================================== -->
+
     <div class="form-actions">
 
       <button

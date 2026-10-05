@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
   Validators
 } from '@angular/forms';
 
@@ -23,257 +26,268 @@ export class CompanyIdentification {
 
   companyForm: FormGroup;
 
+  formSubmitted = false;
+  showValidationModal = false;
+
 
   constructor(
     private fb: FormBuilder,
     private router: Router
   ) {
 
-    this.companyForm = this.fb.group({
+    this.companyForm = this.fb.group(
+      {
 
-      /* =========================================
-         APPLICATION DETAILS
-      ========================================== */
+        /* =========================================
+           APPLICATION
+        ========================================== */
 
-      applicantType: [
-        'Passenger',
-        Validators.required
-      ],
+        applicantType: [
+          '',
+          Validators.required
+        ],
 
-      territory: [
-        '',
-        Validators.required
-      ],
-
-
-      /* =========================================
-         COMPANY DETAILS
-      ========================================== */
-
-      legalOrganizationName: [
-        '',
-        Validators.required
-      ],
-
-      incorporationDate: [
-        '',
-        Validators.required
-      ],
+        territory: [
+          '',
+          Validators.required
+        ],
 
 
-      /* =========================================
-         TRADE NAME
-      ========================================== */
+        /* =========================================
+           COMPANY DETAILS
+        ========================================== */
 
-      tradeNameDifferent: [
-        false
-      ],
+        legalOrganizationName: [
+          '',
+          Validators.required
+        ],
 
-      tradeName: [
-        ''
-      ],
-
-
-      /* =========================================
-         GSA CONTRACT ENTITY
-      ========================================== */
-
-      contractNameDifferent: [
-        false
-      ],
-
-      gsaContractEntityName: [
-        ''
-      ],
+        incorporationDate: [
+          '',
+          Validators.required
+        ],
 
 
-      /* =========================================
-         OPERATING MODEL
-      ========================================== */
+        /* =========================================
+           TRADE NAME
+        ========================================== */
 
-      operatingModelSubsidiary: [
-        ''
-      ],
+        tradeNameDifferent: [
+          false
+        ],
 
-      operatingModelFranchise: [
-        ''
-      ],
-
-      operatingModelBranch: [
-        ''
-      ],
-
-      operatingModelOther: [
-        ''
-      ],
+        tradeName: [
+          ''
+        ],
 
 
-      /* =========================================
-         REGISTRATION
-      ========================================== */
+        /* =========================================
+           GSA CONTRACT ENTITY
+        ========================================== */
 
-      tradeRegistrationNumber: [
-        '',
-        Validators.required
-      ],
+        contractNameDifferent: [
+          false
+        ],
 
-      officialTelephoneNumber: [
-        '',
-        Validators.required
-      ],
+        gsaContractEntityName: [
+          ''
+        ],
 
 
-      /* =========================================
-         MAIN OFFICE
-      ========================================== */
+        /* =========================================
+           OPERATING MODEL
+        ========================================== */
 
-      mainOfficeAddress: [
-        '',
-        Validators.required
-      ],
+        operatingModelSubsidiary: [
+          ''
+        ],
 
-      mainOfficeState: [
-        ''
-      ],
+        operatingModelFranchise: [
+          ''
+        ],
 
-      mainOfficeCountry: [
-        '',
-        Validators.required
-      ],
+        operatingModelBranch: [
+          ''
+        ],
 
-      mainOfficePostalCode: [
-        ''
-      ],
+        operatingModelOther: [
+          ''
+        ],
 
 
-      /* =========================================
-         EMAIL
-      ========================================== */
+        /* =========================================
+           REGISTRATION
+        ========================================== */
 
-      emailAddress: [
-        '',
-        [
-          Validators.required,
+        tradeRegistrationNumber: [
+          '',
+          Validators.required
+        ],
+
+        officialTelephoneNumber: [
+          '',
+          Validators.required
+        ],
+
+
+        /* =========================================
+           MAIN OFFICE
+        ========================================== */
+
+        mainOfficeAddress: [
+          '',
+          Validators.required
+        ],
+
+        mainOfficeState: [
+          ''
+        ],
+
+        mainOfficeCountry: [
+          '',
+          Validators.required
+        ],
+
+        mainOfficePostalCode: [
+          ''
+        ],
+
+
+        /* =========================================
+           EMAIL
+        ========================================== */
+
+        emailAddress: [
+          '',
+          [
+            Validators.required,
+            Validators.email
+          ]
+        ],
+
+        secondaryEmail: [
+          '',
           Validators.email
+        ],
+
+
+        /* =========================================
+           REGISTERED ADDRESS
+        ========================================== */
+
+        registeredAddress: [
+          ''
+        ],
+
+        registeredState: [
+          ''
+        ],
+
+        registeredCountry: [
+          ''
+        ],
+
+        registeredPostalCode: [
+          ''
+        ],
+
+
+        /* =========================================
+           BUSINESS
+        ========================================== */
+
+        principalBusiness: [
+          '',
+          Validators.required
+        ],
+
+        otherBusiness: [
+          ''
+        ],
+
+
+        /* =========================================
+           REGISTRATION QUESTIONS
+        ========================================== */
+
+        registrationRequiredCountry: [
+          '',
+          Validators.required
+        ],
+
+        registrationRequiredTerritory: [
+          '',
+          Validators.required
+        ],
+
+
+        /* =========================================
+           PARENT COMPANY
+        ========================================== */
+
+        applyingUnderParentCompany: [
+          false
+        ],
+
+        parentCompanyName: [
+          ''
+        ],
+
+        parentCompanyDateEstablished: [
+          ''
+        ],
+
+        parentCompanyPlaceEstablished: [
+          ''
+        ],
+
+
+        /* =========================================
+           EXPERIENCE
+        ========================================== */
+
+        travelIndustryTerritoryYears: [
+          null
+        ],
+
+        travelIndustryOtherTerritoryYears: [
+          null
+        ],
+
+        airCargoTerritoryYears: [
+          null
+        ],
+
+        airCargoOtherTerritoryYears: [
+          null
+        ],
+
+        parentCompanyYears: [
+          null
+        ],
+
+
+        /* =========================================
+           IATA STATUS
+        ========================================== */
+
+        iataStatus: [
+          '',
+          Validators.required
         ]
-      ],
 
-      secondaryEmail: [
-        '',
-        Validators.email
-      ],
+      },
 
-
-      /* =========================================
-         REGISTERED ADDRESS
-      ========================================== */
-
-      registeredAddress: [
-        ''
-      ],
-
-      registeredState: [
-        ''
-      ],
-
-      registeredCountry: [
-        ''
-      ],
-
-      registeredPostalCode: [
-        ''
-      ],
-
-
-      /* =========================================
-         BUSINESS
-      ========================================== */
-
-      principalBusiness: [
-        '',
-        Validators.required
-      ],
-
-      otherBusiness: [
-        ''
-      ],
-
-
-      /* =========================================
-         BUSINESS REGISTRATION QUESTIONS
-      ========================================== */
-
-      registrationRequiredCountry: [
-        '',
-        Validators.required
-      ],
-
-      registrationRequiredTerritory: [
-        '',
-        Validators.required
-      ],
-
-
-      /* =========================================
-         PARENT COMPANY
-      ========================================== */
-
-      applyingUnderParentCompany: [
-        false
-      ],
-
-      parentCompanyName: [
-        ''
-      ],
-
-      parentCompanyDateEstablished: [
-        ''
-      ],
-
-      parentCompanyPlaceEstablished: [
-        ''
-      ],
-
-
-      /* =========================================
-         EXPERIENCE
-      ========================================== */
-
-      travelIndustryTerritoryYears: [
-        null
-      ],
-
-      travelIndustryOtherTerritoryYears: [
-        null
-      ],
-
-      airCargoTerritoryYears: [
-        null
-      ],
-
-      airCargoOtherTerritoryYears: [
-        null
-      ],
-
-      parentCompanyYears: [
-        null
-      ],
-
-
-      /* =========================================
-         IATA
-      ========================================== */
-
-      iataStatus: [
-        '',
-        Validators.required
-      ]
-
-    });
+      {
+        validators: [
+          this.operatingModelValidator()
+        ]
+      }
+    );
 
 
     /* =========================================
-       CLEAR HIDDEN TRADE NAME DATA
+       TRADE NAME CONDITIONAL VALIDATION
     ========================================== */
 
     this.companyForm
@@ -281,12 +295,21 @@ export class CompanyIdentification {
       ?.valueChanges
       .subscribe((checked: boolean) => {
 
-        if (!checked) {
+        const tradeName =
+          this.companyForm.get('tradeName');
 
-          this.companyForm.patchValue(
-            {
-              tradeName: ''
-            },
+        if (checked) {
+
+          tradeName?.setValidators([
+            Validators.required
+          ]);
+
+        } else {
+
+          tradeName?.clearValidators();
+
+          tradeName?.setValue(
+            '',
             {
               emitEvent: false
             }
@@ -294,11 +317,15 @@ export class CompanyIdentification {
 
         }
 
+        tradeName?.updateValueAndValidity({
+          emitEvent: false
+        });
+
       });
 
 
     /* =========================================
-       CLEAR HIDDEN CONTRACT / OPERATING DATA
+       GSA CONTRACT ENTITY CONDITIONAL VALIDATION
     ========================================== */
 
     this.companyForm
@@ -306,7 +333,20 @@ export class CompanyIdentification {
       ?.valueChanges
       .subscribe((checked: boolean) => {
 
-        if (!checked) {
+        const entityName =
+          this.companyForm.get(
+            'gsaContractEntityName'
+          );
+
+        if (checked) {
+
+          entityName?.setValidators([
+            Validators.required
+          ]);
+
+        } else {
+
+          entityName?.clearValidators();
 
           this.companyForm.patchValue(
             {
@@ -324,11 +364,19 @@ export class CompanyIdentification {
 
         }
 
+        entityName?.updateValueAndValidity({
+          emitEvent: false
+        });
+
+        this.companyForm.updateValueAndValidity({
+          emitEvent: false
+        });
+
       });
 
 
     /* =========================================
-       CLEAR HIDDEN PARENT COMPANY DATA
+       PARENT COMPANY CONDITIONAL VALIDATION
     ========================================== */
 
     this.companyForm
@@ -336,7 +384,41 @@ export class CompanyIdentification {
       ?.valueChanges
       .subscribe((checked: boolean) => {
 
-        if (!checked) {
+        const parentName =
+          this.companyForm.get(
+            'parentCompanyName'
+          );
+
+        const parentDate =
+          this.companyForm.get(
+            'parentCompanyDateEstablished'
+          );
+
+        const parentPlace =
+          this.companyForm.get(
+            'parentCompanyPlaceEstablished'
+          );
+
+
+        if (checked) {
+
+          parentName?.setValidators([
+            Validators.required
+          ]);
+
+          parentDate?.setValidators([
+            Validators.required
+          ]);
+
+          parentPlace?.setValidators([
+            Validators.required
+          ]);
+
+        } else {
+
+          parentName?.clearValidators();
+          parentDate?.clearValidators();
+          parentPlace?.clearValidators();
 
           this.companyForm.patchValue(
             {
@@ -352,7 +434,81 @@ export class CompanyIdentification {
 
         }
 
+        parentName?.updateValueAndValidity({
+          emitEvent: false
+        });
+
+        parentDate?.updateValueAndValidity({
+          emitEvent: false
+        });
+
+        parentPlace?.updateValueAndValidity({
+          emitEvent: false
+        });
+
       });
+
+  }
+
+
+  /* =========================================
+     OPERATING MODEL VALIDATOR
+
+     If contractNameDifferent is selected,
+     at least ONE operating model must be entered.
+  ========================================== */
+
+  private operatingModelValidator(): ValidatorFn {
+
+    return (
+      control: AbstractControl
+    ): ValidationErrors | null => {
+
+      const contractDifferent =
+        control.get(
+          'contractNameDifferent'
+        )?.value;
+
+      if (!contractDifferent) {
+        return null;
+      }
+
+
+      const subsidiary =
+        control.get(
+          'operatingModelSubsidiary'
+        )?.value?.trim();
+
+      const franchise =
+        control.get(
+          'operatingModelFranchise'
+        )?.value?.trim();
+
+      const branch =
+        control.get(
+          'operatingModelBranch'
+        )?.value?.trim();
+
+      const other =
+        control.get(
+          'operatingModelOther'
+        )?.value?.trim();
+
+
+      const hasOperatingModel =
+        !!subsidiary ||
+        !!franchise ||
+        !!branch ||
+        !!other;
+
+
+      return hasOperatingModel
+        ? null
+        : {
+            operatingModelRequired: true
+          };
+
+    };
 
   }
 
@@ -365,9 +521,120 @@ export class CompanyIdentification {
     type: 'Passenger' | 'Cargo'
   ): void {
 
-    this.companyForm.patchValue({
-      applicantType: type
+    const control =
+      this.companyForm.get(
+        'applicantType'
+      );
+
+    control?.setValue(type);
+    control?.markAsTouched();
+
+  }
+
+
+  /* =========================================
+     CONTROL INVALID CHECK
+  ========================================== */
+
+  isInvalid(
+    controlName: string
+  ): boolean {
+
+    const control =
+      this.companyForm.get(
+        controlName
+      );
+
+    if (!control) {
+      return false;
+    }
+
+    return (
+      control.invalid &&
+      (
+        control.touched ||
+        this.formSubmitted
+      )
+    );
+
+  }
+
+
+  /* =========================================
+     OPERATING MODEL INVALID
+  ========================================== */
+
+  isOperatingModelInvalid(): boolean {
+
+    return (
+      this.formSubmitted &&
+      this.companyForm
+        .hasError(
+          'operatingModelRequired'
+        )
+    );
+
+  }
+
+
+  /* =========================================
+     CLOSE VALIDATION MODAL
+  ========================================== */
+
+  closeValidationModal(): void {
+
+    this.showValidationModal = false;
+
+
+    setTimeout(() => {
+
+      this.scrollToFirstInvalidField();
+
+    }, 100);
+
+  }
+
+
+  /* =========================================
+     SCROLL TO FIRST INVALID FIELD
+  ========================================== */
+
+  private scrollToFirstInvalidField(): void {
+
+    const firstInvalid =
+      document.querySelector(
+        '.invalid-field, .invalid-group'
+      ) as HTMLElement | null;
+
+
+    if (!firstInvalid) {
+      return;
+    }
+
+
+    firstInvalid.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
     });
+
+
+    const focusable =
+      firstInvalid.matches(
+        'input, select, button'
+      )
+        ? firstInvalid
+        : firstInvalid.querySelector(
+            'input, select, button'
+          ) as HTMLElement | null;
+
+
+    setTimeout(() => {
+
+      focusable?.focus({
+        preventScroll: true
+      });
+
+    }, 400);
 
   }
 
@@ -378,13 +645,21 @@ export class CompanyIdentification {
 
   goNext(): void {
 
+    this.formSubmitted = true;
+
+    this.companyForm.markAllAsTouched();
+
+    this.companyForm.updateValueAndValidity();
+
+
     if (this.companyForm.invalid) {
 
-      this.companyForm.markAllAsTouched();
+      this.showValidationModal = true;
 
       return;
 
     }
+
 
     console.log(
       'Company Identification:',
@@ -393,12 +668,13 @@ export class CompanyIdentification {
 
 
     /*
-      Later:
+      BACKEND LATER:
 
-      1. Save this page through ASP.NET Core API.
-      2. Update Applications.CurrentStep.
+      1. Save CompanyIdentification.
+      2. Update Applications.CurrentStep = 2.
       3. Update CompletionPercentage.
-      4. Navigate only after successful save.
+      4. Mark Step 1 as completed.
+      5. Navigate only after API success.
     */
 
 

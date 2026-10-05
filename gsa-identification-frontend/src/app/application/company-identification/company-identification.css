@@ -222,8 +222,7 @@ select {
   display: grid;
 
   grid-template-columns:
-    minmax(0, 1fr)
-    minmax(0, 1fr);
+    repeat(2, minmax(0, 1fr));
 
   gap: 20px;
 
@@ -276,7 +275,7 @@ select {
 }
 
 .required {
-  color: #e74a58;
+  color: #e63946;
 }
 
 .optional {
@@ -288,7 +287,7 @@ select {
 
 
 /* =========================================================
-   INPUTS / SELECTS
+   INPUTS
 ========================================================= */
 
 .form-group input,
@@ -316,7 +315,8 @@ select {
 
   transition:
     border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
 .form-group input:focus,
@@ -348,7 +348,7 @@ select {
 
 
 /* =========================================================
-   APPLICANT TYPE
+   APPLICANT TYPE BUTTONS
 ========================================================= */
 
 .type-buttons {
@@ -376,6 +376,11 @@ select {
   font-weight: 400;
 
   cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .type-buttons button:first-child {
@@ -413,8 +418,6 @@ select {
 
 .conditional-content {
   margin-top: 12px;
-
-  padding-left: 0;
 }
 
 .parent-company-section {
@@ -427,7 +430,7 @@ select {
 
 
 /* =========================================================
-   CHECKBOX
+   CHECKBOXES
 ========================================================= */
 
 .checkbox-row {
@@ -455,6 +458,8 @@ select {
   margin: 0;
 
   accent-color: #078bd8;
+
+  cursor: pointer;
 }
 
 
@@ -464,10 +469,18 @@ select {
 
 .operating-model {
   margin-top: 18px;
+
+  padding:
+    0;
+
+  border:
+    1px solid transparent;
+
+  border-radius: 7px;
 }
 
 .operating-model-title {
-  margin-bottom: 14px;
+  margin-bottom: 5px;
 
   color: #273b4b;
 
@@ -475,6 +488,17 @@ select {
   font-weight: 500;
 
   line-height: 1.45;
+}
+
+.operating-model-hint {
+  margin:
+    0
+    0
+    14px;
+
+  color: #8996a1;
+
+  font-size: 11px;
 }
 
 
@@ -511,6 +535,15 @@ select {
   margin-bottom: 18px;
 }
 
+.question-group {
+  padding: 0;
+
+  border:
+    1px solid transparent;
+
+  border-radius: 6px;
+}
+
 .question-group > label {
   display: block;
 
@@ -528,7 +561,7 @@ select {
 
 
 /* =========================================================
-   RADIO BUTTONS
+   RADIO OPTIONS
 ========================================================= */
 
 .radio-options {
@@ -593,11 +626,6 @@ select {
   font-weight: 600;
 }
 
-
-/* =========================================================
-   EXPERIENCE GRID
-========================================================= */
-
 .experience-grid {
   display: grid;
 
@@ -608,8 +636,7 @@ select {
     17px
     42px;
 
-  padding:
-    19px;
+  padding: 19px;
 }
 
 .experience-item {
@@ -687,6 +714,13 @@ select {
 
 .iata-section {
   margin-top: 14px;
+
+  padding: 0;
+
+  border:
+    1px solid transparent;
+
+  border-radius: 6px;
 }
 
 .iata-title {
@@ -716,6 +750,10 @@ select {
   min-width: 125px;
   height: 42px;
 
+  padding:
+    0
+    22px;
+
   border: none;
 
   border-radius: 5px;
@@ -735,6 +773,324 @@ select {
 
 .next-button:hover {
   background: #067bc0;
+}
+
+
+/* =========================================================
+   INVALID INPUT
+========================================================= */
+
+.invalid-field {
+  border-color: #e63946 !important;
+
+  background: #fffdfd !important;
+
+  box-shadow:
+    0
+    0
+    0
+    1px
+    rgba(230, 57, 70, 0.06) !important;
+}
+
+.invalid-field:focus {
+  border-color: #e63946 !important;
+
+  box-shadow:
+    0
+    0
+    0
+    3px
+    rgba(230, 57, 70, 0.10) !important;
+}
+
+
+/* =========================================================
+   INVALID GROUPS
+========================================================= */
+
+.invalid-group .type-buttons button {
+  border-color: #e63946;
+}
+
+.question-group.invalid-group,
+.iata-section.invalid-group {
+  padding:
+    10px
+    12px;
+
+  border-color: #e63946;
+
+  background:
+    rgba(230, 57, 70, 0.025);
+}
+
+.operating-model.invalid-group {
+  padding:
+    14px;
+
+  border-color: #e63946;
+
+  background:
+    rgba(230, 57, 70, 0.025);
+}
+
+
+/* =========================================================
+   ERROR MESSAGE
+========================================================= */
+
+.field-error {
+  margin-top: 6px;
+
+  color: #e63946;
+
+  font-size: 12px;
+  font-weight: 400;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   VALIDATION MODAL BACKDROP
+========================================================= */
+
+.validation-modal-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background:
+    rgba(17, 24, 39, 0.60);
+
+  backdrop-filter:
+    blur(2px);
+}
+
+
+/* =========================================================
+   VALIDATION MODAL
+========================================================= */
+
+.validation-modal {
+  position: relative;
+
+  width: 100%;
+  max-width: 450px;
+
+  padding:
+    34px
+    34px
+    30px;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0
+    25px
+    70px
+    rgba(0, 0, 0, 0.25);
+
+  text-align: center;
+
+  animation:
+    validationModalEnter
+    0.22s
+    ease-out;
+}
+
+
+/* =========================================================
+   MODAL CLOSE
+========================================================= */
+
+.modal-close-button {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  width: 31px;
+  height: 31px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #eef1f4;
+
+  color: #65727d;
+
+  font-size: 21px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.modal-close-button:hover {
+  background: #e2e7eb;
+
+  color: #253746;
+}
+
+
+/* =========================================================
+   VALIDATION ICON
+========================================================= */
+
+.validation-icon {
+  width: 76px;
+  height: 76px;
+
+  margin:
+    0
+    auto
+    20px;
+}
+
+.validation-icon svg {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  fill: none;
+
+  stroke: #ef4b3f;
+
+  stroke-width: 2.3;
+
+  stroke-linecap: round;
+}
+
+
+/* =========================================================
+   MODAL TITLE
+========================================================= */
+
+.validation-modal h2 {
+  margin:
+    0
+    0
+    10px;
+
+  color: #253746;
+
+  font-size: 24px;
+  font-weight: 600;
+
+  line-height: 1.25;
+}
+
+
+/* =========================================================
+   MODAL DESCRIPTION
+========================================================= */
+
+.validation-modal p {
+  max-width: 350px;
+
+  margin:
+    0
+    auto
+    24px;
+
+  color: #687783;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   MODAL ACTION
+========================================================= */
+
+.modal-confirm-button {
+  min-width: 200px;
+  height: 44px;
+
+  padding:
+    0
+    22px;
+
+  border: none;
+
+  border-radius: 6px;
+
+  background: #078bd8;
+
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  box-shadow:
+    0
+    4px
+    12px
+    rgba(7, 139, 216, 0.20);
+
+  transition:
+    background 0.2s ease,
+    transform 0.1s ease;
+}
+
+.modal-confirm-button:hover {
+  background: #067bc0;
+}
+
+.modal-confirm-button:active {
+  transform: scale(0.98);
+}
+
+
+/* =========================================================
+   MODAL ANIMATION
+========================================================= */
+
+@keyframes validationModalEnter {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-12px)
+      scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
 }
 
 
@@ -765,6 +1121,7 @@ select {
   .experience-grid {
     grid-template-columns: 1fr;
   }
+
 }
 
 
@@ -789,8 +1146,7 @@ select {
   }
 
   .instructions-card {
-    padding:
-      14px;
+    padding: 14px;
   }
 
   .instructions-card li {
@@ -826,6 +1182,33 @@ select {
   .next-button {
     width: 100%;
   }
+
+  .validation-modal {
+    max-width: 370px;
+
+    padding:
+      30px
+      22px
+      25px;
+  }
+
+  .validation-icon {
+    width: 66px;
+    height: 66px;
+  }
+
+  .validation-modal h2 {
+    font-size: 21px;
+  }
+
+  .validation-modal p {
+    font-size: 13px;
+  }
+
+  .modal-confirm-button {
+    width: 100%;
+  }
+
 }
 
 
@@ -852,4 +1235,5 @@ select {
   .experience-item label {
     font-size: 12px;
   }
+
 }
