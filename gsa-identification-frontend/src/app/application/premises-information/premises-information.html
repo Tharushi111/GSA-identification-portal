@@ -1,1 +1,1857 @@
-<p>premises-information works!</p>
+<div class="premises-page">
+
+  <!-- =====================================================
+       VALIDATION MODAL
+  ====================================================== -->
+
+  @if (showValidationModal) {
+
+    <div
+      class="validation-modal-backdrop"
+      (click)="closeValidationModal()"
+    >
+
+      <div
+        class="validation-modal"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="premisesValidationTitle"
+        (click)="$event.stopPropagation()"
+      >
+
+        <button
+          type="button"
+          class="modal-close-button"
+          aria-label="Close validation message"
+          (click)="closeValidationModal()"
+        >
+          ×
+        </button>
+
+
+        <div class="validation-icon">
+
+          <svg
+            viewBox="0 0 64 64"
+            aria-hidden="true"
+          >
+
+            <circle
+              cx="32"
+              cy="32"
+              r="28"
+            ></circle>
+
+            <path
+              d="M22 22L42 42"
+            ></path>
+
+            <path
+              d="M42 22L22 42"
+            ></path>
+
+          </svg>
+
+        </div>
+
+
+        <h2 id="premisesValidationTitle">
+          Required Information Missing
+        </h2>
+
+
+        <p>
+          Please complete all required fields highlighted
+          in red before continuing to the next section.
+        </p>
+
+
+        <button
+          type="button"
+          class="modal-confirm-button"
+          (click)="closeValidationModal()"
+        >
+          Review Required Fields
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
+       PAGE TITLE
+  ====================================================== -->
+
+  <div class="page-title-row">
+
+    <div>
+
+      <h1>
+        Premises Information
+      </h1>
+
+      <p>
+        Provide details of the current office and proposed
+        SriLankan Airlines office premises.
+      </p>
+
+    </div>
+
+
+    <span class="step-count">
+      Step 4 of 7
+    </span>
+
+  </div>
+
+
+  <!-- =====================================================
+       INFORMATION
+  ====================================================== -->
+
+  <section class="information-card">
+
+    <div class="information-title">
+
+      <span class="info-icon">
+        i
+      </span>
+
+      Premises of the Organization
+
+    </div>
+
+
+    <p>
+      Site inspections may be conducted with prior appointment
+      if required.
+    </p>
+
+  </section>
+
+
+  <!-- =====================================================
+       FORM
+  ====================================================== -->
+
+  <form
+    [formGroup]="premisesForm"
+    (ngSubmit)="goNext()"
+    novalidate
+  >
+
+    <!-- ===================================================
+         CURRENT OFFICE
+    ==================================================== -->
+
+    <section class="form-card">
+
+      <div class="card-header">
+
+        <h2>
+          Current Office
+        </h2>
+
+      </div>
+
+
+      <div class="form-body">
+
+        <!-- ADDRESS -->
+
+        <div class="form-group full-width">
+
+          <label for="currentOfficeAddress">
+
+            Address
+            <span class="required">*</span>
+
+          </label>
+
+
+          <input
+            id="currentOfficeAddress"
+            type="text"
+            formControlName="currentOfficeAddress"
+            placeholder="Office address"
+            [class.invalid-field]="
+              isInvalid('currentOfficeAddress')
+            "
+          >
+
+
+          @if (
+            isInvalid('currentOfficeAddress')
+          ) {
+
+            <div class="field-error">
+              Please enter the current office address.
+            </div>
+
+          }
+
+        </div>
+
+
+        <!-- STATE / COUNTRY / POSTAL CODE -->
+
+        <div class="three-column-row">
+
+          <div class="form-group">
+
+            <label for="currentOfficeState">
+              State
+            </label>
+
+
+            <input
+              id="currentOfficeState"
+              type="text"
+              formControlName="currentOfficeState"
+              placeholder="State"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="currentOfficeCountry">
+              Country
+            </label>
+
+
+            <select
+              id="currentOfficeCountry"
+              formControlName="currentOfficeCountry"
+            >
+
+              <option value="">
+                Select country
+              </option>
+
+
+              @for (
+                country of countryOptions;
+                track country
+              ) {
+
+                <option [value]="country">
+                  {{ country }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="currentOfficePostalCode">
+              Postal code
+            </label>
+
+
+            <input
+              id="currentOfficePostalCode"
+              type="text"
+              formControlName="currentOfficePostalCode"
+              placeholder="Postal code"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- SURFACE AREA -->
+
+        <div class="surface-row">
+
+          <div class="form-group">
+
+            <label for="currentOfficeSurfaceArea">
+
+              Surface area of office
+              <span class="required">*</span>
+
+            </label>
+
+
+            <div class="surface-input">
+
+              <input
+                id="currentOfficeSurfaceArea"
+                type="number"
+                min="0"
+                formControlName="currentOfficeSurfaceArea"
+                placeholder="Surface area"
+                [class.invalid-field]="
+                  isInvalid('currentOfficeSurfaceArea')
+                "
+              >
+
+
+              <select
+                formControlName="currentOfficeSurfaceUnit"
+              >
+
+                @for (
+                  unit of surfaceUnits;
+                  track unit
+                ) {
+
+                  <option [value]="unit">
+                    {{ unit }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            @if (
+              isInvalid('currentOfficeSurfaceArea')
+            ) {
+
+              <div class="field-error">
+                Please enter the office surface area.
+              </div>
+
+            }
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CURRENT OFFICE CONTACT PERSON
+        ================================================== -->
+
+        <div class="subsection-title">
+          Name of the contact person
+        </div>
+
+
+        <div class="contact-name-grid">
+
+          <!-- TITLE -->
+
+          <div class="form-group">
+
+            <label for="currentContactTitle">
+
+              Title
+              <span class="required">*</span>
+
+            </label>
+
+
+            <select
+              id="currentContactTitle"
+              formControlName="currentContactTitle"
+              [class.invalid-field]="
+                isInvalid('currentContactTitle')
+              "
+            >
+
+              <option value="">
+                Select title
+              </option>
+
+
+              @for (
+                title of titleOptions;
+                track title
+              ) {
+
+                <option [value]="title">
+                  {{ title }}
+                </option>
+
+              }
+
+            </select>
+
+
+            @if (
+              isInvalid('currentContactTitle')
+            ) {
+
+              <div class="field-error">
+                Please select a title.
+              </div>
+
+            }
+
+          </div>
+
+
+          <!-- FIRST NAME -->
+
+          <div class="form-group">
+
+            <label for="currentContactFirstName">
+
+              First name
+              <span class="required">*</span>
+
+            </label>
+
+
+            <input
+              id="currentContactFirstName"
+              type="text"
+              formControlName="currentContactFirstName"
+              placeholder="First name"
+              [class.invalid-field]="
+                isInvalid('currentContactFirstName')
+              "
+            >
+
+
+            @if (
+              isInvalid('currentContactFirstName')
+            ) {
+
+              <div class="field-error">
+                Please enter the first name.
+              </div>
+
+            }
+
+          </div>
+
+
+          <!-- LAST NAME -->
+
+          <div class="form-group">
+
+            <label for="currentContactLastName">
+
+              Last name
+              <span class="required">*</span>
+
+            </label>
+
+
+            <input
+              id="currentContactLastName"
+              type="text"
+              formControlName="currentContactLastName"
+              placeholder="Last name"
+              [class.invalid-field]="
+                isInvalid('currentContactLastName')
+              "
+            >
+
+
+            @if (
+              isInvalid('currentContactLastName')
+            ) {
+
+              <div class="field-error">
+                Please enter the last name.
+              </div>
+
+            }
+
+          </div>
+
+        </div>
+
+
+        <!-- DESIGNATION -->
+
+        <div class="form-group full-width">
+
+          <label for="currentContactDesignation">
+
+            Designation
+            <span class="required">*</span>
+
+          </label>
+
+
+          <input
+            id="currentContactDesignation"
+            type="text"
+            formControlName="currentContactDesignation"
+            placeholder="Designation"
+            [class.invalid-field]="
+              isInvalid('currentContactDesignation')
+            "
+          >
+
+
+          @if (
+            isInvalid('currentContactDesignation')
+          ) {
+
+            <div class="field-error">
+              Please enter the contact person's designation.
+            </div>
+
+          }
+
+        </div>
+
+
+        <!-- =================================================
+             CURRENT CONTACT NUMBERS
+        ================================================== -->
+
+        <div class="subsection-title">
+          Contact details
+        </div>
+
+
+        <div class="two-column-row">
+
+          <!-- LAND -->
+
+          <div class="form-group phone-form-group">
+
+            <label>
+
+              Land
+              <span class="required">*</span>
+
+            </label>
+
+
+            <intl-tel-input
+              formControlName="currentContactLandPhone"
+              initialCountry="lk"
+              countrySelectorMode="AUTO"
+              [showFlags]="true"
+              [countrySearch]="true"
+              [separateDialCode]="true"
+              [countryOrder]="preferredCountryOrder"
+              [loadUtils]="loadUtils"
+              [class.invalid-phone]="
+                isInvalid('currentContactLandPhone')
+              "
+            ></intl-tel-input>
+
+
+            @if (
+              isInvalid('currentContactLandPhone')
+            ) {
+
+              <div class="field-error">
+
+                {{
+                  getPhoneErrorMessage(
+                    'currentContactLandPhone',
+                    'Please enter the land phone number.'
+                  )
+                }}
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <!-- MOBILE -->
+
+          <div class="form-group phone-form-group">
+
+            <label>
+              Mobile
+            </label>
+
+
+            <intl-tel-input
+              formControlName="currentContactMobile"
+              initialCountry="lk"
+              countrySelectorMode="AUTO"
+              [showFlags]="true"
+              [countrySearch]="true"
+              [separateDialCode]="true"
+              [countryOrder]="preferredCountryOrder"
+              [loadUtils]="loadUtils"
+              [class.invalid-phone]="
+                isInvalid('currentContactMobile')
+              "
+            ></intl-tel-input>
+
+
+            @if (
+              isInvalid('currentContactMobile')
+            ) {
+
+              <div class="field-error">
+                Please enter a valid mobile number for the selected country.
+              </div>
+
+            }
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             BRANCH OFFICES
+        ================================================== -->
+
+        <div class="branch-section">
+
+          <div class="subsection-title">
+            Address of branch offices (if any)
+          </div>
+
+
+          <div formArrayName="branchOffices">
+
+            @for (
+              branch of branchOffices.controls;
+              track $index;
+              let i = $index
+            ) {
+
+              <div
+                class="branch-block"
+                [formGroupName]="i"
+              >
+
+                <div class="branch-heading">
+
+                  <span>
+                    Branch Office {{ i + 1 }}
+                  </span>
+
+
+                  @if (i > 0) {
+
+                    <button
+                      type="button"
+                      class="remove-button"
+                      (click)="removeBranchOffice(i)"
+                    >
+                      Remove
+                    </button>
+
+                  }
+
+                </div>
+
+
+                <!-- BRANCH ADDRESS -->
+
+                <div class="form-group full-width">
+
+                  <label
+                    [for]="'branchAddress-' + i"
+                  >
+                    Address
+                  </label>
+
+
+                  <input
+                    [id]="'branchAddress-' + i"
+                    type="text"
+                    formControlName="address"
+                    placeholder="Branch office address"
+                  >
+
+                </div>
+
+
+                <!-- BRANCH STATE / COUNTRY / POSTAL -->
+
+                <div class="three-column-row">
+
+                  <div class="form-group">
+
+                    <label
+                      [for]="'branchState-' + i"
+                    >
+                      State
+                    </label>
+
+
+                    <input
+                      [id]="'branchState-' + i"
+                      type="text"
+                      formControlName="state"
+                      placeholder="State"
+                    >
+
+                  </div>
+
+
+                  <div class="form-group">
+
+                    <label
+                      [for]="'branchCountry-' + i"
+                    >
+                      Country
+                    </label>
+
+
+                    <select
+                      [id]="'branchCountry-' + i"
+                      formControlName="country"
+                    >
+
+                      <option value="">
+                        Select country
+                      </option>
+
+
+                      @for (
+                        country of countryOptions;
+                        track country
+                      ) {
+
+                        <option [value]="country">
+                          {{ country }}
+                        </option>
+
+                      }
+
+                    </select>
+
+                  </div>
+
+
+                  <div class="form-group">
+
+                    <label
+                      [for]="'branchPostalCode-' + i"
+                    >
+                      Postal code
+                    </label>
+
+
+                    <input
+                      [id]="'branchPostalCode-' + i"
+                      type="text"
+                      formControlName="postalCode"
+                      placeholder="Postal code"
+                    >
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <!-- ADD MORE BRANCHES -->
+
+          <div class="add-branch-row">
+
+            <button
+              type="button"
+              class="add-button"
+              (click)="addBranchOffice()"
+            >
+              + Add More
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             OTHER AIRLINE OFFICE
+        ================================================== -->
+
+        <div class="other-airline-section">
+
+          <label class="checkbox-row">
+
+            <input
+              type="checkbox"
+              formControlName="representsOtherAirlineOffice"
+            >
+
+
+            <span>
+              Any other Airline office represented by you
+            </span>
+
+          </label>
+
+
+          @if (
+            premisesForm
+              .get('representsOtherAirlineOffice')
+              ?.value
+          ) {
+
+            <div class="conditional-panel">
+
+              <h3>
+                Other Airline Office Details
+              </h3>
+
+
+              <!-- AIRLINE NAME -->
+
+              <div class="form-group full-width">
+
+                <label>
+
+                  Airline name
+                  <span class="required">*</span>
+
+                </label>
+
+
+                <input
+                  type="text"
+                  formControlName="otherAirlineName"
+                  placeholder="Airline name"
+                  [class.invalid-field]="
+                    isInvalid('otherAirlineName')
+                  "
+                >
+
+
+                @if (
+                  isInvalid('otherAirlineName')
+                ) {
+
+                  <div class="field-error">
+                    Please enter the airline name.
+                  </div>
+
+                }
+
+              </div>
+
+
+              <!-- OFFICE ADDRESS -->
+
+              <div class="form-group full-width">
+
+                <label>
+
+                  Office address
+                  <span class="required">*</span>
+
+                </label>
+
+
+                <input
+                  type="text"
+                  formControlName="otherAirlineOfficeAddress"
+                  placeholder="Office address"
+                  [class.invalid-field]="
+                    isInvalid('otherAirlineOfficeAddress')
+                  "
+                >
+
+
+                @if (
+                  isInvalid('otherAirlineOfficeAddress')
+                ) {
+
+                  <div class="field-error">
+                    Please enter the airline office address.
+                  </div>
+
+                }
+
+              </div>
+
+
+              <!-- STATE / COUNTRY / POSTAL -->
+
+              <div class="three-column-row">
+
+                <div class="form-group">
+
+                  <label>
+                    State
+                  </label>
+
+
+                  <input
+                    type="text"
+                    formControlName="otherAirlineOfficeState"
+                    placeholder="State"
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label>
+                    Country
+                  </label>
+
+
+                  <select
+                    formControlName="otherAirlineOfficeCountry"
+                  >
+
+                    <option value="">
+                      Select country
+                    </option>
+
+
+                    @for (
+                      country of countryOptions;
+                      track country
+                    ) {
+
+                      <option [value]="country">
+                        {{ country }}
+                      </option>
+
+                    }
+
+                  </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label>
+                    Postal code
+                  </label>
+
+
+                  <input
+                    type="text"
+                    formControlName="otherAirlineOfficePostalCode"
+                    placeholder="Postal code"
+                  >
+
+                </div>
+
+              </div>
+
+
+              <!-- SURFACE AREA -->
+
+              <div class="surface-row">
+
+                <div class="form-group">
+
+                  <label>
+
+                    Surface area of office
+                    <span class="required">*</span>
+
+                  </label>
+
+
+                  <div class="surface-input">
+
+                    <input
+                      type="number"
+                      min="0"
+                      formControlName="otherAirlineOfficeSurfaceArea"
+                      placeholder="Surface area"
+                      [class.invalid-field]="
+                        isInvalid('otherAirlineOfficeSurfaceArea')
+                      "
+                    >
+
+
+                    <select
+                      formControlName="otherAirlineOfficeSurfaceUnit"
+                    >
+
+                      @for (
+                        unit of surfaceUnits;
+                        track unit
+                      ) {
+
+                        <option [value]="unit">
+                          {{ unit }}
+                        </option>
+
+                      }
+
+                    </select>
+
+                  </div>
+
+
+                  @if (
+                    isInvalid('otherAirlineOfficeSurfaceArea')
+                  ) {
+
+                    <div class="field-error">
+                      Please enter the office surface area.
+                    </div>
+
+                  }
+
+                </div>
+
+              </div>
+
+
+              <!-- OTHER AIRLINE CONTACT -->
+
+              <div class="subsection-title">
+                Name of the contact person
+              </div>
+
+
+              <div class="contact-name-grid">
+
+                <!-- TITLE -->
+
+                <div class="form-group">
+
+                  <label>
+
+                    Title
+                    <span class="required">*</span>
+
+                  </label>
+
+
+                  <select
+                    formControlName="otherAirlineContactTitle"
+                    [class.invalid-field]="
+                      isInvalid('otherAirlineContactTitle')
+                    "
+                  >
+
+                    <option value="">
+                      Select title
+                    </option>
+
+
+                    @for (
+                      title of titleOptions;
+                      track title
+                    ) {
+
+                      <option [value]="title">
+                        {{ title }}
+                      </option>
+
+                    }
+
+                  </select>
+
+
+                  @if (
+                    isInvalid('otherAirlineContactTitle')
+                  ) {
+
+                    <div class="field-error">
+                      Please select a title.
+                    </div>
+
+                  }
+
+                </div>
+
+
+                <!-- FIRST NAME -->
+
+                <div class="form-group">
+
+                  <label>
+
+                    First name
+                    <span class="required">*</span>
+
+                  </label>
+
+
+                  <input
+                    type="text"
+                    formControlName="otherAirlineContactFirstName"
+                    placeholder="First name"
+                    [class.invalid-field]="
+                      isInvalid('otherAirlineContactFirstName')
+                    "
+                  >
+
+
+                  @if (
+                    isInvalid('otherAirlineContactFirstName')
+                  ) {
+
+                    <div class="field-error">
+                      Please enter the first name.
+                    </div>
+
+                  }
+
+                </div>
+
+
+                <!-- LAST NAME -->
+
+                <div class="form-group">
+
+                  <label>
+
+                    Last name
+                    <span class="required">*</span>
+
+                  </label>
+
+
+                  <input
+                    type="text"
+                    formControlName="otherAirlineContactLastName"
+                    placeholder="Last name"
+                    [class.invalid-field]="
+                      isInvalid('otherAirlineContactLastName')
+                    "
+                  >
+
+
+                  @if (
+                    isInvalid('otherAirlineContactLastName')
+                  ) {
+
+                    <div class="field-error">
+                      Please enter the last name.
+                    </div>
+
+                  }
+
+                </div>
+
+              </div>
+
+
+              <!-- DESIGNATION -->
+
+              <div class="form-group full-width">
+
+                <label>
+
+                  Designation
+                  <span class="required">*</span>
+
+                </label>
+
+
+                <input
+                  type="text"
+                  formControlName="otherAirlineContactDesignation"
+                  placeholder="Designation"
+                  [class.invalid-field]="
+                    isInvalid('otherAirlineContactDesignation')
+                  "
+                >
+
+
+                @if (
+                  isInvalid('otherAirlineContactDesignation')
+                ) {
+
+                  <div class="field-error">
+                    Please enter the designation.
+                  </div>
+
+                }
+
+              </div>
+
+
+              <!-- OTHER AIRLINE PHONE NUMBERS -->
+
+              <div class="subsection-title">
+                Contact details
+              </div>
+
+
+              <div class="two-column-row">
+
+                <!-- LAND -->
+
+                <div class="form-group phone-form-group">
+
+                  <label>
+
+                    Land
+                    <span class="required">*</span>
+
+                  </label>
+
+
+                  <intl-tel-input
+                    formControlName="otherAirlineContactLandPhone"
+                    initialCountry="lk"
+                    countrySelectorMode="AUTO"
+                    [showFlags]="true"
+                    [countrySearch]="true"
+                    [separateDialCode]="true"
+                    [countryOrder]="preferredCountryOrder"
+                    [loadUtils]="loadUtils"
+                    [class.invalid-phone]="
+                      isInvalid('otherAirlineContactLandPhone')
+                    "
+                  ></intl-tel-input>
+
+
+                  @if (
+                    isInvalid('otherAirlineContactLandPhone')
+                  ) {
+
+                    <div class="field-error">
+
+                      {{
+                        getPhoneErrorMessage(
+                          'otherAirlineContactLandPhone',
+                          'Please enter the land phone number.'
+                        )
+                      }}
+
+                    </div>
+
+                  }
+
+                </div>
+
+
+                <!-- MOBILE -->
+
+                <div class="form-group phone-form-group">
+
+                  <label>
+                    Mobile
+                  </label>
+
+
+                  <intl-tel-input
+                    formControlName="otherAirlineContactMobile"
+                    initialCountry="lk"
+                    countrySelectorMode="AUTO"
+                    [showFlags]="true"
+                    [countrySearch]="true"
+                    [separateDialCode]="true"
+                    [countryOrder]="preferredCountryOrder"
+                    [loadUtils]="loadUtils"
+                    [class.invalid-phone]="
+                      isInvalid('otherAirlineContactMobile')
+                    "
+                  ></intl-tel-input>
+
+
+                  @if (
+                    isInvalid('otherAirlineContactMobile')
+                  ) {
+
+                    <div class="field-error">
+                      Please enter a valid mobile number
+                      for the selected country.
+                    </div>
+
+                  }
+
+                </div>
+
+              </div>
+
+            </div>
+
+          }
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         PROPOSED OFFICE FOR SRILANKAN AIRLINES
+    ==================================================== -->
+
+    <section class="form-card proposed-card">
+
+      <div class="card-header">
+
+        <h2>
+          Proposed Office for SriLankan Airlines
+        </h2>
+
+      </div>
+
+
+      <div class="form-body">
+
+        <div class="subsection-title">
+          Location
+        </div>
+
+
+        <!-- CENTRAL BUSINESS AREA / AIRPORT -->
+
+        <div class="two-column-row">
+
+          <div class="form-group">
+
+            <label>
+
+              Central business area
+              <span class="required">*</span>
+
+            </label>
+
+
+            <input
+              type="text"
+              formControlName="centralBusinessArea"
+              placeholder="Central business area"
+              [class.invalid-field]="
+                isInvalid('centralBusinessArea')
+              "
+            >
+
+
+            @if (
+              isInvalid('centralBusinessArea')
+            ) {
+
+              <div class="field-error">
+                Please enter the central business area.
+              </div>
+
+            }
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+
+              Airport business hub
+              <span class="required">*</span>
+
+            </label>
+
+
+            <input
+              type="text"
+              formControlName="airportBusinessHub"
+              placeholder="Airport business hub"
+              [class.invalid-field]="
+                isInvalid('airportBusinessHub')
+              "
+            >
+
+
+            @if (
+              isInvalid('airportBusinessHub')
+            ) {
+
+              <div class="field-error">
+                Please enter the airport business hub.
+              </div>
+
+            }
+
+          </div>
+
+        </div>
+
+
+        <!-- PROPOSED OFFICE ADDRESS -->
+
+        <div class="form-group full-width">
+
+          <label>
+
+            Address
+            <span class="required">*</span>
+
+          </label>
+
+
+          <input
+            type="text"
+            formControlName="proposedOfficeAddress"
+            placeholder="Proposed office address"
+            [class.invalid-field]="
+              isInvalid('proposedOfficeAddress')
+            "
+          >
+
+
+          @if (
+            isInvalid('proposedOfficeAddress')
+          ) {
+
+            <div class="field-error">
+              Please enter the proposed office address.
+            </div>
+
+          }
+
+        </div>
+
+
+        <!-- STATE / COUNTRY / POSTAL -->
+
+        <div class="three-column-row">
+
+          <div class="form-group">
+
+            <label>
+              State
+            </label>
+
+
+            <input
+              type="text"
+              formControlName="proposedOfficeState"
+              placeholder="State"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Country
+            </label>
+
+
+            <select
+              formControlName="proposedOfficeCountry"
+            >
+
+              <option value="">
+                Select country
+              </option>
+
+
+              @for (
+                country of countryOptions;
+                track country
+              ) {
+
+                <option [value]="country">
+                  {{ country }}
+                </option>
+
+              }
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Postal code
+            </label>
+
+
+            <input
+              type="text"
+              formControlName="proposedOfficePostalCode"
+              placeholder="Postal code"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- SURFACE + ADDITIONAL LOCATIONS -->
+
+        <div class="two-column-row">
+
+          <div class="form-group">
+
+            <label>
+
+              Surface area of office
+              <span class="required">*</span>
+
+            </label>
+
+
+            <div class="surface-input">
+
+              <input
+                type="number"
+                min="0"
+                formControlName="proposedOfficeSurfaceArea"
+                placeholder="Surface area"
+                [class.invalid-field]="
+                  isInvalid('proposedOfficeSurfaceArea')
+                "
+              >
+
+
+              <select
+                formControlName="proposedOfficeSurfaceUnit"
+              >
+
+                @for (
+                  unit of surfaceUnits;
+                  track unit
+                ) {
+
+                  <option [value]="unit">
+                    {{ unit }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            @if (
+              isInvalid('proposedOfficeSurfaceArea')
+            ) {
+
+              <div class="field-error">
+                Please enter the proposed office surface area.
+              </div>
+
+            }
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Other (Additional Office Locations if applicable)
+            </label>
+
+
+            <input
+              type="text"
+              formControlName="additionalOfficeLocations"
+              placeholder="Additional office locations"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             PROPOSED OFFICE CONTACT PERSON
+        ================================================== -->
+
+        <div class="subsection-title contact-heading">
+          Name of the contact person
+        </div>
+
+
+        <div class="contact-name-grid">
+
+          <!-- TITLE -->
+
+          <div class="form-group">
+
+            <label>
+
+              Title
+              <span class="required">*</span>
+
+            </label>
+
+
+            <select
+              formControlName="proposedContactTitle"
+              [class.invalid-field]="
+                isInvalid('proposedContactTitle')
+              "
+            >
+
+              <option value="">
+                Select title
+              </option>
+
+
+              @for (
+                title of titleOptions;
+                track title
+              ) {
+
+                <option [value]="title">
+                  {{ title }}
+                </option>
+
+              }
+
+            </select>
+
+
+            @if (
+              isInvalid('proposedContactTitle')
+            ) {
+
+              <div class="field-error">
+                Please select a title.
+              </div>
+
+            }
+
+          </div>
+
+
+          <!-- FIRST NAME -->
+
+          <div class="form-group">
+
+            <label>
+
+              First name
+              <span class="required">*</span>
+
+            </label>
+
+
+            <input
+              type="text"
+              formControlName="proposedContactFirstName"
+              placeholder="First name"
+              [class.invalid-field]="
+                isInvalid('proposedContactFirstName')
+              "
+            >
+
+
+            @if (
+              isInvalid('proposedContactFirstName')
+            ) {
+
+              <div class="field-error">
+                Please enter the first name.
+              </div>
+
+            }
+
+          </div>
+
+
+          <!-- LAST NAME -->
+
+          <div class="form-group">
+
+            <label>
+
+              Last name
+              <span class="required">*</span>
+
+            </label>
+
+
+            <input
+              type="text"
+              formControlName="proposedContactLastName"
+              placeholder="Last name"
+              [class.invalid-field]="
+                isInvalid('proposedContactLastName')
+              "
+            >
+
+
+            @if (
+              isInvalid('proposedContactLastName')
+            ) {
+
+              <div class="field-error">
+                Please enter the last name.
+              </div>
+
+            }
+
+          </div>
+
+        </div>
+
+
+        <!-- DESIGNATION -->
+
+        <div class="form-group full-width">
+
+          <label>
+
+            Designation
+            <span class="required">*</span>
+
+          </label>
+
+
+          <input
+            type="text"
+            formControlName="proposedContactDesignation"
+            placeholder="Designation"
+            [class.invalid-field]="
+              isInvalid('proposedContactDesignation')
+            "
+          >
+
+
+          @if (
+            isInvalid('proposedContactDesignation')
+          ) {
+
+            <div class="field-error">
+              Please enter the designation.
+            </div>
+
+          }
+
+        </div>
+
+
+        <!-- =================================================
+             PROPOSED OFFICE PHONE NUMBERS
+        ================================================== -->
+
+        <div class="subsection-title">
+          Contact details
+        </div>
+
+
+        <div class="two-column-row">
+
+          <!-- LAND -->
+
+          <div class="form-group phone-form-group">
+
+            <label>
+
+              Land
+              <span class="required">*</span>
+
+            </label>
+
+
+            <intl-tel-input
+              formControlName="proposedContactLandPhone"
+              initialCountry="lk"
+              countrySelectorMode="AUTO"
+              [showFlags]="true"
+              [countrySearch]="true"
+              [separateDialCode]="true"
+              [countryOrder]="preferredCountryOrder"
+              [loadUtils]="loadUtils"
+              [class.invalid-phone]="
+                isInvalid('proposedContactLandPhone')
+              "
+            ></intl-tel-input>
+
+
+            @if (
+              isInvalid('proposedContactLandPhone')
+            ) {
+
+              <div class="field-error">
+
+                {{
+                  getPhoneErrorMessage(
+                    'proposedContactLandPhone',
+                    'Please enter the land phone number.'
+                  )
+                }}
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <!-- MOBILE -->
+
+          <div class="form-group phone-form-group">
+
+            <label>
+              Mobile
+            </label>
+
+
+            <intl-tel-input
+              formControlName="proposedContactMobile"
+              initialCountry="lk"
+              countrySelectorMode="AUTO"
+              [showFlags]="true"
+              [countrySearch]="true"
+              [separateDialCode]="true"
+              [countryOrder]="preferredCountryOrder"
+              [loadUtils]="loadUtils"
+              [class.invalid-phone]="
+                isInvalid('proposedContactMobile')
+              "
+            ></intl-tel-input>
+
+
+            @if (
+              isInvalid('proposedContactMobile')
+            ) {
+
+              <div class="field-error">
+                Please enter a valid mobile number
+                for the selected country.
+              </div>
+
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         ACTIONS
+    ==================================================== -->
+
+    <div class="form-actions">
+
+      <button
+        type="button"
+        class="previous-button"
+        (click)="goPrevious()"
+      >
+        ← Previous
+      </button>
+
+
+      <button
+        type="submit"
+        class="next-button"
+      >
+        Next →
+      </button>
+
+    </div>
+
+  </form>
+
+</div>
