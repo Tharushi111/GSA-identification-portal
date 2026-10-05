@@ -1,0 +1,758 @@
+<div
+  class="popup-backdrop"
+  (click)="close()"
+>
+
+  <div
+    class="popup-container"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="directorsPopupTitle"
+    (click)="$event.stopPropagation()"
+  >
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <div class="popup-header">
+
+      <h2 id="directorsPopupTitle">
+        Details of Directors/ Shareholders/ Managers and Staff of Organization
+      </h2>
+
+
+      <button
+        type="button"
+        class="close-icon"
+        aria-label="Close"
+        (click)="close()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <form
+      [formGroup]="directorsForm"
+      (ngSubmit)="save()"
+      novalidate
+    >
+
+      <div class="popup-body">
+
+        <!-- =================================================
+             ORGANIZATION DIRECTORS
+        ================================================== -->
+
+        <section class="director-section">
+
+          <h3>
+            Name(s) and designations of directors and principal officers
+
+            <span class="required">
+              *
+            </span>
+          </h3>
+
+
+          <div
+            formArrayName="organizationDirectors"
+          >
+
+            @for (
+              person of organizationDirectors.controls;
+              track $index;
+              let i = $index
+            ) {
+
+              <div
+                class="person-entry"
+                [formGroupName]="i"
+              >
+
+                <div class="person-content">
+
+                  <div class="name-grid">
+
+                    <div class="form-group">
+
+                      <label>
+                        Title
+                      </label>
+
+
+                      <select
+                        formControlName="title"
+                        [class.invalid-field]="
+                          requiredFieldInvalid(
+                            organizationDirectors,
+                            i,
+                            'title'
+                          )
+                        "
+                      >
+
+                        <option value="">
+                          Select
+                        </option>
+
+
+                        @for (
+                          title of titleOptions;
+                          track title
+                        ) {
+
+                          <option [value]="title">
+                            {{ title }}
+                          </option>
+
+                        }
+
+                      </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                      <label>
+                        First name
+                      </label>
+
+
+                      <input
+                        type="text"
+                        formControlName="firstName"
+                        placeholder="First name"
+                        [class.invalid-field]="
+                          requiredFieldInvalid(
+                            organizationDirectors,
+                            i,
+                            'firstName'
+                          )
+                        "
+                      >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                      <label>
+                        Last name
+                      </label>
+
+
+                      <input
+                        type="text"
+                        formControlName="lastName"
+                        placeholder="Last name"
+                        [class.invalid-field]="
+                          requiredFieldInvalid(
+                            organizationDirectors,
+                            i,
+                            'lastName'
+                          )
+                        "
+                      >
+
+                    </div>
+
+                  </div>
+
+
+                  <div class="designation-grid">
+
+                    <div class="form-group">
+
+                      <label>
+                        Designation
+                      </label>
+
+
+                      <input
+                        type="text"
+                        formControlName="designation"
+                        placeholder="Designation"
+                        [class.invalid-field]="
+                          requiredFieldInvalid(
+                            organizationDirectors,
+                            i,
+                            'designation'
+                          )
+                        "
+                      >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                      <label>
+                        Shareholdings %
+                      </label>
+
+
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        formControlName="shareholdingPercentage"
+                        placeholder="Shareholdings"
+                        [class.invalid-field]="
+                          requiredFieldInvalid(
+                            organizationDirectors,
+                            i,
+                            'shareholdingPercentage'
+                          )
+                        "
+                      >
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                @if (
+                  organizationDirectors.length > 1
+                ) {
+
+                  <button
+                    type="button"
+                    class="remove-row-button"
+                    (click)="removeOrganizationDirector(i)"
+                  >
+                    Remove
+                  </button>
+
+                }
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <button
+            type="button"
+            class="add-more-button"
+            (click)="addOrganizationDirector()"
+          >
+
+            <span class="plus-circle">
+              +
+            </span>
+
+            <span>
+              Add More
+            </span>
+
+          </button>
+
+        </section>
+
+
+        <!-- =================================================
+             SRILANKAN DIRECTORS
+        ================================================== -->
+
+        <section class="director-section">
+
+          <h3>
+            Name(s) of Directors of parent/subsidiary company
+            who are also Directors of SriLankan Airlines
+          </h3>
+
+
+          <div
+            formArrayName="sriLankanDirectors"
+          >
+
+            @for (
+              person of sriLankanDirectors.controls;
+              track $index;
+              let i = $index
+            ) {
+
+              <div
+                class="person-entry simple-person-entry"
+                [formGroupName]="i"
+              >
+
+                <div class="name-grid">
+
+                  <div class="form-group">
+
+                    <label>
+                      Title
+                    </label>
+
+
+                    <select
+                      formControlName="title"
+                      [class.invalid-field]="
+                        optionalFieldInvalid(
+                          sriLankanDirectors,
+                          i,
+                          'title'
+                        )
+                      "
+                    >
+
+                      <option value="">
+                        Select
+                      </option>
+
+
+                      @for (
+                        title of titleOptions;
+                        track title
+                      ) {
+
+                        <option [value]="title">
+                          {{ title }}
+                        </option>
+
+                      }
+
+                    </select>
+
+                  </div>
+
+
+                  <div class="form-group">
+
+                    <label>
+                      First name
+                    </label>
+
+
+                    <input
+                      type="text"
+                      formControlName="firstName"
+                      placeholder="First name"
+                      [class.invalid-field]="
+                        optionalFieldInvalid(
+                          sriLankanDirectors,
+                          i,
+                          'firstName'
+                        )
+                      "
+                    >
+
+                  </div>
+
+
+                  <div class="form-group">
+
+                    <label>
+                      Last name
+                    </label>
+
+
+                    <input
+                      type="text"
+                      formControlName="lastName"
+                      placeholder="Last name"
+                      [class.invalid-field]="
+                        optionalFieldInvalid(
+                          sriLankanDirectors,
+                          i,
+                          'lastName'
+                        )
+                      "
+                    >
+
+                  </div>
+
+                </div>
+
+
+                @if (
+                  sriLankanDirectors.length > 1
+                ) {
+
+                  <button
+                    type="button"
+                    class="remove-row-button"
+                    (click)="removeSriLankanDirector(i)"
+                  >
+                    Remove
+                  </button>
+
+                }
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <button
+            type="button"
+            class="add-more-button"
+            (click)="addSriLankanDirector()"
+          >
+
+            <span class="plus-circle">
+              +
+            </span>
+
+            <span>
+              Add More
+            </span>
+
+          </button>
+
+        </section>
+
+
+        <!-- =================================================
+             SRILANKAN EMPLOYEES
+        ================================================== -->
+
+        <section class="director-section">
+
+          <h3>
+            Name(s) of Directors of parent/subsidiary company
+            who are also employees of SriLankan Airlines
+          </h3>
+
+
+          <div
+            formArrayName="sriLankanEmployees"
+          >
+
+            @for (
+              person of sriLankanEmployees.controls;
+              track $index;
+              let i = $index
+            ) {
+
+              <div
+                class="person-entry simple-person-entry"
+                [formGroupName]="i"
+              >
+
+                <div class="name-grid">
+
+                  <div class="form-group">
+
+                    <label>
+                      Title
+                    </label>
+
+
+                    <select
+                      formControlName="title"
+                      [class.invalid-field]="
+                        optionalFieldInvalid(
+                          sriLankanEmployees,
+                          i,
+                          'title'
+                        )
+                      "
+                    >
+
+                      <option value="">
+                        Select
+                      </option>
+
+
+                      @for (
+                        title of titleOptions;
+                        track title
+                      ) {
+
+                        <option [value]="title">
+                          {{ title }}
+                        </option>
+
+                      }
+
+                    </select>
+
+                  </div>
+
+
+                  <div class="form-group">
+
+                    <label>
+                      First name
+                    </label>
+
+
+                    <input
+                      type="text"
+                      formControlName="firstName"
+                      placeholder="First name"
+                      [class.invalid-field]="
+                        optionalFieldInvalid(
+                          sriLankanEmployees,
+                          i,
+                          'firstName'
+                        )
+                      "
+                    >
+
+                  </div>
+
+
+                  <div class="form-group">
+
+                    <label>
+                      Last name
+                    </label>
+
+
+                    <input
+                      type="text"
+                      formControlName="lastName"
+                      placeholder="Last name"
+                      [class.invalid-field]="
+                        optionalFieldInvalid(
+                          sriLankanEmployees,
+                          i,
+                          'lastName'
+                        )
+                      "
+                    >
+
+                  </div>
+
+                </div>
+
+
+                @if (
+                  sriLankanEmployees.length > 1
+                ) {
+
+                  <button
+                    type="button"
+                    class="remove-row-button"
+                    (click)="removeSriLankanEmployee(i)"
+                  >
+                    Remove
+                  </button>
+
+                }
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <button
+            type="button"
+            class="add-more-button"
+            (click)="addSriLankanEmployee()"
+          >
+
+            <span class="plus-circle">
+              +
+            </span>
+
+            <span>
+              Add More
+            </span>
+
+          </button>
+
+        </section>
+
+
+        <!-- =================================================
+             CLOSE FAMILY MEMBERS
+        ================================================== -->
+
+        <section class="director-section last-section">
+
+          <h3>
+            Name(s) of close family members who are either
+            directors/employees of SriLankan Airlines
+          </h3>
+
+
+          <div
+            formArrayName="closeFamilyMembers"
+          >
+
+            @for (
+              person of closeFamilyMembers.controls;
+              track $index;
+              let i = $index
+            ) {
+
+              <div
+                class="person-entry simple-person-entry"
+                [formGroupName]="i"
+              >
+
+                <div class="name-grid">
+
+                  <div class="form-group">
+
+                    <label>
+                      Title
+                    </label>
+
+
+                    <select
+                      formControlName="title"
+                      [class.invalid-field]="
+                        optionalFieldInvalid(
+                          closeFamilyMembers,
+                          i,
+                          'title'
+                        )
+                      "
+                    >
+
+                      <option value="">
+                        Select
+                      </option>
+
+
+                      @for (
+                        title of titleOptions;
+                        track title
+                      ) {
+
+                        <option [value]="title">
+                          {{ title }}
+                        </option>
+
+                      }
+
+                    </select>
+
+                  </div>
+
+
+                  <div class="form-group">
+
+                    <label>
+                      First name
+                    </label>
+
+
+                    <input
+                      type="text"
+                      formControlName="firstName"
+                      placeholder="First name"
+                      [class.invalid-field]="
+                        optionalFieldInvalid(
+                          closeFamilyMembers,
+                          i,
+                          'firstName'
+                        )
+                      "
+                    >
+
+                  </div>
+
+
+                  <div class="form-group">
+
+                    <label>
+                      Last name
+                    </label>
+
+
+                    <input
+                      type="text"
+                      formControlName="lastName"
+                      placeholder="Last name"
+                      [class.invalid-field]="
+                        optionalFieldInvalid(
+                          closeFamilyMembers,
+                          i,
+                          'lastName'
+                        )
+                      "
+                    >
+
+                  </div>
+
+                </div>
+
+
+                @if (
+                  closeFamilyMembers.length > 1
+                ) {
+
+                  <button
+                    type="button"
+                    class="remove-row-button"
+                    (click)="removeCloseFamilyMember(i)"
+                  >
+                    Remove
+                  </button>
+
+                }
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <button
+            type="button"
+            class="add-more-button"
+            (click)="addCloseFamilyMember()"
+          >
+
+            <span class="plus-circle">
+              +
+            </span>
+
+            <span>
+              Add More
+            </span>
+
+          </button>
+
+        </section>
+
+      </div>
+
+
+      <!-- ===================================================
+           FOOTER
+      ==================================================== -->
+
+      <div class="popup-footer">
+
+        <button
+          type="button"
+          class="close-button"
+          (click)="close()"
+        >
+          Close
+        </button>
+
+
+        <button
+          type="submit"
+          class="save-button"
+        >
+          Save
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

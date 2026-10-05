@@ -1,0 +1,612 @@
+:host {
+  font-family:
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+
+/* =========================================================
+   BACKDROP
+========================================================= */
+
+.popup-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 13000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background:
+    rgba(20, 28, 36, 0.48);
+
+  backdrop-filter: blur(1px);
+}
+
+
+/* =========================================================
+   POPUP
+========================================================= */
+
+.popup-container {
+  width: 100%;
+  max-width: 1150px;
+
+  max-height:
+    calc(100vh - 40px);
+
+  overflow-y: auto;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0
+    25px
+    70px
+    rgba(0, 0, 0, 0.23);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.popup-header {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding:
+    16px
+    24px;
+
+  border-bottom:
+    1px solid #d5dfe7;
+
+  background: #ffffff;
+}
+
+.popup-header h2 {
+  margin: 0;
+
+  color: #29455b;
+
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.close-icon {
+  border: none;
+
+  background: transparent;
+
+  color: #748490;
+
+  font-size: 24px;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+.popup-body {
+  padding:
+    10px
+    24px
+    0;
+}
+
+
+/* =========================================================
+   STAFF ENTRY
+========================================================= */
+
+.staff-entry {
+  padding:
+    10px
+    0
+    20px;
+
+  border-bottom:
+    1px solid #d1dbe3;
+}
+
+.staff-entry-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 14px;
+
+  padding:
+    10px
+    12px;
+
+  border-radius: 5px;
+
+  background: #eef6fc;
+
+  color: #29455b;
+
+  font-size: 13px;
+}
+
+.staff-entry h3 {
+  margin:
+    0
+    0
+    12px;
+
+  padding-bottom: 7px;
+
+  border-bottom:
+    1px solid #9faebb;
+
+  color: #435565;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.previous-employer-heading {
+  margin-top: 20px !important;
+}
+
+.required {
+  color: #e63946;
+}
+
+
+/* =========================================================
+   GRIDS
+========================================================= */
+
+.name-grid {
+  display: grid;
+
+  grid-template-columns:
+    140px
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  gap: 18px;
+}
+
+.two-column-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 30px;
+}
+
+.three-column-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+
+/* =========================================================
+   FORM CONTROLS
+========================================================= */
+
+.form-group {
+  min-width: 0;
+
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #435565;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+
+  border:
+    1px solid #cfdae3;
+
+  border-radius: 5px;
+
+  background: #ffffff;
+
+  color: #536472;
+
+  font-size: 12px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-group input,
+.form-group select {
+  height: 43px;
+
+  padding:
+    0
+    11px;
+}
+
+.form-group textarea {
+  padding: 11px;
+
+  resize: vertical;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #adb7bf;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #078bd8;
+
+  box-shadow:
+    0
+    0
+    0
+    2px
+    rgba(7, 139, 216, 0.08);
+}
+
+.invalid-field {
+  border-color: #e63946 !important;
+
+  background: #fffdfd !important;
+}
+
+
+/* =========================================================
+   DURATION
+========================================================= */
+
+.duration-inputs {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 8px;
+}
+
+.duration-control {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    70px;
+}
+
+.duration-control input {
+  border-radius:
+    5px
+    0
+    0
+    5px;
+}
+
+.duration-control span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1px solid #cfdae3;
+
+  border-left: none;
+
+  border-radius:
+    0
+    5px
+    5px
+    0;
+
+  background: #e8f0f7;
+
+  color: #536472;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   TOTAL YEARS
+========================================================= */
+
+.experience-row {
+  max-width: 470px;
+}
+
+.years-input {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    85px;
+}
+
+.years-input input {
+  border-radius:
+    5px
+    0
+    0
+    5px;
+}
+
+.years-input span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1px solid #cfdae3;
+
+  border-left: none;
+
+  border-radius:
+    0
+    5px
+    5px
+    0;
+
+  background: #eef2f5;
+
+  color: #637482;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   ADD MORE
+========================================================= */
+
+.add-more-row {
+  display: flex;
+  justify-content: flex-end;
+
+  padding:
+    10px
+    40px;
+}
+
+.add-more-button {
+  min-width: 155px;
+  height: 44px;
+
+  border:
+    1px solid #8ca0ae;
+
+  border-radius: 5px;
+
+  background: #ffffff;
+
+  color: #526673;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.add-more-button:hover {
+  border-color: #078bd8;
+
+  color: #078bd8;
+}
+
+
+/* =========================================================
+   REMOVE
+========================================================= */
+
+.remove-staff-button {
+  min-width: 75px;
+  height: 31px;
+
+  padding:
+    0
+    12px;
+
+  border:
+    1px solid #e63946;
+
+  border-radius: 4px;
+
+  background: #ffffff;
+
+  color: #e63946;
+
+  font-size: 10px;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.popup-footer {
+  position: sticky;
+
+  bottom: 0;
+
+  z-index: 20;
+
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 20px;
+
+  padding:
+    12px
+    40px
+    18px;
+
+  border-top:
+    1px solid #d5dfe7;
+
+  background: #ffffff;
+}
+
+.close-button,
+.save-button {
+  min-width: 150px;
+  height: 45px;
+
+  border-radius: 5px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.close-button {
+  border:
+    1px solid #078bd8;
+
+  background: #ffffff;
+
+  color: #078bd8;
+}
+
+.save-button {
+  border: none;
+
+  background: #078bd8;
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+
+  .name-grid,
+  .two-column-grid,
+  .three-column-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 550px) {
+
+  .popup-backdrop {
+    padding: 8px;
+  }
+
+  .popup-header {
+    padding:
+      14px
+      15px;
+  }
+
+  .popup-header h2 {
+    font-size: 15px;
+  }
+
+  .popup-body {
+    padding:
+      10px
+      15px
+      0;
+  }
+
+  .name-grid,
+  .two-column-grid,
+  .three-column-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .duration-inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .add-more-row {
+    padding:
+      10px
+      15px;
+  }
+
+  .add-more-button {
+    width: 100%;
+  }
+
+  .popup-footer {
+    gap: 10px;
+
+    padding:
+      12px
+      15px;
+  }
+
+  .close-button,
+  .save-button {
+    flex: 1;
+  }
+
+}

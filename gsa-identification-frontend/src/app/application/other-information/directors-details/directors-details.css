@@ -1,0 +1,505 @@
+:host {
+  font-family:
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+
+/* =========================================================
+   BACKDROP
+========================================================= */
+
+.popup-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 13000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background:
+    rgba(20, 28, 36, 0.48);
+
+  backdrop-filter: blur(1px);
+}
+
+
+/* =========================================================
+   POPUP
+========================================================= */
+
+.popup-container {
+  width: 100%;
+  max-width: 1120px;
+
+  max-height:
+    calc(100vh - 48px);
+
+  overflow-y: auto;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0
+    25px
+    70px
+    rgba(0, 0, 0, 0.23);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.popup-header {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding:
+    15px
+    20px;
+
+  border-bottom:
+    1px solid #d6e0e7;
+
+  background: #ffffff;
+}
+
+.popup-header h2 {
+  margin: 0;
+
+  color: #29455b;
+
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.close-icon {
+  border: none;
+
+  background: transparent;
+
+  color: #748490;
+
+  font-size: 23px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+.popup-body {
+  padding:
+    0
+    22px;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.director-section {
+  position: relative;
+
+  padding:
+    16px
+    125px
+    16px
+    0;
+
+  border-bottom:
+    1px solid #cad7e0;
+}
+
+.last-section {
+  border-bottom: none;
+}
+
+.director-section h3 {
+  margin:
+    0
+    0
+    13px;
+
+  color: #29455b;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  line-height: 1.4;
+}
+
+.required {
+  color: #e63946;
+}
+
+
+/* =========================================================
+   PERSON ENTRY
+========================================================= */
+
+.person-entry {
+  position: relative;
+
+  margin-bottom: 8px;
+}
+
+.person-entry + .person-entry {
+  margin-top: 14px;
+
+  padding-top: 14px;
+
+  border-top:
+    1px dashed #dce4e9;
+}
+
+.person-content {
+  min-width: 0;
+}
+
+
+/* =========================================================
+   GRIDS
+========================================================= */
+
+.name-grid {
+  display: grid;
+
+  grid-template-columns:
+    130px
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  gap: 13px;
+}
+
+.designation-grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 0.75fr);
+
+  gap: 13px;
+
+  margin-top: 10px;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-group {
+  min-width: 0;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #435565;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  height: 42px;
+
+  padding:
+    0
+    11px;
+
+  border:
+    1px solid #cfdae3;
+
+  border-radius: 5px;
+
+  background: #ffffff;
+
+  color: #536472;
+
+  font-size: 12px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-group input::placeholder {
+  color: #adb7bf;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #078bd8;
+
+  box-shadow:
+    0
+    0
+    0
+    2px
+    rgba(7, 139, 216, 0.08);
+}
+
+.invalid-field {
+  border-color: #e63946 !important;
+
+  background: #fffdfd !important;
+}
+
+
+/* =========================================================
+   ADD MORE
+========================================================= */
+
+.add-more-button {
+  position: absolute;
+
+  right: 25px;
+  bottom: 18px;
+
+  min-width: 78px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 5px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #078bd8;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.plus-circle {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border:
+    2px solid #078bd8;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  color: #078bd8;
+
+  font-size: 27px;
+  font-weight: 300;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   REMOVE
+========================================================= */
+
+.remove-row-button {
+  margin-top: 8px;
+
+  min-width: 70px;
+  height: 30px;
+
+  padding:
+    0
+    10px;
+
+  border:
+    1px solid #e63946;
+
+  border-radius: 4px;
+
+  background: #ffffff;
+
+  color: #e63946;
+
+  font-size: 10px;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.popup-footer {
+  position: sticky;
+
+  bottom: 0;
+
+  z-index: 20;
+
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 45px;
+
+  padding:
+    10px
+    40px
+    15px;
+
+  border-top:
+    1px solid #d6e0e7;
+
+  background: #ffffff;
+}
+
+.close-button,
+.save-button {
+  min-width: 115px;
+  height: 45px;
+
+  border-radius: 5px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.close-button {
+  border:
+    1px solid #078bd8;
+
+  background: #ffffff;
+
+  color: #078bd8;
+}
+
+.save-button {
+  border: none;
+
+  background: #078bd8;
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 850px) {
+
+  .director-section {
+    padding-right: 0;
+  }
+
+  .name-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .designation-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .add-more-button {
+    position: static;
+
+    margin:
+      12px
+      0
+      0
+      auto;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 550px) {
+
+  .popup-backdrop {
+    padding: 8px;
+  }
+
+  .popup-header h2 {
+    font-size: 15px;
+  }
+
+  .popup-body {
+    padding:
+      0
+      15px;
+  }
+
+  .name-grid,
+  .designation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .popup-footer {
+    gap: 10px;
+
+    padding:
+      12px
+      15px;
+  }
+
+  .close-button,
+  .save-button {
+    flex: 1;
+  }
+
+}

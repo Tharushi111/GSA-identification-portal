@@ -1,0 +1,585 @@
+<div
+  class="popup-backdrop"
+  (click)="close()"
+>
+
+  <div
+    class="popup-container"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="staffPopupTitle"
+    (click)="$event.stopPropagation()"
+  >
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <div class="popup-header">
+
+      <h2 id="staffPopupTitle">
+        Staff Details - Passenger/ Cargo GSA
+      </h2>
+
+
+      <button
+        type="button"
+        class="close-icon"
+        aria-label="Close"
+        (click)="close()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <form
+      [formGroup]="staffForm"
+      (ngSubmit)="save()"
+      novalidate
+    >
+
+      <div
+        class="popup-body"
+        formArrayName="staffMembers"
+      >
+
+        @for (
+          staff of staffMembers.controls;
+          track $index;
+          let i = $index
+        ) {
+
+          <section
+            class="staff-entry"
+            [formGroupName]="i"
+          >
+
+            <!-- =============================================
+                 ADDITIONAL STAFF HEADER
+            ============================================== -->
+
+            @if (
+              staffMembers.length > 1
+            ) {
+
+              <div class="staff-entry-heading">
+
+                <strong>
+                  Staff Member {{ i + 1 }}
+                </strong>
+
+
+                @if (
+                  i > 0
+                ) {
+
+                  <button
+                    type="button"
+                    class="remove-staff-button"
+                    (click)="removeStaffMember(i)"
+                  >
+                    Remove
+                  </button>
+
+                }
+
+              </div>
+
+            }
+
+
+            <!-- =============================================
+                 NAME
+            ============================================== -->
+
+            <h3>
+              Name of senior or management and staff
+
+              <span class="required">
+                *
+              </span>
+            </h3>
+
+
+            <div class="name-grid">
+
+              <div class="form-group">
+
+                <label>
+
+                  Title
+
+                  <span class="required">
+                    *
+                  </span>
+
+                </label>
+
+
+                <select
+                  formControlName="title"
+                  [class.invalid-field]="
+                    isInvalid(
+                      i,
+                      'title'
+                    )
+                  "
+                >
+
+                  <option value="">
+                    Select
+                  </option>
+
+
+                  @for (
+                    title of titleOptions;
+                    track title
+                  ) {
+
+                    <option [value]="title">
+                      {{ title }}
+                    </option>
+
+                  }
+
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label>
+
+                  First name
+
+                  <span class="required">
+                    *
+                  </span>
+
+                </label>
+
+
+                <input
+                  type="text"
+                  formControlName="firstName"
+                  placeholder="First name"
+                  [class.invalid-field]="
+                    isInvalid(
+                      i,
+                      'firstName'
+                    )
+                  "
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label>
+
+                  Last name
+
+                  <span class="required">
+                    *
+                  </span>
+
+                </label>
+
+
+                <input
+                  type="text"
+                  formControlName="lastName"
+                  placeholder="Last name"
+                  [class.invalid-field]="
+                    isInvalid(
+                      i,
+                      'lastName'
+                    )
+                  "
+                >
+
+              </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 POSITION / DATE OF EMPLOYMENT
+            ============================================== -->
+
+            <div class="two-column-grid">
+
+              <div class="form-group">
+
+                <label>
+                  Position/title
+                </label>
+
+
+                <input
+                  type="text"
+                  formControlName="positionTitle"
+                  placeholder="Position"
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label>
+                  Date of employment
+                </label>
+
+
+                <input
+                  type="date"
+                  formControlName="dateOfEmployment"
+                >
+
+              </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 PREVIOUS EMPLOYMENT
+            ============================================== -->
+
+            <div class="two-column-grid">
+
+              <div class="form-group">
+
+                <label>
+                  Dates of previous employment (month/year)
+                </label>
+
+
+                <div class="duration-inputs">
+
+                  <div class="duration-control">
+
+                    <input
+                      type="number"
+                      min="0"
+                      formControlName="previousEmploymentYears"
+                      placeholder="Years"
+                    >
+
+
+                    <span>
+                      Years
+                    </span>
+
+                  </div>
+
+
+                  <div class="duration-control">
+
+                    <input
+                      type="number"
+                      min="0"
+                      max="11"
+                      formControlName="previousEmploymentMonths"
+                      placeholder="Months"
+                    >
+
+
+                    <span>
+                      Months
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label>
+                  Position held during the previous employment
+                </label>
+
+
+                <input
+                  type="text"
+                  formControlName="previousPosition"
+                  placeholder="Positions held during previous employment"
+                >
+
+              </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 PREVIOUS EMPLOYER
+            ============================================== -->
+
+            <h3 class="previous-employer-heading">
+              Name of previous employer(s)/ address(s)
+            </h3>
+
+
+            <div class="name-grid">
+
+              <div class="form-group">
+
+                <label>
+                  Title
+                </label>
+
+
+                <select
+                  formControlName="previousEmployerTitle"
+                >
+
+                  <option value="">
+                    Select
+                  </option>
+
+
+                  @for (
+                    title of titleOptions;
+                    track title
+                  ) {
+
+                    <option [value]="title">
+                      {{ title }}
+                    </option>
+
+                  }
+
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label>
+                  First name
+                </label>
+
+
+                <input
+                  type="text"
+                  formControlName="previousEmployerFirstName"
+                  placeholder="First name"
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label>
+                  Last name
+                </label>
+
+
+                <input
+                  type="text"
+                  formControlName="previousEmployerLastName"
+                  placeholder="Last name"
+                >
+
+              </div>
+
+            </div>
+
+
+            <!-- ADDRESS LINE 1 / 2 -->
+
+            <div class="two-column-grid">
+
+              <div class="form-group">
+
+                <input
+                  type="text"
+                  formControlName="previousEmployerAddressLine1"
+                  placeholder="Address line 01"
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <input
+                  type="text"
+                  formControlName="previousEmployerAddressLine2"
+                  placeholder="Address line 02"
+                >
+
+              </div>
+
+            </div>
+
+
+            <!-- STATE / COUNTRY / POSTAL -->
+
+            <div class="three-column-grid">
+
+              <div class="form-group">
+
+                <input
+                  type="text"
+                  formControlName="previousEmployerState"
+                  placeholder="State"
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <select
+                  formControlName="previousEmployerCountry"
+                >
+
+                  <option value="">
+                    Country
+                  </option>
+
+
+                  @for (
+                    country of countryOptions;
+                    track country
+                  ) {
+
+                    <option [value]="country">
+                      {{ country }}
+                    </option>
+
+                  }
+
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <input
+                  type="text"
+                  formControlName="previousEmployerPostalCode"
+                  placeholder="Postal code"
+                >
+
+              </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 QUALIFICATIONS
+            ============================================== -->
+
+            <div class="form-group full-width">
+
+              <label>
+                Qualifications and network experience in passenger/cargo business
+              </label>
+
+
+              <textarea
+                rows="4"
+                formControlName="qualificationsNetworkExperience"
+                placeholder="Qualifications and network experience"
+              ></textarea>
+
+            </div>
+
+
+            <!-- =============================================
+                 TOTAL YEARS
+            ============================================== -->
+
+            <div class="experience-row">
+
+              <div class="form-group">
+
+                <label>
+                  Total number of years experience in the passenger/cargo business
+                </label>
+
+
+                <div class="years-input">
+
+                  <input
+                    type="number"
+                    min="0"
+                    formControlName="totalYearsExperience"
+                  >
+
+
+                  <span>
+                    years
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+        }
+
+      </div>
+
+
+      <!-- ===================================================
+           ADD MORE
+      ==================================================== -->
+
+      <div class="add-more-row">
+
+        <button
+          type="button"
+          class="add-more-button"
+          (click)="addStaffMember()"
+        >
+          Add More
+        </button>
+
+      </div>
+
+
+      <!-- ===================================================
+           FOOTER
+      ==================================================== -->
+
+      <div class="popup-footer">
+
+        <button
+          type="button"
+          class="close-button"
+          (click)="close()"
+        >
+          Close
+        </button>
+
+
+        <button
+          type="submit"
+          class="save-button"
+        >
+          Save
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

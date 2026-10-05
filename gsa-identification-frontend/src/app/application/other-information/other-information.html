@@ -1,1 +1,559 @@
-<p>other-information works!</p>
+<div class="other-information-page">
+
+  <!-- =====================================================
+       VALIDATION POPUP
+  ====================================================== -->
+
+  @if (showValidationModal) {
+
+    <div
+      class="validation-backdrop"
+      (click)="closeValidationModal()"
+    >
+
+      <div
+        class="validation-modal"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="otherInformationValidationTitle"
+        (click)="$event.stopPropagation()"
+      >
+
+        <button
+          type="button"
+          class="validation-close"
+          aria-label="Close validation popup"
+          (click)="closeValidationModal()"
+        >
+          ×
+        </button>
+
+
+        <div class="validation-icon">
+
+          <svg
+            viewBox="0 0 64 64"
+            aria-hidden="true"
+          >
+
+            <circle
+              cx="32"
+              cy="32"
+              r="28"
+            ></circle>
+
+            <path
+              d="M22 22L42 42"
+            ></path>
+
+            <path
+              d="M42 22L22 42"
+            ></path>
+
+          </svg>
+
+        </div>
+
+
+        <h2 id="otherInformationValidationTitle">
+          Required Information Missing
+        </h2>
+
+
+        <p>
+          Please complete the required management,
+          staff and government authority information
+          before continuing.
+        </p>
+
+
+        <button
+          type="button"
+          class="review-button"
+          (click)="closeValidationModal()"
+        >
+          Review Required Fields
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
+       PAGE TITLE
+  ====================================================== -->
+
+  <div class="page-title-row">
+
+    <div>
+
+      <h1>
+        Other Information
+      </h1>
+
+
+      <p>
+        Provide additional operational information,
+        senior management details and staff information.
+      </p>
+
+    </div>
+
+
+    <span class="step-count">
+      Step 5 of 7
+    </span>
+
+  </div>
+
+
+  <!-- =====================================================
+       MAIN FORM
+  ====================================================== -->
+
+  <form
+    [formGroup]="otherInformationForm"
+    (ngSubmit)="goNext()"
+    novalidate
+  >
+
+    <section class="form-card">
+
+      <!-- =================================================
+           CARD HEADER
+      ================================================== -->
+
+      <div class="card-header">
+
+        <h2>
+          Other Information
+        </h2>
+
+
+        <p>
+          Provide information relevant to the Passenger
+          or Cargo application as applicable.
+        </p>
+
+      </div>
+
+
+      <div class="form-body">
+
+        <!-- =================================================
+             AIRLINE REPRESENTATION
+        ================================================== -->
+
+        <section class="inner-section">
+
+          <h3>
+            Airline Representation
+          </h3>
+
+
+          <div class="question-group">
+
+            <label>
+              Are you a General Sales Agent for any other airline?
+            </label>
+
+
+            <div class="radio-options">
+
+              <label class="radio-option">
+
+                <input
+                  type="radio"
+                  [value]="true"
+                  formControlName="isGSAForOtherAirline"
+                >
+
+                <span>
+                  Yes
+                </span>
+
+              </label>
+
+
+              <label class="radio-option">
+
+                <input
+                  type="radio"
+                  [value]="false"
+                  formControlName="isGSAForOtherAirline"
+                >
+
+                <span>
+                  No
+                </span>
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SENIOR MANAGEMENT & FULL-TIME STAFF
+        ================================================== -->
+
+        <section
+          class="inner-section staff-section"
+          [class.invalid-section]="
+            directorsSectionInvalid() ||
+            staffSectionInvalid()
+          "
+        >
+
+          <div class="section-heading">
+
+            <h3>
+              Senior Management & Full-Time Staff
+
+              <span class="required">
+                *
+              </span>
+            </h3>
+
+
+            <p>
+              Complete both sections below before proceeding.
+            </p>
+
+          </div>
+
+
+          <div class="selection-grid">
+
+            <!-- =============================================
+                 DIRECTORS / SHAREHOLDERS / MANAGERS
+            ============================================== -->
+
+            <div
+              class="selection-card"
+              [class.selection-card-invalid]="
+                directorsSectionInvalid()
+              "
+            >
+
+              <button
+                type="button"
+                class="selection-button"
+                (click)="openDirectorsPopup()"
+              >
+
+                <!-- STATUS -->
+
+                <span
+                  class="status-circle"
+                  [class.status-complete]="directorsDetailsData"
+                >
+
+                  @if (directorsDetailsData) {
+
+                    ✓
+
+                  }
+
+                </span>
+
+
+                <!-- CONTENT -->
+
+                <span class="selection-content">
+
+                  <strong>
+                    Directors / Shareholders / Managers & Staff
+                  </strong>
+
+
+                  <small>
+                    Add director, shareholder and management details.
+                  </small>
+
+
+                  @if (directorsDetailsData) {
+
+                    <span class="completed-text">
+
+                      {{ directorsRecordCount }}
+
+                      @if (directorsRecordCount === 1) {
+
+                        record added
+
+                      } @else {
+
+                        records added
+
+                      }
+
+                    </span>
+
+                  }
+
+                </span>
+
+
+                <!-- OPEN ICON -->
+
+                <span class="open-icon">
+                  ↗
+                </span>
+
+              </button>
+
+
+              @if (directorsSectionInvalid()) {
+
+                <div class="section-error">
+                  Please complete the directors and management details.
+                </div>
+
+              }
+
+            </div>
+
+
+            <!-- =============================================
+                 STAFF DETAILS
+            ============================================== -->
+
+            <div
+              class="selection-card"
+              [class.selection-card-invalid]="
+                staffSectionInvalid()
+              "
+            >
+
+              <button
+                type="button"
+                class="selection-button"
+                (click)="openStaffPopup()"
+              >
+
+                <!-- STATUS -->
+
+                <span
+                  class="status-circle"
+                  [class.status-complete]="
+                    staffRecordCount > 0
+                  "
+                >
+
+                  @if (staffRecordCount > 0) {
+
+                    ✓
+
+                  }
+
+                </span>
+
+
+                <!-- CONTENT -->
+
+                <span class="selection-content">
+
+                  <strong>
+                    Staff Details - Passenger / Cargo GSA
+                  </strong>
+
+
+                  <small>
+                    Add senior staff and employment details.
+                  </small>
+
+
+                  @if (staffRecordCount > 0) {
+
+                    <span class="completed-text">
+
+                      {{ staffRecordCount }}
+
+                      @if (staffRecordCount === 1) {
+
+                        staff member added
+
+                      } @else {
+
+                        staff members added
+
+                      }
+
+                    </span>
+
+                  }
+
+                </span>
+
+
+                <!-- OPEN ICON -->
+
+                <span class="open-icon">
+                  ↗
+                </span>
+
+              </button>
+
+
+              @if (staffSectionInvalid()) {
+
+                <div class="section-error">
+                  Please complete the Passenger / Cargo staff details.
+                </div>
+
+              }
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             GOVERNMENT AUTHORITY REGISTRATION
+        ================================================== -->
+
+        <section
+          class="government-section"
+          [class.invalid-section]="
+            isInvalid('intendsToRegisterAgreement')
+          "
+        >
+
+          <h3>
+            Government Authority Registration
+          </h3>
+
+
+          <div class="question-group">
+
+            <label>
+
+              If selected, does the entity intend to register
+              the agreement with the relevant government authority?
+
+              <span class="required">
+                *
+              </span>
+
+            </label>
+
+
+            <div class="radio-options">
+
+              <label class="radio-option">
+
+                <input
+                  type="radio"
+                  [value]="true"
+                  formControlName="intendsToRegisterAgreement"
+                >
+
+                <span>
+                  Yes
+                </span>
+
+              </label>
+
+
+              <label class="radio-option">
+
+                <input
+                  type="radio"
+                  [value]="false"
+                  formControlName="intendsToRegisterAgreement"
+                >
+
+                <span>
+                  No
+                </span>
+
+              </label>
+
+            </div>
+
+
+            @if (
+              isInvalid('intendsToRegisterAgreement')
+            ) {
+
+              <div class="field-error">
+                Please select an option.
+              </div>
+
+            }
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PAGE NAVIGATION
+    ====================================================== -->
+
+    <div class="form-actions">
+
+      <button
+        type="button"
+        class="previous-button"
+        (click)="goPrevious()"
+      >
+        ← Previous
+      </button>
+
+
+      <button
+        type="submit"
+        class="next-button"
+      >
+        Next →
+      </button>
+
+    </div>
+
+  </form>
+
+
+  <!-- =====================================================
+       DIRECTORS DETAILS POPUP COMPONENT
+  ====================================================== -->
+
+  @if (showDirectorsPopup) {
+
+    <app-directors-details
+      [initialData]="directorsDetailsData"
+      (closePopup)="closeDirectorsPopup()"
+      (saveDetails)="saveDirectorsDetails($event)"
+    ></app-directors-details>
+
+  }
+
+
+  <!-- =====================================================
+       STAFF DETAILS POPUP COMPONENT
+  ====================================================== -->
+
+  @if (showStaffPopup) {
+
+    <app-staff-details
+      [initialData]="staffDetailsData"
+      (closePopup)="closeStaffPopup()"
+      (saveDetails)="saveStaffDetails($event)"
+    ></app-staff-details>
+
+  }
+
+</div>
