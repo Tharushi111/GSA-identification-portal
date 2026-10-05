@@ -1,1 +1,933 @@
-<p>ownership-structure works!</p>
+<div class="ownership-page">
+
+  <!-- =====================================================
+       VALIDATION MODAL
+  ====================================================== -->
+
+  @if (showValidationModal) {
+
+    <div
+      class="validation-modal-backdrop"
+      (click)="closeValidationModal()"
+    >
+
+      <div
+        class="validation-modal"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="ownershipValidationTitle"
+        (click)="$event.stopPropagation()"
+      >
+
+        <button
+          type="button"
+          class="modal-close-button"
+          aria-label="Close validation message"
+          (click)="closeValidationModal()"
+        >
+          ×
+        </button>
+
+
+        <div class="validation-icon">
+
+          <svg
+            viewBox="0 0 64 64"
+            aria-hidden="true"
+          >
+
+            <circle
+              cx="32"
+              cy="32"
+              r="28"
+            ></circle>
+
+            <path
+              d="M22 22L42 42"
+            ></path>
+
+            <path
+              d="M42 22L22 42"
+            ></path>
+
+          </svg>
+
+        </div>
+
+
+        <h2 id="ownershipValidationTitle">
+          Required Information Missing
+        </h2>
+
+
+        <p>
+          Please complete all required fields highlighted
+          in red before continuing to the next section.
+        </p>
+
+
+        <button
+          type="button"
+          class="modal-confirm-button"
+          (click)="closeValidationModal()"
+        >
+          Review Required Fields
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
+       PAGE TITLE
+  ====================================================== -->
+
+  <div class="page-title-row">
+
+    <div>
+
+      <h1>
+        Ownership Structure
+      </h1>
+
+      <p>
+        Provide the organization ownership and financial
+        information required for evaluation.
+      </p>
+
+    </div>
+
+
+    <span class="step-count">
+      Step 3 of 8
+    </span>
+
+  </div>
+
+
+  <form
+    [formGroup]="ownershipForm"
+    (ngSubmit)="goNext()"
+    novalidate
+  >
+
+    <!-- =====================================================
+         OWNERSHIP STRUCTURE
+    ====================================================== -->
+
+    <section class="form-card">
+
+      <div class="card-header">
+
+        <div>
+
+          <h2>
+            Ownership Structure
+          </h2>
+
+          <p>
+            Select the legal ownership structure and provide
+            shareholder details.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-body">
+
+        <div
+          class="ownership-options"
+          [class.invalid-group]="
+            isOwnershipTypeInvalid()
+          "
+        >
+
+          <!-- SOLE PROPRIETORSHIP -->
+          <label class="ownership-option">
+
+            <input
+              type="checkbox"
+              formControlName="isSoleProprietorship"
+            >
+
+            <span>
+              If a sole proprietorship
+            </span>
+
+          </label>
+
+
+          <!-- PARTNERSHIP -->
+          <label class="ownership-option">
+
+            <input
+              type="checkbox"
+              formControlName="isPartnership"
+            >
+
+            <span>
+              If a partnership
+            </span>
+
+          </label>
+
+
+          <!-- CORPORATION -->
+          <label class="ownership-option">
+
+            <input
+              type="checkbox"
+              formControlName="isCorporation"
+            >
+
+            <span>
+              If a corporation
+            </span>
+
+          </label>
+
+
+          @if (
+            isOwnershipTypeInvalid()
+          ) {
+
+            <div class="field-error">
+              Please select at least one ownership structure.
+            </div>
+
+          }
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SHAREHOLDER DETAILS
+    ====================================================== -->
+
+    @if (
+      ownershipForm
+        .get('isCorporation')
+        ?.value
+    ) {
+
+      <section class="form-card shareholder-card">
+
+        <div class="card-header">
+
+          <div>
+
+            <h2>
+              Shareholder Details
+            </h2>
+
+            <p>
+              Corporation selected — provide details
+              of each shareholder.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="shareholders-container"
+          formArrayName="shareholders"
+        >
+
+          @for (
+            shareholder of shareholders.controls;
+            track $index;
+            let i = $index
+          ) {
+
+            <div
+              class="shareholder-block"
+              [formGroupName]="i"
+            >
+
+              <!-- SHAREHOLDER HEADER -->
+              <div class="shareholder-heading">
+
+                <h3>
+                  Shareholder {{ i + 1 }}
+                </h3>
+
+
+                @if (
+                  shareholders.length > 1
+                ) {
+
+                  <button
+                    type="button"
+                    class="remove-shareholder-button"
+                    (click)="removeShareholder(i)"
+                  >
+                    Remove
+                  </button>
+
+                }
+
+              </div>
+
+
+              <!-- TITLE / FIRST / LAST -->
+              <div class="shareholder-name-grid">
+
+                <!-- TITLE -->
+                <div class="form-group">
+
+                  <label
+                    [for]="'title-' + i"
+                  >
+
+                    Title
+                    <span class="required">*</span>
+
+                  </label>
+
+                  <select
+                    [id]="'title-' + i"
+                    formControlName="title"
+                    [class.invalid-field]="
+                      isShareholderInvalid(
+                        i,
+                        'title'
+                      )
+                    "
+                  >
+
+                    <option value="">
+                      Select title
+                    </option>
+
+                    <option value="Mr">
+                      Mr
+                    </option>
+
+                    <option value="Mrs">
+                      Mrs
+                    </option>
+
+                    <option value="Ms">
+                      Ms
+                    </option>
+
+                    <option value="Miss">
+                      Miss
+                    </option>
+
+                    <option value="Dr">
+                      Dr
+                    </option>
+
+                    <option value="Prof">
+                      Prof
+                    </option>
+
+                  </select>
+
+
+                  @if (
+                    isShareholderInvalid(
+                      i,
+                      'title'
+                    )
+                  ) {
+
+                    <div class="field-error">
+                      Please select a title.
+                    </div>
+
+                  }
+
+                </div>
+
+
+                <!-- FIRST NAME -->
+                <div class="form-group">
+
+                  <label
+                    [for]="'firstName-' + i"
+                  >
+
+                    First name
+                    <span class="required">*</span>
+
+                  </label>
+
+                  <input
+                    [id]="'firstName-' + i"
+                    type="text"
+                    formControlName="firstName"
+                    placeholder="First name"
+                    [class.invalid-field]="
+                      isShareholderInvalid(
+                        i,
+                        'firstName'
+                      )
+                    "
+                  >
+
+
+                  @if (
+                    isShareholderInvalid(
+                      i,
+                      'firstName'
+                    )
+                  ) {
+
+                    <div class="field-error">
+                      Please enter the first name.
+                    </div>
+
+                  }
+
+                </div>
+
+
+                <!-- LAST NAME -->
+                <div class="form-group">
+
+                  <label
+                    [for]="'lastName-' + i"
+                  >
+
+                    Last name
+                    <span class="required">*</span>
+
+                  </label>
+
+                  <input
+                    [id]="'lastName-' + i"
+                    type="text"
+                    formControlName="lastName"
+                    placeholder="Last name"
+                    [class.invalid-field]="
+                      isShareholderInvalid(
+                        i,
+                        'lastName'
+                      )
+                    "
+                  >
+
+
+                  @if (
+                    isShareholderInvalid(
+                      i,
+                      'lastName'
+                    )
+                  ) {
+
+                    <div class="field-error">
+                      Please enter the last name.
+                    </div>
+
+                  }
+
+                </div>
+
+              </div>
+
+
+              <!-- ADDRESS -->
+              <div class="address-grid">
+
+                <div class="form-group">
+
+                  <label
+                    [for]="'addressLine1-' + i"
+                  >
+
+                    Address Line 1
+                    <span class="required">*</span>
+
+                  </label>
+
+                  <input
+                    [id]="'addressLine1-' + i"
+                    type="text"
+                    formControlName="addressLine1"
+                    placeholder="Address Line 1"
+                    [class.invalid-field]="
+                      isShareholderInvalid(
+                        i,
+                        'addressLine1'
+                      )
+                    "
+                  >
+
+
+                  @if (
+                    isShareholderInvalid(
+                      i,
+                      'addressLine1'
+                    )
+                  ) {
+
+                    <div class="field-error">
+                      Please enter the shareholder address.
+                    </div>
+
+                  }
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label
+                    [for]="'addressLine2-' + i"
+                  >
+                    Address Line 2
+                  </label>
+
+                  <input
+                    [id]="'addressLine2-' + i"
+                    type="text"
+                    formControlName="addressLine2"
+                    placeholder="Address Line 2"
+                  >
+
+                </div>
+
+              </div>
+
+
+              <!-- STATE / COUNTRY / POSTAL -->
+              <div class="shareholder-location-grid">
+
+                <div class="form-group">
+
+                  <label
+                    [for]="'stateCity-' + i"
+                  >
+                    State / City
+                  </label>
+
+                  <input
+                    [id]="'stateCity-' + i"
+                    type="text"
+                    formControlName="stateCity"
+                    placeholder="State / City"
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label
+                    [for]="'country-' + i"
+                  >
+                    Country
+                  </label>
+
+                  <input
+                    [id]="'country-' + i"
+                    type="text"
+                    formControlName="country"
+                    placeholder="Country"
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label
+                    [for]="'postalCode-' + i"
+                  >
+                    Postal code
+                  </label>
+
+                  <input
+                    [id]="'postalCode-' + i"
+                    type="text"
+                    formControlName="postalCode"
+                    placeholder="Postal code"
+                  >
+
+                </div>
+
+              </div>
+
+            </div>
+
+          }
+
+
+          <!-- ADD MORE -->
+          <div class="add-shareholder-row">
+
+            <button
+              type="button"
+              class="add-shareholder-button"
+              (click)="addShareholder()"
+            >
+              + Add More Shareholders
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    }
+
+
+    <!-- =====================================================
+         FINANCIAL INFORMATION
+    ====================================================== -->
+
+    <section class="form-card financial-card">
+
+      <div class="card-header">
+
+        <div>
+
+          <h2>
+            Financial Information
+          </h2>
+
+          <p>
+            Provide the organization's capital information.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-body">
+
+        <div class="capital-grid">
+
+
+          <!-- REGISTERED CAPITAL -->
+          <div class="capital-group">
+
+            <label>
+              Registered capital
+              <span class="required">*</span>
+            </label>
+
+            <div class="capital-input-row">
+
+              <input
+                type="number"
+                min="0"
+                formControlName="registeredCapital"
+                placeholder="0.00"
+                [class.invalid-field]="
+                  isInvalid('registeredCapital')
+                "
+              >
+
+              <select
+                formControlName="registeredCapitalCurrency"
+                [class.invalid-field]="
+                  isInvalid(
+                    'registeredCapitalCurrency'
+                  )
+                "
+              >
+
+                @for (
+                  currency of currencyOptions;
+                  track currency
+                ) {
+
+                  <option [value]="currency">
+                    {{ currency }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            @if (
+              isInvalid(
+                'registeredCapital'
+              )
+            ) {
+
+              <div class="field-error">
+
+                @if (
+                  ownershipForm
+                    .get('registeredCapital')
+                    ?.hasError('required')
+                ) {
+
+                  Please enter the registered capital.
+
+                }
+
+                @else {
+
+                  Capital cannot be negative.
+
+                }
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <!-- PAID UP CAPITAL -->
+          <div class="capital-group">
+
+            <label>
+              Paid up capital
+              <span class="required">*</span>
+            </label>
+
+            <div class="capital-input-row">
+
+              <input
+                type="number"
+                min="0"
+                formControlName="paidUpCapital"
+                placeholder="0.00"
+                [class.invalid-field]="
+                  isInvalid('paidUpCapital')
+                "
+              >
+
+              <select
+                formControlName="paidUpCapitalCurrency"
+                [class.invalid-field]="
+                  isInvalid(
+                    'paidUpCapitalCurrency'
+                  )
+                "
+              >
+
+                @for (
+                  currency of currencyOptions;
+                  track currency
+                ) {
+
+                  <option [value]="currency">
+                    {{ currency }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            @if (
+              isInvalid(
+                'paidUpCapital'
+              )
+            ) {
+
+              <div class="field-error">
+
+                @if (
+                  ownershipForm
+                    .get('paidUpCapital')
+                    ?.hasError('required')
+                ) {
+
+                  Please enter the paid up capital.
+
+                }
+
+                @else {
+
+                  Capital cannot be negative.
+
+                }
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <!-- MINIMUM PAID UP CAPITAL -->
+          <div class="capital-group">
+
+            <label>
+              Minimum paid-up capital
+              <span class="required">*</span>
+            </label>
+
+            <div class="capital-input-row">
+
+              <input
+                type="number"
+                min="0"
+                formControlName="minimumPaidUpCapital"
+                placeholder="0.00"
+                [class.invalid-field]="
+                  isInvalid('minimumPaidUpCapital')
+                "
+              >
+
+              <select
+                formControlName="minimumPaidUpCapitalCurrency"
+                [class.invalid-field]="
+                  isInvalid(
+                    'minimumPaidUpCapitalCurrency'
+                  )
+                "
+              >
+
+                @for (
+                  currency of currencyOptions;
+                  track currency
+                ) {
+
+                  <option [value]="currency">
+                    {{ currency }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <small class="capital-note">
+              Required by the law of your country
+            </small>
+
+
+            @if (
+              isInvalid(
+                'minimumPaidUpCapital'
+              )
+            ) {
+
+              <div class="field-error">
+
+                @if (
+                  ownershipForm
+                    .get('minimumPaidUpCapital')
+                    ?.hasError('required')
+                ) {
+
+                  Please enter the minimum paid-up capital.
+
+                }
+
+                @else {
+
+                  Capital cannot be negative.
+
+                }
+
+              </div>
+
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SUPPORTING FINANCIAL DOCUMENTS
+    ====================================================== -->
+
+    <section class="supporting-documents-card">
+
+      <h3>
+        Supporting Financial Documents
+      </h3>
+
+      <ul>
+
+        <li>
+          Provide copies of your audited financial statements
+          and notes for the past 3 years, including report
+          of the auditors.
+        </li>
+
+        <li>
+          If audit of the company's financial statements is
+          not a statutory requirement, provide evidence to
+          support the same.
+        </li>
+
+        <li>
+          Provide 2 bank references obtained within the last
+          3 months.
+        </li>
+
+        <li>
+          Provide 2 reference letters from other Airlines
+          represented as GSA or business partners.
+        </li>
+
+        <li>
+          If the applicant's relevant experience is less
+          than five years, provide copies of the parent
+          company's audited financial statements.
+        </li>
+
+        <li>
+          Provide a letter of guarantee from the parent
+          company if the applicant's relevant experience
+          is less than five years.
+        </li>
+
+      </ul>
+
+    </section>
+
+
+    <!-- =====================================================
+         ACTION BUTTONS
+    ====================================================== -->
+
+    <div class="form-actions">
+
+      <button
+        type="button"
+        class="previous-button"
+        (click)="goPrevious()"
+      >
+        ← Previous
+      </button>
+
+
+      <button
+        type="submit"
+        class="next-button"
+      >
+        Next
+      </button>
+
+    </div>
+
+  </form>
+
+</div>
