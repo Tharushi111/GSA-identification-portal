@@ -1,1 +1,384 @@
-<p>general-information works!</p>
+<div class="general-information-page">
+
+  <!-- =====================================================
+       VALIDATION MODAL
+  ====================================================== -->
+
+  @if (showValidationModal) {
+
+    <div
+      class="validation-modal-backdrop"
+      (click)="closeValidationModal()"
+    >
+
+      <div
+        class="validation-modal"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="validationModalTitle"
+        (click)="$event.stopPropagation()"
+      >
+
+        <!-- CLOSE -->
+        <button
+          type="button"
+          class="modal-close-button"
+          aria-label="Close validation message"
+          (click)="closeValidationModal()"
+        >
+          ×
+        </button>
+
+
+        <!-- ICON -->
+        <div class="validation-icon">
+
+          <svg
+            viewBox="0 0 64 64"
+            aria-hidden="true"
+          >
+
+            <circle
+              cx="32"
+              cy="32"
+              r="28"
+            ></circle>
+
+            <path
+              d="M22 22L42 42"
+            ></path>
+
+            <path
+              d="M42 22L22 42"
+            ></path>
+
+          </svg>
+
+        </div>
+
+
+        <!-- TITLE -->
+        <h2 id="validationModalTitle">
+          Required Information Missing
+        </h2>
+
+
+        <!-- MESSAGE -->
+        <p>
+          Please complete all required fields highlighted
+          in red before continuing to the next section.
+        </p>
+
+
+        <!-- ACTION -->
+        <button
+          type="button"
+          class="modal-confirm-button"
+          (click)="closeValidationModal()"
+        >
+          Review Required Fields
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
+       PAGE TITLE
+  ====================================================== -->
+
+  <div class="page-title-row">
+
+    <div>
+
+      <h1>
+        General Information
+      </h1>
+
+      <p>
+        Select the type of business entity and review
+        the required supporting documents.
+      </p>
+
+    </div>
+
+
+    <span class="step-count">
+      Step 2 of 8
+    </span>
+
+  </div>
+
+
+  <!-- =====================================================
+       INFORMATION CARD
+  ====================================================== -->
+
+  <section class="information-card">
+
+    <div class="information-title">
+
+      <span class="info-icon">
+        i
+      </span>
+
+      General Information
+
+    </div>
+
+    <p>
+      Provide the general business entity information
+      required for evaluation.
+    </p>
+
+  </section>
+
+
+  <!-- =====================================================
+       FORM
+  ====================================================== -->
+
+  <form
+    [formGroup]="generalInformationForm"
+    (ngSubmit)="goNext()"
+    novalidate
+  >
+
+    <section class="form-card">
+
+      <!-- =========================================
+           CARD HEADER
+      ========================================== -->
+
+      <div class="card-header">
+
+        <h2>
+          General Information
+        </h2>
+
+      </div>
+
+
+      <div class="form-body">
+
+
+        <!-- =========================================
+             BUSINESS ENTITY
+        ========================================== -->
+
+        <div
+          class="business-entity-section"
+          [class.invalid-group]="
+            isBusinessEntityInvalid()
+          "
+        >
+
+          <label class="section-label">
+
+            Type of business entity
+            <span class="required">*</span>
+
+          </label>
+
+
+          <div class="entity-grid">
+
+
+            <!-- SOLE PROPRIETORSHIP -->
+            <label class="entity-option">
+
+              <span>
+                Sole proprietorship
+              </span>
+
+              <input
+                type="checkbox"
+                formControlName="soleProprietorship"
+              >
+
+            </label>
+
+
+            <!-- PARTNERSHIP -->
+            <label class="entity-option">
+
+              <span>
+                Partnership
+              </span>
+
+              <input
+                type="checkbox"
+                formControlName="partnership"
+              >
+
+            </label>
+
+
+            <!-- LIMITED LIABILITY COMPANY -->
+            <label class="entity-option">
+
+              <span>
+                Limited liability company
+              </span>
+
+              <input
+                type="checkbox"
+                formControlName="limitedLiabilityCompany"
+              >
+
+            </label>
+
+
+            <!-- OTHER -->
+            <label class="entity-option">
+
+              <span>
+                Other (specify)
+              </span>
+
+              <input
+                type="checkbox"
+                formControlName="otherBusinessEntity"
+              >
+
+            </label>
+
+          </div>
+
+
+          <!-- VALIDATION -->
+          @if (
+            isBusinessEntityInvalid()
+          ) {
+
+            <div class="field-error entity-error">
+              Please select at least one business entity type.
+            </div>
+
+          }
+
+
+          <!-- =====================================
+               OTHER BUSINESS ENTITY
+          ====================================== -->
+
+          @if (
+            generalInformationForm
+              .get('otherBusinessEntity')
+              ?.value
+          ) {
+
+            <div class="other-entity-field">
+
+              <label for="otherBusinessEntityDescription">
+
+                Specify other business entity
+                <span class="required">*</span>
+
+              </label>
+
+              <input
+                id="otherBusinessEntityDescription"
+                type="text"
+                formControlName="otherBusinessEntityDescription"
+                placeholder="Enter business entity type"
+                [class.invalid-field]="
+                  isInvalid(
+                    'otherBusinessEntityDescription'
+                  )
+                "
+              >
+
+
+              @if (
+                isInvalid(
+                  'otherBusinessEntityDescription'
+                )
+              ) {
+
+                <div class="field-error">
+                  Please specify the other business entity type.
+                </div>
+
+              }
+
+            </div>
+
+          }
+
+        </div>
+
+
+        <!-- =========================================
+             SUPPORTING DOCUMENTS
+        ========================================== -->
+
+        <div class="supporting-documents">
+
+
+          <div class="document-note">
+
+            <span class="bullet">
+              •
+            </span>
+
+            <p>
+              Please provide Memorandum / Articles of association /
+              Deed of partnership / Certificate of Incorporation /
+              Business registration or any other relevant document.
+            </p>
+
+          </div>
+
+
+          <div class="document-note">
+
+            <span class="bullet">
+              •
+            </span>
+
+            <p>
+              If the applicant's relevant experience is less than
+              five years, please provide copies of the documents
+              mentioned above of the parent company.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ACTIONS
+    ====================================================== -->
+
+    <div class="form-actions">
+
+      <button
+        type="button"
+        class="previous-button"
+        (click)="goPrevious()"
+      >
+        Previous
+      </button>
+
+
+      <button
+        type="submit"
+        class="next-button"
+      >
+        Next
+      </button>
+
+    </div>
+
+  </form>
+
+</div>
