@@ -1,1 +1,800 @@
-<p>declaration-review works!</p>
+<div class="declaration-page">
+
+  <!-- =====================================================
+       VALIDATION MODAL
+  ====================================================== -->
+
+  @if (showValidationModal) {
+
+    <div
+      class="modal-backdrop"
+      (click)="closeValidationModal()"
+    >
+
+      <div
+        class="validation-modal"
+        role="alertdialog"
+        aria-modal="true"
+        (click)="$event.stopPropagation()"
+      >
+
+        <button
+          type="button"
+          class="modal-close"
+          aria-label="Close"
+          (click)="closeValidationModal()"
+        >
+          ×
+        </button>
+
+
+        <div class="error-icon">
+
+          <svg
+            viewBox="0 0 64 64"
+            aria-hidden="true"
+          >
+
+            <circle
+              cx="32"
+              cy="32"
+              r="28"
+            ></circle>
+
+            <path
+              d="M22 22L42 42"
+            ></path>
+
+            <path
+              d="M42 22L22 42"
+            ></path>
+
+          </svg>
+
+        </div>
+
+
+        <h2>
+          Required Information Missing
+        </h2>
+
+
+        <p>
+          Please complete all required authorized
+          signatory details, upload the signature,
+          and confirm the declaration before submitting.
+        </p>
+
+
+        <button
+          type="button"
+          class="modal-primary-button"
+          (click)="closeValidationModal()"
+        >
+          Review Required Fields
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
+       FINAL SUBMIT CONFIRMATION
+  ====================================================== -->
+
+  @if (showSubmitConfirmModal) {
+
+    <div
+      class="modal-backdrop"
+      (click)="closeSubmitConfirmModal()"
+    >
+
+      <div
+        class="confirmation-modal"
+        role="dialog"
+        aria-modal="true"
+        (click)="$event.stopPropagation()"
+      >
+
+        <button
+          type="button"
+          class="modal-close"
+          aria-label="Close"
+          (click)="closeSubmitConfirmModal()"
+        >
+          ×
+        </button>
+
+
+        <div class="submit-icon">
+          ✓
+        </div>
+
+
+        <h2>
+          Submit Application?
+        </h2>
+
+
+        <p>
+          Please confirm that you are ready to submit
+          this GSA application. After final submission,
+          the application will be sent for review.
+        </p>
+
+
+        <div class="confirmation-actions">
+
+          <button
+            type="button"
+            class="cancel-modal-button"
+            (click)="closeSubmitConfirmModal()"
+          >
+            Cancel
+          </button>
+
+
+          <button
+            type="button"
+            class="confirm-submit-button"
+            (click)="confirmSubmission()"
+          >
+            Submit Application
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
+       SUCCESS MODAL
+  ====================================================== -->
+
+  @if (showSuccessModal) {
+
+    <div class="modal-backdrop">
+
+      <div
+        class="success-modal"
+        role="dialog"
+        aria-modal="true"
+      >
+
+        <div class="success-large-icon">
+          ✓
+        </div>
+
+
+        <h2>
+          Application Submitted
+        </h2>
+
+
+        <p>
+          Your General Sales Agent application has been
+          completed successfully.
+        </p>
+
+
+        <button
+          type="button"
+          class="modal-primary-button"
+          (click)="closeSuccessModal()"
+        >
+          Done
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- =====================================================
+       PAGE TITLE
+  ====================================================== -->
+
+  <div class="page-title-row">
+
+    <div>
+
+      <h1>
+        Declaration & Review
+      </h1>
+
+
+      <p>
+        Review the declaration, provide authorized signatory
+        details and submit your application.
+      </p>
+
+    </div>
+
+
+    <span class="step-count">
+      Step 7 of 7
+    </span>
+
+  </div>
+
+
+  <!-- =====================================================
+       FORM
+  ====================================================== -->
+
+  <form
+    [formGroup]="declarationForm"
+    (ngSubmit)="submitApplication()"
+    novalidate
+  >
+
+    <section class="declaration-card">
+
+      <!-- =================================================
+           CARD HEADER
+      ================================================== -->
+
+      <div class="card-header">
+
+        <h2>
+          Declaration & Review
+        </h2>
+
+
+        <p>
+          Confirm the declaration and complete
+          the authorized signatory details.
+        </p>
+
+      </div>
+
+
+      <div class="card-body">
+
+        <!-- =================================================
+             DECLARATION
+        ================================================== -->
+
+        <section class="declaration-box">
+
+          <h3>
+            Declaration
+          </h3>
+
+
+          <p>
+            I hereby certify that the foregoing statements,
+            including statements made in any attachments hereto,
+            are true and correct to the best of my knowledge and
+            belief, and that I am authorized by the organization
+            identified in this application to make these statements
+            and complete this document.
+          </p>
+
+
+          <p>
+            The applicant understands and agrees that in the event
+            the GSA application is disapproved, the applicant is not
+            entitled to claim any commission, remuneration or
+            compensation for the sale of air transportation or
+            carriage of cargo over the services of SriLankan Airlines
+            Limited during the period the application was under
+            consideration.
+          </p>
+
+        </section>
+
+
+        <!-- =================================================
+             AUTHORIZED SIGNATORY
+        ================================================== -->
+
+        <section class="signatory-section">
+
+          <h3>
+            Authorized Signatory Details
+          </h3>
+
+
+          <!-- NAME -->
+
+          <div class="name-grid">
+
+            <!-- TITLE -->
+
+            <div class="form-group">
+
+              <label for="signatoryTitle">
+
+                Title
+
+                <span class="required">
+                  *
+                </span>
+
+              </label>
+
+
+              <select
+                id="signatoryTitle"
+                formControlName="title"
+                [class.invalid-field]="
+                  isInvalid('title')
+                "
+              >
+
+                <option value="">
+                  Select
+                </option>
+
+
+                @for (
+                  title of titleOptions;
+                  track title
+                ) {
+
+                  <option [value]="title">
+                    {{ title }}
+                  </option>
+
+                }
+
+              </select>
+
+
+              @if (isInvalid('title')) {
+
+                <div class="field-error">
+                  Please select a title.
+                </div>
+
+              }
+
+            </div>
+
+
+            <!-- FIRST NAME -->
+
+            <div class="form-group">
+
+              <label for="signatoryFirstName">
+
+                First name
+
+                <span class="required">
+                  *
+                </span>
+
+              </label>
+
+
+              <input
+                id="signatoryFirstName"
+                type="text"
+                formControlName="firstName"
+                placeholder="First name"
+                [class.invalid-field]="
+                  isInvalid('firstName')
+                "
+              >
+
+
+              @if (isInvalid('firstName')) {
+
+                <div class="field-error">
+                  Please enter the first name.
+                </div>
+
+              }
+
+            </div>
+
+
+            <!-- LAST NAME -->
+
+            <div class="form-group">
+
+              <label for="signatoryLastName">
+
+                Last name
+
+                <span class="required">
+                  *
+                </span>
+
+              </label>
+
+
+              <input
+                id="signatoryLastName"
+                type="text"
+                formControlName="lastName"
+                placeholder="Last name"
+                [class.invalid-field]="
+                  isInvalid('lastName')
+                "
+              >
+
+
+              @if (isInvalid('lastName')) {
+
+                <div class="field-error">
+                  Please enter the last name.
+                </div>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- DESIGNATION -->
+
+          <div class="form-group full-width">
+
+            <label for="designation">
+
+              Designation
+
+              <span class="required">
+                *
+              </span>
+
+            </label>
+
+
+            <input
+              id="designation"
+              type="text"
+              formControlName="designation"
+              placeholder="Designation"
+              [class.invalid-field]="
+                isInvalid('designation')
+              "
+            >
+
+
+            @if (isInvalid('designation')) {
+
+              <div class="field-error">
+                Please enter the designation.
+              </div>
+
+            }
+
+          </div>
+
+
+          <!-- CONTACT / DATE -->
+
+          <div class="two-column-grid">
+
+            <!-- CONTACT -->
+
+            <div class="form-group phone-form-group">
+
+              <label>
+
+                Contact no
+
+                <span class="required">
+                  *
+                </span>
+
+              </label>
+
+
+              <intl-tel-input
+                formControlName="contactNumber"
+                initialCountry="lk"
+                countrySelectorMode="AUTO"
+                [showFlags]="true"
+                [countrySearch]="true"
+                [separateDialCode]="true"
+                [countryOrder]="preferredCountryOrder"
+                [loadUtils]="loadUtils"
+                [class.invalid-phone]="
+                  isInvalid('contactNumber')
+                "
+              ></intl-tel-input>
+
+
+              @if (isInvalid('contactNumber')) {
+
+                <div class="field-error">
+                  Please enter a valid contact number.
+                </div>
+
+              }
+
+            </div>
+
+
+            <!-- DATE -->
+
+            <div class="form-group">
+
+              <label for="declarationDate">
+
+                Date
+
+                <span class="required">
+                  *
+                </span>
+
+              </label>
+
+
+              <input
+                id="declarationDate"
+                type="date"
+                formControlName="date"
+                readonly
+                class="readonly-field"
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- COUNTRY / SIGNATURE -->
+
+          <div class="two-column-grid">
+
+            <!-- COUNTRY -->
+
+            <div class="form-group">
+
+              <label for="signatoryCountry">
+
+                Country
+
+                <span class="required">
+                  *
+                </span>
+
+              </label>
+
+
+              <select
+                id="signatoryCountry"
+                formControlName="country"
+                [class.invalid-field]="
+                  isInvalid('country')
+                "
+              >
+
+                <option value="">
+                  Select country
+                </option>
+
+
+                @for (
+                  country of countryOptions;
+                  track country
+                ) {
+
+                  <option [value]="country">
+                    {{ country }}
+                  </option>
+
+                }
+
+              </select>
+
+
+              @if (isInvalid('country')) {
+
+                <div class="field-error">
+                  Please select the country.
+                </div>
+
+              }
+
+            </div>
+
+
+            <!-- SIGNATURE -->
+
+            <div class="form-group signature-group">
+
+              <label>
+
+                Signature
+
+                <span class="required">
+                  *
+                </span>
+
+              </label>
+
+
+              <div
+                class="signature-upload"
+                [class.invalid-field]="
+                  isInvalid('signature')
+                "
+              >
+
+                @if (!signatureFile) {
+
+                  <span class="no-file-text">
+                    No file chosen
+                  </span>
+
+                } @else {
+
+                  <span class="selected-signature">
+
+                    <span class="signature-file-icon">
+                      ✓
+                    </span>
+
+
+                    <span class="signature-file-information">
+
+                      <strong>
+                        {{ signatureFile.name }}
+                      </strong>
+
+
+                      <small>
+                        {{ signatureFileSize }}
+                      </small>
+
+                    </span>
+
+                  </span>
+
+                }
+
+
+                <label
+                  class="browse-button"
+                  for="signatureFile"
+                >
+                  Browse
+                </label>
+
+
+                <input
+                  #signatureInput
+                  id="signatureFile"
+                  type="file"
+                  class="hidden-file-input"
+                  accept=".png,.jpg,.jpeg,.pdf,image/png,image/jpeg,application/pdf"
+                  (change)="
+                    onSignatureSelected($event)
+                  "
+                >
+
+              </div>
+
+
+              @if (signatureFile) {
+
+                <button
+                  type="button"
+                  class="remove-signature-button"
+                  (click)="
+                    removeSignature(
+                      signatureInput
+                    )
+                  "
+                >
+                  Remove signature
+                </button>
+
+              }
+
+
+              <small class="signature-help">
+
+                Signature is mandatory to be considered
+                for evaluation.
+
+                Accepted: PNG, JPG, JPEG or PDF.
+                Maximum 5MB.
+
+              </small>
+
+
+              @if (isInvalid('signature')) {
+
+                <div class="field-error">
+                  Please upload the authorized signature.
+                </div>
+
+              }
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FINAL CONFIRMATION
+        ================================================== -->
+
+        <section
+          class="confirmation-box"
+          [class.confirmation-invalid]="
+            isInvalid('confirmationAccepted')
+          "
+        >
+
+          <label class="confirmation-checkbox">
+
+            <input
+              type="checkbox"
+              formControlName="confirmationAccepted"
+            >
+
+
+            <span>
+
+              I confirm that I have reviewed the application
+              and the information provided is complete and accurate.
+
+            </span>
+
+          </label>
+
+
+          @if (
+            isInvalid('confirmationAccepted')
+          ) {
+
+            <div class="field-error confirmation-error">
+              You must confirm the declaration before submitting.
+            </div>
+
+          }
+
+        </section>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ACTION BUTTONS
+    ====================================================== -->
+
+    <div class="form-actions">
+
+      <button
+        type="button"
+        class="previous-button"
+        (click)="goPrevious()"
+      >
+        ← Previous
+      </button>
+
+
+      <button
+        type="submit"
+        class="submit-button"
+      >
+        Submit Application
+      </button>
+
+    </div>
+
+  </form>
+
+</div>

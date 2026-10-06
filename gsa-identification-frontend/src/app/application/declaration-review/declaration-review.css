@@ -1,0 +1,1021 @@
+:host {
+  display: block;
+
+  width: 100%;
+
+  font-family:
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  color: #212529;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.declaration-page {
+  width: 100%;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.page-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 22px;
+}
+
+.page-title-row h1 {
+  margin: 0;
+
+  color: #173650;
+
+  font-size: 30px;
+  font-weight: 600;
+
+  line-height: 1.2;
+}
+
+.page-title-row p {
+  margin:
+    6px
+    0
+    0;
+
+  color: #8997a3;
+
+  font-size: 13px;
+
+  line-height: 1.45;
+}
+
+.step-count {
+  color: #657582;
+
+  font-size: 12px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.declaration-card {
+  overflow: hidden;
+
+  border:
+    1px solid #d7e1e8;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+}
+
+.card-header {
+  padding:
+    13px
+    17px;
+
+  background: #eaf3fa;
+}
+
+.card-header h2 {
+  margin: 0;
+
+  color: #29455b;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.card-header p {
+  margin:
+    4px
+    0
+    0;
+
+  color: #80909c;
+
+  font-size: 11px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+
+/* =========================================================
+   DECLARATION BOX
+========================================================= */
+
+.declaration-box {
+  margin-bottom: 24px;
+
+  padding: 20px;
+
+  border:
+    1px solid #dce5eb;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+}
+
+.declaration-box h3 {
+  margin:
+    0
+    0
+    14px;
+
+  color: #29455b;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.declaration-box p {
+  margin:
+    0
+    0
+    13px;
+
+  color: #536776;
+
+  font-size: 11px;
+
+  line-height: 1.7;
+}
+
+.declaration-box p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* =========================================================
+   SIGNATORY
+========================================================= */
+
+.signatory-section {
+  margin-bottom: 22px;
+}
+
+.signatory-section > h3 {
+  margin:
+    0
+    0
+    17px;
+
+  color: #29455b;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   GRIDS
+========================================================= */
+
+.name-grid {
+  display: grid;
+
+  grid-template-columns:
+    120px
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  gap: 18px;
+}
+
+.two-column-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 22px;
+}
+
+
+/* =========================================================
+   FORM GROUP
+========================================================= */
+
+.form-group {
+  min-width: 0;
+
+  margin-bottom: 17px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #435565;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  height: 42px;
+
+  padding:
+    0
+    11px;
+
+  border:
+    1px solid #cfdae3;
+
+  border-radius: 5px;
+
+  background: #ffffff;
+
+  color: #536472;
+
+  font-size: 12px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-group input::placeholder {
+  color: #adb7bf;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #078bd8;
+
+  box-shadow:
+    0
+    0
+    0
+    2px
+    rgba(7, 139, 216, 0.08);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.required {
+  color: #e63946;
+}
+
+.readonly-field {
+  background: #f2f5f7 !important;
+
+  color: #6f7c86 !important;
+
+  cursor: default;
+}
+
+
+/* =========================================================
+   FIELD VALIDATION
+========================================================= */
+
+.invalid-field {
+  border-color: #e63946 !important;
+
+  background: #fffdfd !important;
+
+  box-shadow:
+    0
+    0
+    0
+    1px
+    rgba(230, 57, 70, 0.05) !important;
+}
+
+.field-error {
+  margin-top: 6px;
+
+  color: #e63946;
+
+  font-size: 11px;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   INTERNATIONAL PHONE
+========================================================= */
+
+.phone-form-group {
+  min-width: 0;
+}
+
+.phone-form-group intl-tel-input {
+  display: block;
+
+  width: 100%;
+}
+
+:host ::ng-deep
+.phone-form-group
+.iti {
+  width: 100%;
+}
+
+:host ::ng-deep
+.phone-form-group
+.iti__tel-input {
+  width: 100% !important;
+  height: 42px !important;
+
+  border:
+    1px solid #cfdae3 !important;
+
+  border-radius: 5px !important;
+
+  background: #ffffff !important;
+
+  color: #536472 !important;
+
+  font-family:
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif !important;
+
+  font-size: 12px !important;
+
+  outline: none !important;
+}
+
+:host ::ng-deep
+.phone-form-group
+.iti__tel-input:focus {
+  border-color:
+    #078bd8 !important;
+
+  box-shadow:
+    0
+    0
+    0
+    2px
+    rgba(7, 139, 216, 0.08) !important;
+}
+
+:host ::ng-deep
+.phone-form-group
+.iti__selected-dial-code {
+  color: #435565 !important;
+
+  font-size: 12px !important;
+}
+
+:host ::ng-deep
+.iti__dropdown-content {
+  z-index: 16000 !important;
+}
+
+:host ::ng-deep
+intl-tel-input.invalid-phone
+.iti__tel-input {
+  border-color:
+    #e63946 !important;
+
+  background:
+    #fffdfd !important;
+}
+
+
+/* =========================================================
+   SIGNATURE
+========================================================= */
+
+.signature-upload {
+  min-height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  overflow: hidden;
+
+  border:
+    1px solid #cfdae3;
+
+  border-radius: 5px;
+
+  background: #ffffff;
+}
+
+.no-file-text {
+  overflow: hidden;
+
+  padding-left: 11px;
+
+  color: #8a969f;
+
+  font-size: 11px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selected-signature {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  padding-left: 10px;
+}
+
+.signature-file-icon {
+  width: 22px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #e7f7ef;
+
+  color: #20a36a;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.signature-file-information {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.signature-file-information strong {
+  overflow: hidden;
+
+  color: #435565;
+
+  font-size: 10px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.signature-file-information small {
+  color: #8a969f;
+
+  font-size: 8px;
+}
+
+.browse-button {
+  height: 42px;
+
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  margin: 0 !important;
+
+  padding:
+    0
+    20px;
+
+  background: #77838c;
+
+  color: #ffffff !important;
+
+  font-size: 11px !important;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.browse-button:hover {
+  background: #65727b;
+}
+
+.hidden-file-input {
+  display: none;
+}
+
+.signature-help {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #8a969f;
+
+  font-size: 9px;
+
+  line-height: 1.45;
+
+  font-style: italic;
+}
+
+.remove-signature-button {
+  margin-top: 5px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #e05a60;
+
+  font-size: 9px;
+
+  cursor: pointer;
+}
+
+.remove-signature-button:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   CONFIRMATION
+========================================================= */
+
+.confirmation-box {
+  margin-top: 10px;
+
+  padding:
+    18px;
+
+  border:
+    1px solid #d6e6f1;
+
+  border-radius: 7px;
+
+  background: #eef6fc;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.confirmation-checkbox {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 10px;
+
+  color: #526673;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+
+  cursor: pointer;
+}
+
+.confirmation-checkbox input {
+  width: 16px;
+  height: 16px;
+
+  flex-shrink: 0;
+
+  margin-top: 1px;
+
+  accent-color: #078bd8;
+}
+
+.confirmation-invalid {
+  border-color:
+    #e63946 !important;
+
+  background:
+    #fffafa !important;
+}
+
+.confirmation-error {
+  margin-left: 26px;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-top: 20px;
+}
+
+.previous-button,
+.submit-button {
+  min-width: 135px;
+  height: 42px;
+
+  padding:
+    0
+    22px;
+
+  border-radius: 5px;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.previous-button {
+  border:
+    1px solid #078bd8;
+
+  background: #ffffff;
+
+  color: #078bd8;
+}
+
+.previous-button:hover {
+  background: #f3f9fd;
+}
+
+.submit-button {
+  border: none;
+
+  background: #078bd8;
+
+  color: #ffffff;
+}
+
+.submit-button:hover {
+  background: #067bc0;
+}
+
+
+/* =========================================================
+   MODAL BACKDROP
+========================================================= */
+
+.modal-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 15000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background:
+    rgba(17, 24, 39, 0.60);
+
+  backdrop-filter: blur(2px);
+}
+
+
+/* =========================================================
+   COMMON MODAL
+========================================================= */
+
+.validation-modal,
+.confirmation-modal,
+.success-modal {
+  position: relative;
+
+  width: 100%;
+  max-width: 450px;
+
+  padding:
+    34px
+    32px
+    30px;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0
+    25px
+    70px
+    rgba(0, 0, 0, 0.25);
+
+  text-align: center;
+}
+
+.modal-close {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  width: 31px;
+  height: 31px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #eef1f4;
+
+  color: #65727d;
+
+  font-size: 21px;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   ERROR ICON
+========================================================= */
+
+.error-icon {
+  width: 76px;
+  height: 76px;
+
+  margin:
+    0
+    auto
+    20px;
+}
+
+.error-icon svg {
+  width: 100%;
+  height: 100%;
+
+  fill: none;
+
+  stroke: #ef4b3f;
+
+  stroke-width: 2.3;
+
+  stroke-linecap: round;
+}
+
+
+/* =========================================================
+   SUBMIT ICON
+========================================================= */
+
+.submit-icon,
+.success-large-icon {
+  width: 70px;
+  height: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin:
+    0
+    auto
+    20px;
+
+  border:
+    2px solid #20a36a;
+
+  border-radius: 50%;
+
+  color: #20a36a;
+
+  font-size: 30px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   MODAL TEXT
+========================================================= */
+
+.validation-modal h2,
+.confirmation-modal h2,
+.success-modal h2 {
+  margin:
+    0
+    0
+    10px;
+
+  color: #253746;
+
+  font-size: 23px;
+  font-weight: 600;
+}
+
+.validation-modal p,
+.confirmation-modal p,
+.success-modal p {
+  margin:
+    0
+    auto
+    24px;
+
+  color: #687783;
+
+  font-size: 13px;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   MODAL BUTTONS
+========================================================= */
+
+.modal-primary-button {
+  min-width: 190px;
+  height: 43px;
+
+  padding:
+    0
+    20px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #078bd8;
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.confirmation-actions {
+  display: flex;
+  justify-content: center;
+
+  gap: 12px;
+}
+
+.cancel-modal-button,
+.confirm-submit-button {
+  min-width: 135px;
+  height: 42px;
+
+  padding:
+    0
+    16px;
+
+  border-radius: 5px;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.cancel-modal-button {
+  border:
+    1px solid #b9c6cf;
+
+  background: #ffffff;
+
+  color: #526572;
+}
+
+.confirm-submit-button {
+  border: none;
+
+  background: #078bd8;
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .page-title-row h1 {
+    font-size: 26px;
+  }
+
+  .name-grid {
+    grid-template-columns:
+      110px
+      1fr
+      1fr;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .page-title-row {
+    flex-direction: column;
+
+    gap: 8px;
+  }
+
+  .page-title-row h1 {
+    font-size: 23px;
+  }
+
+  .card-body {
+    padding: 16px;
+  }
+
+  .name-grid,
+  .two-column-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .declaration-box {
+    padding: 16px;
+  }
+
+  .form-actions {
+    gap: 12px;
+  }
+
+  .previous-button,
+  .submit-button {
+    flex: 1;
+  }
+
+  .confirmation-actions {
+    flex-direction: column-reverse;
+  }
+
+  .cancel-modal-button,
+  .confirm-submit-button {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .previous-button,
+  .submit-button {
+    width: 100%;
+  }
+
+}
