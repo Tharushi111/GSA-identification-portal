@@ -734,6 +734,7 @@ export class StaffDetails implements OnInit {
           'previousEmployerLastName'
         ),
 
+
       previousEmployerAddressLine1:
         this.getStringValue(
           control,
